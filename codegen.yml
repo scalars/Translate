@@ -1,0 +1,8 @@
+# TODO Put your api graphql here
+schema: https://app.scalars.co/8qr4d7xl77/api
+documents: ./client/queries/**/*.ts
+generates:
+  ./client/types.d.ts:
+    plugins:
+      - typescript
+      - typescript-operations

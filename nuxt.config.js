@@ -4,6 +4,11 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
+  env: {
+    'SCALARS_API': '',
+    'SCALARS_CLIENT_ID': ''
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - template',
@@ -23,7 +28,9 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    '@/plugins/apiClient',
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
