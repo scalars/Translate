@@ -11,7 +11,6 @@ import {
 } from '../types';
 
 export class BaseService extends ApolloClientService {
-
     authuser ( variables?: AuthuserQueryVariables, clientOptions?: ClientOptions ): Promise<AuthuserQuery> {
         return this.doQuery<AuthuserQuery, AuthuserQueryVariables>( authUser, variables, clientOptions );
     }
@@ -19,5 +18,4 @@ export class BaseService extends ApolloClientService {
     createAuthuser ( variables?: CreateAuthuserMutationVariables, clientOptions?: MutationClientOptions ): Promise<CreateAuthuserMutation> {
         return this.doMutation<CreateAuthuserMutation, CreateAuthuserMutationVariables>( createAuthuser, variables, clientOptions );
     }
-
 }

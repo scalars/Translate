@@ -1,12 +1,12 @@
-import { ApolloClient, NormalizedCacheObject, FetchPolicy } from "@apollo/client";
+import { ApolloClient, NormalizedCacheObject, FetchPolicy } from '@apollo/client';
 
 enum ClientType {
     IMPLICIT = 'implicit',
     CODE = 'code'
 }
 
-type FetchFunction = ( uri: string, options: any ) => Promise<any>;
-type TokenFunction = () => string;
+type FetchFunction = ( uri: string, options: any )=> Promise<any>;
+type TokenFunction = ()=> string;
 
 type ApolloClients = {
     [key in ClientType]: {

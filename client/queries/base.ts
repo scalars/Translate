@@ -14,8 +14,8 @@ const createAuthuser = gql`
             id
         }
     }
-`
+`;
 
 export {
     authUser, createAuthuser
-}
+};
