@@ -114,13 +114,5 @@ import VuetifyLogo from '~/components/VuetifyLogo.vue';
     }
 } )
 export default class Index extends Vue {
-    beforeMount () {
-        this.getUser();
-    }
-
-    async getUser () {
-        const { authuser } = await this.$apiClient.base.authuser( { where: { username: 'carlos' } }, { client: ClientType.IMPLICIT } );
-        this.$store.commit( 'sessionStorage/user', authuser );
-    }
-};
+}
 </script>
