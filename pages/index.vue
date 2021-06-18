@@ -83,11 +83,16 @@
 <script>
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import { ClientType } from "../client/apollo/interface";
 
 export default {
   components: {
     Logo,
     VuetifyLogo,
   },
+
+  mounted() {
+    this.$apiClient.base.authuser( { where: { username: 'carlos' } }, { client: ClientType.IMPLICIT } )
+  }
 }
 </script>
