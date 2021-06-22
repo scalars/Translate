@@ -7,7 +7,7 @@ declare module 'vue/types/vue' {
         $vuetify:any;
         $apiClient: ApolloClient;
         $Amplify: AuthClass;
-        $authEvent: Vue;
+        $AuthEvent: Vue;
     }
 }
 

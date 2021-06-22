@@ -81,9 +81,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import { ClientType } from '../client/apollo/interface';
-import Logo from '~/components/Logo.vue';
-import VuetifyLogo from '~/components/VuetifyLogo.vue';
+import Logo from '@/components/Logo.vue';
+import VuetifyLogo from '@/components/VuetifyLogo.vue';
 
 @Component( {
     components: {

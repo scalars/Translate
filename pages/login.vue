@@ -4,7 +4,7 @@
             <v-card-text>
                 <authenticator
                     class="authenticator"
-                    :auth-config="amplifyConfig"
+                    :amplify-config="amplifyConfig"
                     :url="url"
                     :client-id="clientId"
                 >
@@ -41,18 +41,6 @@ class Login extends Vue {
         userPoolId: process.env.USERPOOL_ID,
         userPoolWebClientId: process.env.USERPOOL_WEB_CLIENT_ID
     };
-
-    // mounted () {
-    //     this.$Amplify
-    //         .signIn( 'peektime', '@P33ktime' )
-    //         .then( ( data ) => {
-    //             // sign in success'
-    //             console.log( data );
-    //         } )
-    //         .catch( ( e ) => {
-    //             console.log( e );
-    //         } );
-    // }
 }
 
 export default Login;

@@ -1,86 +1,79 @@
 <template lang="html">
     <div class="d-md-flex justify-content-center">
-        <v-card title="Confirmar registro">
-            <v-form>
-                <div label="Usuario *">
-                    <v-text-field v-model="options.username" required name="username" placeholder="Digite usuario" />
-                </div>
-                <div label="Confirmar Codigo *">
-                    <v-text-field v-model="code" required name="code" placeholder="Digite codigo" />
+        <b-card title="Confirmar registro">
+            <b-form>
+                <b-form-group label="Usuario *">
+                    <b-form-input v-model="options.username" required name="username" placeholder="Digite usuario" />
+                </b-form-group>
+                <b-form-group label="Confirmar Codigo *">
+                    <b-form-input v-model="code" required name="code" placeholder="Digite codigo" />
                     <h6>
-                        ¿Perdio su codigo? <a @click="resend">
+                        ¿Perdio su codigo?
+                        <b-link @click="resend">
                             Reenviar codigo
-                        </a>
+                        </b-link>
                     </h6>
-                </div>
+                </b-form-group>
 
-                <v-btn variant="primary" @click="confirm">
+                <b-button variant="primary" @click="confirm">
                     Confirmar
-                </v-btn>
+                </b-button>
                 <h6>
-                    ¿tiene una cuenta? <a @click="signIn">
+                    ¿Tiene una cuenta?
+                    <b-link @click="signIn">
                         Ir a inicio
-                    </a>
+                    </b-link>
                 </h6>
-            </v-form>
-        </v-card>
+            </b-form>
+        </b-card>
     </div>
 </template>
 
-<script>
-export default {
-    name: 'ConfirmSignUp',
-    props: ['confirmSignUpConfig'],
-    data () {
-        return {
-            code: '',
-            error: ''
+<script lang="ts">
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
+
+@Component( { } )
+export default class ConfirmSignUp extends Vue {
+    @Prop() confirmSignUpConfig:any;
+
+    code:string = '';
+    error:string = '';
+
+    get options () {
+        const defaults = {
+            username: ''
         };
-    },
-    computed: {
-        options () {
-            const defaults = {
-                username: ''
-            };
-            return Object.assign( defaults, this.confirmSignUpConfig || {} );
-        }
-    },
+        return Object.assign( defaults, this.confirmSignUpConfig || {} );
+    }
+
     mounted () {
         if ( !this.options.username ) {
             return this.setError( 'Valid username not received.' );
         }
-    },
-    methods: {
-        confirm () {
-            this.$Amplify.confirmSignUp( this.options.username, this.code )
-                .then( () => {
-                    this.$AuthEvent.$emit( 'authState', 'signIn' );
-                } )
-                .catch( e => this.setError( e ) );
-        },
-        resend () {
-            this.$Amplify.resendSignUp( this.options.username )
-                .then( () => {
-                    // resendSignUp success
-                } )
-                .catch( e => this.setError( e ) );
-        },
-        signIn () {
-            this.$AuthEvent.$emit( 'authState', 'signIn' );
-        },
-        setError ( e ) {
-            this.error = e.message || e;
-            this.makeToast();
-        },
-        makeToast () {
-            // this.$bvToast.toast( this.error, {
-            //     title: 'Error',
-            //     toaster: 'b-toaster-top-center',
-            //     variant: 'danger',
-            //     solid: true,
-            //     appendToast: true
-            // } );
-        }
     }
-};
+
+    confirm () {
+        this.$Amplify.confirmSignUp( this.options.username, this.code )
+            .then( () => {
+                this.$AuthEvent.$emit( 'authState', 'signIn' );
+            } )
+            .catch( ( e:any ) => this.setError( e ) );
+    }
+
+    resend () {
+        this.$Amplify.resendSignUp( this.options.username )
+            .then( () => {
+                // resendSignUp success
+            } )
+            .catch( ( e:any ) => this.setError( e ) );
+    }
+
+    signIn () {
+        this.$AuthEvent.$emit( 'authState', 'signIn' );
+    }
+
+    setError ( e:any ) {
+        this.error = e.message || e;
+    }
+}
 </script>

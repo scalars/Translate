@@ -1,109 +1,173 @@
 <template>
-    <div>
-        <ConfirmSignIn v-if="displayMap.showConfirmSignIn" :confirm-sign-in-config="options.confirmSignInConfig" />
-        <ConfirmSignUp v-if="displayMap.showConfirmSignUp" :confirm-sign-up-config="options.confirmSignUpConfig" />
-        <ForgotPassword v-if="displayMap.showForgotPassword" :forgot-password-config="options.forgotPasswordConfig" />
+    <div class="authenticator">
+        <div v-if="showLoader" class="loader-container">
+            <slot name="loader" />
+        </div>
+        <sign-in
+            v-if="displayMap.showSignIn"
+            :sign-in-config="options.signInConfig"
+            :url="url"
+            :client-id="clientId"
+            :providers="providers"
+            @signedIn="signIn"
+        />
         <RequireNewPassword
             v-if="displayMap.requireNewPassword"
             :require-new-password-config="options.requireNewPasswordConfig"
         />
-        <SignIn v-if="displayMap.showSignIn" :sign-in-config="options.signInConfig" />
-        <SignOut v-if="displayMap.showSignOut || true" />
+        <ForgotPassword v-if="displayMap.showForgotPassword" />
+        <ConfirmSignUp v-if="displayMap.showConfirmSignUp" />
     </div>
 </template>
 
-<script>
-// Auth components
+<script lang="ts">
+import { Vue, Component, Prop } from 'nuxt-property-decorator';
+import { Hub } from '@aws-amplify/core';
 import GetUser from './getUser';
-import ConfirmSignIn from './ConfirmSignIn.vue';
-import ConfirmSignUp from './ConfirmSignUp.vue';
-import ForgotPassword from './ForgotPassword.vue';
-import RequireNewPassword from './RequireNewPassword.vue';
 import SignIn from './SignIn.vue';
-import SignOut from './SignOut.vue';
-// Auth amplify
-export default {
-    name: 'Authenticator',
+import RequireNewPassword from './RequireNewPassword.vue';
+import ForgotPassword from './ForgotPassword.vue';
+import ConfirmSignUp from './ConfirmSignUp.vue';
+
+interface DisplayMap {
+    showSignIn?:boolean;
+    showConfirmSignUp?:boolean;
+    showConfirmSignIn?:boolean;
+    showForgotPassword?:boolean;
+    showSignOut?:boolean;
+    requireNewPassword?:boolean;
+}
+
+@Component( {
     components: {
-        ConfirmSignIn,
-        ConfirmSignUp,
-        ForgotPassword,
-        RequireNewPassword,
         SignIn,
-        SignOut
-    },
-    props: ['authConfig', 'url', 'clientId'],
-    data () {
-        return {
-            user: {
-                username: null
-            },
-            displayMap: {},
-            error: ''
+        RequireNewPassword,
+        ForgotPassword,
+        ConfirmSignUp
+    }
+} )
+export default class Authenticator extends Vue {
+    @Prop( { required: true } ) amplifyConfig:any;
+    @Prop() authConfig:any;
+    @Prop( { required: true } ) url:string;
+    @Prop( { required: true } ) clientId:string;
+    @Prop( { required: false } ) redirect: string;
+    @Prop( { default: () => [] } ) providers: String[];
+    @Prop() providersConfig: any;
+
+    displayMap:DisplayMap = {};
+    user:any = {
+        username: null
+    };
+
+    showLoader:boolean = false;
+
+    get options () {
+        const defaults = {
+            signInConfig: {},
+            signUpConfig: {},
+            confirmSignUpConfig: {},
+            confirmSignInConfig: {},
+            forgotPasswordConfig: {},
+            requireNewPasswordConfig: {}
         };
-    },
-    computed: {
-        options () {
-            const defaults = {
-                signInConfig: {},
-                signUpConfig: {},
-                confirmSignUpConfig: {},
-                confirmSignInConfig: {},
-                forgotPasswordConfig: {},
-                requireNewPasswordConfig: {}
-            };
-            return Object.assign( defaults, this.authConfig || {} );
-        }
-    },
+        return Object.assign( defaults, this.authConfig || {} );
+    }
+
     async mounted () {
-        this.$AuthEvent.$on( 'localUser', ( user ) => {
+        Hub.listen( 'auth', async ( data: any ) => {
+            try {
+                if ( data.payload.event === 'parsingCallbackUrl' || data.payload.event === 'cognitoHostedUI' ) {
+                    this.showLoader = true;
+                } else if ( data.payload.event === 'signIn' ) {
+                    this.showLoader = true;
+                    const user = await this.$Amplify.currentAuthenticatedUser();
+                    await this.signIn( user );
+                } else {
+                    this.showLoader = false;
+                }
+            } catch ( err ) {
+                console.error( err );
+            }
+        } );
+        if ( this.providersConfig ) {
+            this.amplifyConfig.oauth = this.providersConfig;
+        }
+        this.$Amplify.configure( this.amplifyConfig );
+        this.$AuthEvent.$on( 'localUser', ( user:any ) => {
             this.user = user;
             this.options.signInConfig.username = this.user.username;
             this.options.confirmSignInConfig.user = this.user;
             this.options.confirmSignUpConfig.username = this.user.username;
             this.options.requireNewPasswordConfig.user = this.user;
         } );
-        this.$AuthEvent.$on( 'authState', ( data ) => {
+        this.$AuthEvent.$on( 'authState', ( data:string ) => {
             this.displayMap = this.updateDisplayMap( data );
             if ( data === 'signedIn' ) {
-                this.$router.push( { path: '/' } );
+                this.$emit( 'signedIn' );
             }
         } );
-        await GetUser( this.$Amplify ).then( ( val ) => {
-            if ( val instanceof Error ) {
-                this.displayMap = this.updateDisplayMap( 'signedOut' );
-                return this.displayMap;
-            }
-            this.user = val;
-            this.displayMap = this.updateDisplayMap( 'signedIn' );
-            return this.displayMap;
-        } ).catch( e => this.setError( e ) );
-    },
-    methods: {
-        updateDisplayMap: ( state ) => {
-            return {
-                showSignIn: state === 'signedOut' || state === 'signIn',
-                showConfirmSignUp: state === 'confirmSignUp',
-                showConfirmSignIn: state === 'confirmSignIn',
-                showForgotPassword: state === 'forgotPassword',
-                showSignOut: state === 'signedIn',
-                showAdmin: state === 'signedIn',
-                requireNewPassword: state === 'requireNewPassword'
-            };
-        },
-        setError ( e ) {
-            this.error = e.message || e;
-            this.makeToast();
-        },
-        makeToast () {
-            // this.$bvToast.toast( this.error, {
-            //     title: 'Error',
-            //     toaster: 'b-toaster-top-center',
-            //     variant: 'danger',
-            //     solid: true,
-            //     appendToast: true
-            // } );
+        this.$AuthEvent.$on( 'loading', () => { this.showLoader = true; } );
+        this.$AuthEvent.$on( 'loaded', () => { this.showLoader = false; } );
+        try {
+            await GetUser( this.$Amplify );
+            this.displayMap = this.updateDisplayMap( 'signIn' );
+        } catch ( err ) {
+            this.displayMap = this.updateDisplayMap( 'signedOut' );
         }
     }
-};
+
+    updateDisplayMap ( state:string ):DisplayMap {
+        return {
+            showSignIn: state === 'signedOut' || state === 'signIn',
+            showConfirmSignUp: state === 'confirmSignUp',
+            showConfirmSignIn: state === 'confirmSignIn',
+            showForgotPassword: state === 'forgotPassword',
+            showSignOut: state === 'signedIn',
+            requireNewPassword: state === 'requireNewPassword'
+        };
+    }
+
+    async signIn ( user: any ) {
+        if ( user ) {
+            try {
+                const headers = new Headers();
+                headers.append( 'Authorization', `client_id ${this.clientId}` );
+                headers.append( 'Content-Type', 'application/json' );
+                const response = await fetch( this.url + '/login', {
+                    method: 'POST',
+                    headers,
+                    body: JSON.stringify( {
+                        id_token: user.signInUserSession.idToken.jwtToken,
+                        response_type: 'code',
+                        redirect_uri: window.location.href
+                    } )
+                } ).then( resp => resp.json() );
+                if ( response.code === 200 ) {
+                    this.$AuthEvent.$emit( 'authState', 'signedIn' );
+                    window.location.href = `${this.url}/token?code_grant=${response.code_grant}`;
+                }
+            } catch ( err ) {
+                console.error( err );
+            }
+        }
+    }
+}
 </script>
+
+<style lang="scss" scoped>
+.authenticator {
+    position: relative;
+    min-height: 200px;
+
+    .loader-container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+    }
+}
+</style>

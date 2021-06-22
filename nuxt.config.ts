@@ -61,7 +61,8 @@ export default {
 
     // Modules: https://go.nuxtjs.dev/config-modules
     modules: [
-        'nuxt-vuex-localstorage'
+        'nuxt-vuex-localstorage',
+        '@nuxtjs/style-resources'
     ],
 
     dotenv: {

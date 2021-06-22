@@ -10,11 +10,6 @@ const AmplifyPlugin = {
 };
 
 export default () => {
-    Auth.configure( {
-        region: process.env.USERPOOL_REGION,
-        userPoolId: process.env.USERPOOL_ID,
-        userPoolWebClientId: process.env.USERPOOL_WEB_CLIENT_ID
-    } );
     Vue.use( AmplifyPlugin, Auth );
     Vue.use( AmplifyAuthEvent );
 };
