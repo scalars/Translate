@@ -72,6 +72,7 @@ class Layout extends Vue {
         try {
             this.logoutUrl = `${process.env.SCALARS_API}/logout?redirect_uri=${window.location.href}`;
             const user = await this.getUser();
+            console.log( user );
             if ( user ) {
                 this.$store.commit( 'sessionStorage/user', user );
             } else {
@@ -82,9 +83,11 @@ class Layout extends Vue {
         }
     }
 
-    async getUser () {
-        const { authuser } = await this.$apiClient.base.authuser( { where: { username: 'carlos' } }, { client: ClientType.IMPLICIT } );
-        return authuser;
+    getUser () {
+        const userUrl = `${process.env.SCALARS_API}/api/auth/user`;
+        return fetch( userUrl, {
+            credentials: 'include'
+        } ).then( resp => resp.json() ).catch( ( ) => { return undefined; } );
     }
 }
 export default Layout;
