@@ -1,0 +1,72 @@
+$primary: #168eea;
+$secondary: #fff9ea;
+$text: #323B43;
+$light-text: #969696;
+$contrast: #ee4f4f;
+$contrast-secondary: #76b852;
+$light-primary: lighten($primary, 10%);
+$dark-primary: darken($primary, 10%);
+$light-secondary: lighten($secondary, 10%);
+$dark-secondary: darken($secondary, 10%);
+$border-input: #DBDBDB;
+
+/* BEGIN OPACITY */
+$op100: FF;
+$op95: F2;
+$op90: E6;
+$op85: D9;
+$op80: CC;
+$op75: BF;
+$op70: B3;
+$op65: A6;
+$op60: 99;
+$op55: 8C;
+$op50: 80;
+$op45: 73;
+$op40: 66;
+$op35: 59;
+$op30: 4D;
+$op25: 40;
+$op20: 33;
+$op15: 26;
+$op10: 1A;
+$op5: 0D;
+$op0: 00;
+/* END OPACITY */
+
+:export{
+    primary: $primary;
+    secondary: $secondary;
+    text: $text;
+    contrast: $contrast;
+    contrastSecondary: $contrast-secondary;
+    lightPrimary: $light-primary;
+    darkPrimary: $dark-primary;
+    lightSecondary: $light-secondary;
+    darkSecondary: $dark-secondary;
+    lightText: $light-text;
+    borderInput: $border-input;
+    /* BEGIN OPACITY */
+    op100: $op100;
+    op95: $op95;
+    op90: $op90;
+    op85: $op85;
+    op80: $op80;
+    op75: $op75;
+    op70: $op70;
+    op65: $op65;
+    op60: $op60;
+    op55: $op55;
+    op50: $op50;
+    op45: $op45;
+    op40: $op40;
+    op35: $op35;
+    op30: $op30;
+    op25: $op25;
+    op20: $op20;
+    op15: $op15;
+    op10: $op10;
+    op5: $op5;
+    op0: $op0;
+    /* END OPACITY */
+}
