@@ -119,4 +119,10 @@ export default class Layout extends Vue {
     margin-bottom: 30px;
     padding: 0 15px;
 }
+.logout-button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    padding: 0 15px;
+}
 </style>
