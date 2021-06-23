@@ -2,12 +2,15 @@ import { ApolloClientService } from '@/client/apollo/ApolloClientService';
 import { ClientOptions, MutationClientOptions } from '@/client/apollo/interface';
 import {
     applications,
-    application
+    application,
+    schema
 } from '@/client/queries/queries';
 import {
     ApplicationsQuery,
     ApplicationQuery,
-    ApplicationsQueryVariables
+    ApplicationsQueryVariables,
+    SchemaQuery,
+    SchemaQueryVariables
 } from '../types';
 
 export class BaseService extends ApolloClientService {
@@ -17,5 +20,9 @@ export class BaseService extends ApolloClientService {
 
     application ( variables?: ApplicationsQueryVariables, clientOptions?: ClientOptions ): Promise<ApplicationQuery> {
         return this.doQuery<ApplicationQuery, ApplicationsQueryVariables>( application, variables, clientOptions );
+    }
+
+    schema ( variables?: SchemaQueryVariables, clientOptions?: ClientOptions ): Promise<SchemaQuery> {
+        return this.doQuery<SchemaQuery, SchemaQueryVariables>( schema, variables, clientOptions );
     }
 }

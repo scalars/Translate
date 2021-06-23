@@ -73,7 +73,7 @@ export default class ApplicationLayout extends Vue {
         {
             icon: 'mdi-translate',
             title: 'Translations',
-            to: 'translations'
+            to: 'translate'
         },
         {
             icon: 'mdi-book-open-page-variant',

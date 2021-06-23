@@ -1,5 +1,5 @@
 <template>
-    <v-tooltip :disabled="!iconMode" :right="rightTooltip" :top="topTooltip" :left="leftTooltip" :bottom="bottomTooltip || defaultSide">
+    <v-tooltip :disabled="!iconMode || !text" :right="rightTooltip" :top="topTooltip" :left="leftTooltip" :bottom="bottomTooltip || defaultSide">
         <template #activator="{ on }">
             <v-btn
                 :class="showAsIcon ? '' : color"
@@ -31,7 +31,7 @@ export default class GeneralButton extends Vue {
     @Prop( { type: String, default: '' } ) text: string;
     @Prop( { type: String, default: '' } ) color: string;
     @Prop( { type: String, default: '' } ) icon: string;
-    @Prop( { type: String, default: 'auto' } ) width: string;
+    @Prop( { type: String, default: '' } ) width: string;
     @Prop( { type: Boolean, default: false } ) disabled: boolean;
     @Prop( { type: Boolean, default: false } ) plain: boolean;
     @Prop( { type: Boolean, default: false } ) loading: boolean;
