@@ -1,13 +1,15 @@
-import { Application, Authuser } from '~/client/types';
+import { Application, Authuser, Schema } from '~/client/types';
 
 declare interface LocalState {
     user?: Authuser | null
     application?: Application | null
+    sections?: Schema[]
 }
 
 export const state = () => ( {
     user: null,
-    application: null
+    application: null,
+    sections: []
 } );
 
 export const mutations = {
@@ -16,6 +18,12 @@ export const mutations = {
     },
     setApplication ( state: LocalState, value: Application ) {
         state.application = value;
+    },
+    setSections ( state: LocalState, value: Schema[] ) {
+        state.sections = [...value];
+    },
+    addSections ( state: LocalState, value: Schema[] ) {
+        state.sections?.push( ...value );
     }
 };
 
@@ -25,5 +33,8 @@ export const getters = {
     },
     getApplication ( state: LocalState ) {
         return state.application || null;
+    },
+    getSection ( state: LocalState ) {
+        return ( sectionId: string ) => state.sections?.find( ( section: Schema ) => section.id === sectionId ) || null;
     }
 };

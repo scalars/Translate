@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div class="schema-item-container">
         <h2 @click="selectSection()">
             {{ schema.sectionName }}
         </h2>
-        <template>
+        <div class="schema-item-actions">
             <GeneralButton
                 icon-mode
                 icon="mdi-book-open-page-variant"
@@ -19,7 +19,7 @@
                 icon="mdi-delete"
                 @click="deleteSection()"
             />
-        </template>
+        </div>
         <Modal :show-modal="show" @hide="show=false">
             <SchemaForm
                 :section="schema"
@@ -69,7 +69,10 @@ export default class SchemaItem extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.schema-subsections {
-    margin-left: 15px;
+.schema-item-container {
+    display: flex;
+    .schema-item-actions {
+        display: flex;
+    }
 }
 </style>

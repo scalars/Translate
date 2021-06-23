@@ -5,7 +5,7 @@
                 <v-col>
                     <div>
                         <v-subheader>Sections</v-subheader>
-                        <SchemaDisplay
+                        <SchemaIterator
                             v-for="subsection in rootSubsections"
                             :key="subsection.id"
                             :schema-id="subsection.id"
@@ -23,13 +23,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import SchemaDisplay from '@/components/translate/sections/Schema.vue';
 import { Schema } from '@/client/types';
+import SchemaIterator from '@/components/translate/sections/SchemaIterator.vue';
 
 @Component(
     {
         layout: 'application',
-        components: { SchemaDisplay }
+        components: { SchemaIterator }
     }
 )
 export default class Translate extends Vue {
@@ -37,8 +37,12 @@ export default class Translate extends Vue {
         return this.$store.getters['sessionStorage/getApplication'];
     }
 
-    get rootSubsections () {
+    get rootSubsections (): Schema[] {
         return this.application?.root?.subsections || [];
+    }
+
+    beforeMount () {
+        this.$store.commit( 'sessionStorage/setSections', this.rootSubsections );
     }
 }
 </script>

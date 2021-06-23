@@ -8,19 +8,11 @@
     <div v-else-if="schema">
         <SchemaItem :schema="schema" />
         <div class="schema-subsections">
-            <div
+            <SchemaIterator
                 v-for="subsection in schema.subsections"
                 :key="subsection.id"
-            >
-                <SchemaItem :schema="subsection" />
-                <div class="schema-subsections">
-                    <SchemaDisplay
-                        v-for="childSection in subsection.subsections"
-                        :key="childSection.id"
-                        :schema-id="childSection.id"
-                    />
-                </div>
-            </div>
+                :schema-id="subsection.id"
+            />
         </div>
     </div>
 </template>
@@ -33,11 +25,11 @@ import SchemaItem from '~/components/translate/sections/SchemaItem.vue';
 @Component(
     {
         layout: 'application',
-        name: 'SchemaDisplay',
+        name: 'SchemaIterator',
         components: { SchemaItem }
     }
 )
-export default class SchemaDisplay extends Vue {
+export default class SchemaIterator extends Vue {
     @Prop( { required: true } ) schemaId: string;
     schema: Schema | null = null;
     loading: boolean = false;
@@ -47,14 +39,19 @@ export default class SchemaDisplay extends Vue {
     }
 
     async getSchema () {
-        try {
-            this.loading = true;
-            const { schema } = await this.$apiClient.queries.schema( { where: { id: this.schemaId } } );
-            this.schema = schema;
-        } catch ( error ) {
-            console.error( error );
-        } finally {
-            this.loading = false;
+        console.log( this.$store.getters );
+        this.schema = this.$store.getters['sessionStorage/getSection']( this.schemaId );
+        console.log( this.schema );
+        if ( !this.schema || !this.schema.sectionName ) {
+            try {
+                this.loading = true;
+                const { schema } = await this.$apiClient.queries.schema( { where: { id: this.schemaId } } );
+                this.schema = schema;
+            } catch ( error ) {
+                console.error( error );
+            } finally {
+                this.loading = false;
+            }
         }
     }
 }

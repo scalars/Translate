@@ -6,7 +6,21 @@ const applications = gql`
             id name
             root{
                 id
-                subsections { id }
+                subsections {
+                    id sectionName
+                    description
+                    sectionValues
+                    translations {
+                        id
+                        istranslated
+                        language {
+                            isolanguage
+                        }
+                    }
+                    subsections {
+                        id
+                    }
+                }
             }
             defaultLanguage {
                 id namelanguage isolanguage
@@ -49,16 +63,6 @@ const schema = gql`
             }
             subsections {
                 id
-                sectionName
-                description
-                sectionValues
-                translations {
-                    id
-                    istranslated
-                    language {
-                        isolanguage
-                    }
-                }
             }
         }
     }
