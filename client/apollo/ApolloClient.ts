@@ -8,7 +8,7 @@ class ApolloClient {
         this.baseService = new BaseService( clientManager );
     }
 
-    public get base (): BaseService {
+    public get queries (): BaseService {
         return this.baseService;
     }
 }

@@ -1,21 +1,21 @@
 import { ApolloClientService } from '@/client/apollo/ApolloClientService';
 import { ClientOptions, MutationClientOptions } from '@/client/apollo/interface';
 import {
-    authUser, createAuthuser
-} from '@/client/queries/base';
+    applications,
+    application
+} from '@/client/queries/queries';
 import {
-    AuthuserQuery,
-    AuthuserQueryVariables,
-    CreateAuthuserMutation,
-    CreateAuthuserMutationVariables
+    ApplicationsQuery,
+    ApplicationQuery,
+    ApplicationsQueryVariables
 } from '../types';
 
 export class BaseService extends ApolloClientService {
-    authuser ( variables?: AuthuserQueryVariables, clientOptions?: ClientOptions ): Promise<AuthuserQuery> {
-        return this.doQuery<AuthuserQuery, AuthuserQueryVariables>( authUser, variables, clientOptions );
+    applications ( variables?: ApplicationsQueryVariables, clientOptions?: ClientOptions ): Promise<ApplicationsQuery> {
+        return this.doQuery<ApplicationsQuery, ApplicationsQueryVariables>( applications, variables, clientOptions );
     }
 
-    createAuthuser ( variables?: CreateAuthuserMutationVariables, clientOptions?: MutationClientOptions ): Promise<CreateAuthuserMutation> {
-        return this.doMutation<CreateAuthuserMutation, CreateAuthuserMutationVariables>( createAuthuser, variables, clientOptions );
+    application ( variables?: ApplicationsQueryVariables, clientOptions?: ClientOptions ): Promise<ApplicationQuery> {
+        return this.doQuery<ApplicationQuery, ApplicationsQueryVariables>( application, variables, clientOptions );
     }
 }

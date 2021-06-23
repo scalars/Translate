@@ -8,7 +8,7 @@ const ClientPlugin = {
         const manager = new ApolloClientManager(
             `${process.env.SCALARS_API}/api`,
             () => `client_id ${process.env.SCALARS_CLIENT_ID}`,
-            ClientType.CODE
+            ClientType.IMPLICIT
         );
         Vue.prototype.$apiClient = new ApolloClient( manager );
     }

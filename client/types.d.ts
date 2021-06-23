@@ -26,83 +26,12 @@ export type Scalars = {
 };
 
 
-
-
-
 export enum Actiontype {
   Create = 'CREATE',
   Read = 'READ',
   Update = 'UPDATE',
   Delete = 'DELETE'
 }
-
-export type Answer = {
-  __typename?: 'Answer';
-  id: Scalars['ID'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  answerArray?: Maybe<Scalars['Json']>;
-  identifier?: Maybe<Registration>;
-};
-
-export type AnswerConnection = {
-  __typename?: 'AnswerConnection';
-  totalCount: Scalars['Int'];
-};
-
-export type AnswerCreateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  answerArray?: Maybe<Scalars['Json']>;
-  identifier?: Maybe<RegistrationCreateOneInput>;
-};
-
-export type AnswerOrderInput = {
-  id?: Maybe<OrderByEnum>;
-  updatedAt?: Maybe<OrderByEnum>;
-  createdAt?: Maybe<OrderByEnum>;
-  answerArray?: Maybe<OrderByEnum>;
-};
-
-export type AnswerUpdateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  answerArray?: Maybe<Scalars['Json']>;
-  identifier?: Maybe<RegistrationUpdateOneInput>;
-};
-
-export type AnswerWhereInput = {
-  OR?: Maybe<Array<AnswerWhereInput>>;
-  AND?: Maybe<Array<AnswerWhereInput>>;
-  id?: Maybe<Scalars['ID']>;
-  id_eq?: Maybe<Scalars['ID']>;
-  id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  updatedAt_eq?: Maybe<Scalars['DateTime']>;
-  updatedAt_neq?: Maybe<Scalars['DateTime']>;
-  updatedAt_gt?: Maybe<Scalars['DateTime']>;
-  updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedAt_lt?: Maybe<Scalars['DateTime']>;
-  updatedAt_lte?: Maybe<Scalars['DateTime']>;
-  updatedAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  updatedAt_between?: Maybe<BetweenFilterDateTime>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  createdAt_eq?: Maybe<Scalars['DateTime']>;
-  createdAt_neq?: Maybe<Scalars['DateTime']>;
-  createdAt_gt?: Maybe<Scalars['DateTime']>;
-  createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdAt_lt?: Maybe<Scalars['DateTime']>;
-  createdAt_lte?: Maybe<Scalars['DateTime']>;
-  createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  createdAt_between?: Maybe<BetweenFilterDateTime>;
-  answerArray_object?: Maybe<Scalars['Json']>;
-  identifier?: Maybe<RegistrationWhereInput>;
-};
-
-export type AnswerWhereUniqueInput = {
-  id?: Maybe<Scalars['ID']>;
-};
 
 export type Appclient = {
   __typename?: 'Appclient';
@@ -112,7 +41,7 @@ export type Appclient = {
   client_id: Scalars['String'];
   client_secret?: Maybe<Scalars['String']>;
   client_type?: Maybe<Clienttype>;
-  datapermissions: Array<Datapermission>;
+  datapermissions?: Maybe<Array<Datapermission>>;
   domains?: Maybe<Array<Scalars['String']>>;
   grant_type?: Maybe<Granttype>;
   name: Scalars['String'];
@@ -121,11 +50,6 @@ export type Appclient = {
   redirect_uri?: Maybe<Array<Scalars['String']>>;
   scopes?: Maybe<Array<Clientscope>>;
   userPool?: Maybe<Scalars['Json']>;
-};
-
-
-export type AppclientDatapermissionsArgs = {
-  where?: Maybe<DatapermissionWhereInput>;
 };
 
 export type AppclientConnection = {
@@ -139,7 +63,7 @@ export type AppclientCreateInput = {
   client_id?: Maybe<Scalars['String']>;
   client_secret?: Maybe<Scalars['String']>;
   client_type?: Maybe<Clienttype>;
-  datapermissions?: Maybe<DatapermissionCreateManyWithoutAppclientInput>;
+  datapermissions?: Maybe<DatapermissionCreateManyInput>;
   domains?: Maybe<AppclientDomainsCreateInput>;
   grant_type?: Maybe<Granttype>;
   name?: Maybe<Scalars['String']>;
@@ -202,7 +126,7 @@ export type AppclientUpdateInput = {
   client_id?: Maybe<Scalars['String']>;
   client_secret?: Maybe<Scalars['String']>;
   client_type?: Maybe<Clienttype>;
-  datapermissions?: Maybe<DatapermissionUpdateManyWithoutAppclientInput>;
+  datapermissions?: Maybe<DatapermissionUpdateManyInput>;
   domains?: Maybe<AppclientDomainsUpdateInput>;
   grant_type?: Maybe<Granttype>;
   name?: Maybe<Scalars['String']>;
@@ -226,7 +150,6 @@ export type AppclientWhereInput = {
   id?: Maybe<Scalars['ID']>;
   id_eq?: Maybe<Scalars['ID']>;
   id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   updatedAt_eq?: Maybe<Scalars['DateTime']>;
   updatedAt_neq?: Maybe<Scalars['DateTime']>;
@@ -262,7 +185,7 @@ export type AppclientWhereInput = {
   client_type_neq?: Maybe<Clienttype>;
   client_type_contains?: Maybe<Scalars['String']>;
   client_type_notcontains?: Maybe<Scalars['String']>;
-  datapermissions?: Maybe<FilterDatapermission>;
+  datapermissions?: Maybe<DatapermissionWhereInput>;
   domains?: Maybe<Scalars['String']>;
   domains_eq?: Maybe<Scalars['String']>;
   domains_neq?: Maybe<Scalars['String']>;
@@ -280,8 +203,6 @@ export type AppclientWhereInput = {
   name_contains?: Maybe<Scalars['String']>;
   name_notcontains?: Maybe<Scalars['String']>;
   name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  permissions_object?: Maybe<Scalars['Json']>;
-  providers_object?: Maybe<Scalars['Json']>;
   redirect_uri?: Maybe<Scalars['String']>;
   redirect_uri_eq?: Maybe<Scalars['String']>;
   redirect_uri_neq?: Maybe<Scalars['String']>;
@@ -293,7 +214,6 @@ export type AppclientWhereInput = {
   scopes_neq?: Maybe<Clientscope>;
   scopes_contains?: Maybe<Scalars['String']>;
   scopes_notcontains?: Maybe<Scalars['String']>;
-  userPool_object?: Maybe<Scalars['Json']>;
 };
 
 export type AppclientWhereUniqueInput = {
@@ -302,28 +222,114 @@ export type AppclientWhereUniqueInput = {
   name?: Maybe<Scalars['String']>;
 };
 
+export type Application = {
+  __typename?: 'Application';
+  id: Scalars['ID'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  application_ApplicationsFromLanguageFk?: Maybe<Array<Language>>;
+  name?: Maybe<Scalars['String']>;
+  root?: Maybe<Schema>;
+  languages?: Maybe<Array<Language>>;
+  defaultLanguage?: Maybe<Language>;
+};
+
+export type ApplicationConnection = {
+  __typename?: 'ApplicationConnection';
+  totalCount: Scalars['Int'];
+};
+
+export type ApplicationCreateInput = {
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  application_ApplicationsFromLanguageFk?: Maybe<LanguageCreateManyInput>;
+  name?: Maybe<Scalars['String']>;
+  root?: Maybe<SchemaCreateOneInput>;
+  languages?: Maybe<LanguageCreateManyInput>;
+  defaultLanguage?: Maybe<LanguageCreateOneInput>;
+};
+
+export type ApplicationCreateManyInput = {
+  create?: Maybe<Array<Maybe<ApplicationCreateInput>>>;
+  connect?: Maybe<Array<Maybe<ApplicationWhereUniqueInput>>>;
+};
+
+export type ApplicationOrderInput = {
+  id?: Maybe<OrderByEnum>;
+  updatedAt?: Maybe<OrderByEnum>;
+  createdAt?: Maybe<OrderByEnum>;
+  name?: Maybe<OrderByEnum>;
+};
+
+export type ApplicationUpdateInput = {
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  application_ApplicationsFromLanguageFk?: Maybe<LanguageUpdateManyInput>;
+  name?: Maybe<Scalars['String']>;
+  root?: Maybe<SchemaUpdateOneInput>;
+  languages?: Maybe<LanguageUpdateManyInput>;
+  defaultLanguage?: Maybe<LanguageUpdateOneInput>;
+};
+
+export type ApplicationUpdateManyInput = {
+  create?: Maybe<Array<Maybe<ApplicationCreateInput>>>;
+  connect?: Maybe<Array<Maybe<ApplicationWhereUniqueInput>>>;
+  disconnect?: Maybe<Array<Maybe<ApplicationWhereUniqueInput>>>;
+  delete?: Maybe<Array<Maybe<ApplicationWhereUniqueInput>>>;
+};
+
+export type ApplicationWhereInput = {
+  OR?: Maybe<Array<ApplicationWhereInput>>;
+  AND?: Maybe<Array<ApplicationWhereInput>>;
+  id?: Maybe<Scalars['ID']>;
+  id_eq?: Maybe<Scalars['ID']>;
+  id_neq?: Maybe<Scalars['ID']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  updatedAt_eq?: Maybe<Scalars['DateTime']>;
+  updatedAt_neq?: Maybe<Scalars['DateTime']>;
+  updatedAt_gt?: Maybe<Scalars['DateTime']>;
+  updatedAt_gte?: Maybe<Scalars['DateTime']>;
+  updatedAt_lt?: Maybe<Scalars['DateTime']>;
+  updatedAt_lte?: Maybe<Scalars['DateTime']>;
+  updatedAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
+  updatedAt_between?: Maybe<BetweenFilterDateTime>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  createdAt_eq?: Maybe<Scalars['DateTime']>;
+  createdAt_neq?: Maybe<Scalars['DateTime']>;
+  createdAt_gt?: Maybe<Scalars['DateTime']>;
+  createdAt_gte?: Maybe<Scalars['DateTime']>;
+  createdAt_lt?: Maybe<Scalars['DateTime']>;
+  createdAt_lte?: Maybe<Scalars['DateTime']>;
+  createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
+  createdAt_between?: Maybe<BetweenFilterDateTime>;
+  application_ApplicationsFromLanguageFk?: Maybe<LanguageWhereInput>;
+  name?: Maybe<Scalars['String']>;
+  name_eq?: Maybe<Scalars['String']>;
+  name_neq?: Maybe<Scalars['String']>;
+  name_contains?: Maybe<Scalars['String']>;
+  name_notcontains?: Maybe<Scalars['String']>;
+  name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  root?: Maybe<SchemaWhereInput>;
+  languages?: Maybe<LanguageWhereInput>;
+  defaultLanguage?: Maybe<LanguageWhereInput>;
+};
+
+export type ApplicationWhereUniqueInput = {
+  id?: Maybe<Scalars['ID']>;
+};
+
 export type Assetsconfig = {
   __typename?: 'Assetsconfig';
   id: Scalars['ID'];
   updatedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  compatibleMimes: Array<Mimetype>;
+  compatibleMimes?: Maybe<Array<Mimetype>>;
   compress?: Maybe<Scalars['Boolean']>;
   compressPercentage?: Maybe<Scalars['Float']>;
   description?: Maybe<Scalars['String']>;
   label?: Maybe<Scalars['String']>;
-  mimeTypes: Array<Mimetype>;
+  mimeTypes?: Maybe<Array<Mimetype>>;
   name?: Maybe<Scalars['String']>;
-};
-
-
-export type AssetsconfigCompatibleMimesArgs = {
-  where?: Maybe<MimetypeWhereInput>;
-};
-
-
-export type AssetsconfigMimeTypesArgs = {
-  where?: Maybe<MimetypeWhereInput>;
 };
 
 export type AssetsconfigConnection = {
@@ -384,7 +390,6 @@ export type AssetsconfigWhereInput = {
   id?: Maybe<Scalars['ID']>;
   id_eq?: Maybe<Scalars['ID']>;
   id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   updatedAt_eq?: Maybe<Scalars['DateTime']>;
   updatedAt_neq?: Maybe<Scalars['DateTime']>;
@@ -403,7 +408,7 @@ export type AssetsconfigWhereInput = {
   createdAt_lte?: Maybe<Scalars['DateTime']>;
   createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
   createdAt_between?: Maybe<BetweenFilterDateTime>;
-  compatibleMimes?: Maybe<FilterMimetype>;
+  compatibleMimes?: Maybe<MimetypeWhereInput>;
   compress?: Maybe<Scalars['Boolean']>;
   compress_eq?: Maybe<Scalars['Boolean']>;
   compress_neq?: Maybe<Scalars['Boolean']>;
@@ -428,7 +433,7 @@ export type AssetsconfigWhereInput = {
   label_contains?: Maybe<Scalars['String']>;
   label_notcontains?: Maybe<Scalars['String']>;
   label_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  mimeTypes?: Maybe<FilterMimetype>;
+  mimeTypes?: Maybe<MimetypeWhereInput>;
   name?: Maybe<Scalars['String']>;
   name_eq?: Maybe<Scalars['String']>;
   name_neq?: Maybe<Scalars['String']>;
@@ -494,7 +499,6 @@ export type AuthcodegrantWhereInput = {
   id?: Maybe<Scalars['ID']>;
   id_eq?: Maybe<Scalars['ID']>;
   id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   updatedAt_eq?: Maybe<Scalars['DateTime']>;
   updatedAt_neq?: Maybe<Scalars['DateTime']>;
@@ -545,25 +549,14 @@ export type Authrole = {
   id: Scalars['ID'];
   updatedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  authusers: Array<Authuser>;
+  authusers?: Maybe<Array<Authuser>>;
   createAt?: Maybe<Scalars['DateTime']>;
-  datapermissions: Array<Datapermission>;
+  datapermissions?: Maybe<Array<Datapermission>>;
   default?: Maybe<Scalars['Boolean']>;
   description?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   permissions?: Maybe<Scalars['Json']>;
   updateAt?: Maybe<Scalars['DateTime']>;
-  scopes?: Maybe<Array<Rolescope>>;
-};
-
-
-export type AuthroleAuthusersArgs = {
-  where?: Maybe<AuthuserWhereInput>;
-};
-
-
-export type AuthroleDatapermissionsArgs = {
-  where?: Maybe<DatapermissionWhereInput>;
 };
 
 export type AuthroleConnection = {
@@ -574,15 +567,14 @@ export type AuthroleConnection = {
 export type AuthroleCreateInput = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  authusers?: Maybe<AuthuserCreateManyWithoutAuthroleInput>;
+  authusers?: Maybe<AuthuserCreateManyInput>;
   createAt?: Maybe<Scalars['DateTime']>;
-  datapermissions?: Maybe<DatapermissionCreateManyWithoutAuthroleInput>;
+  datapermissions?: Maybe<DatapermissionCreateManyInput>;
   default?: Maybe<Scalars['Boolean']>;
   description?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   permissions?: Maybe<Scalars['Json']>;
   updateAt?: Maybe<Scalars['DateTime']>;
-  scopes?: Maybe<AuthroleScopesCreateInput>;
 };
 
 export type AuthroleCreateOneInput = {
@@ -600,29 +592,19 @@ export type AuthroleOrderInput = {
   name?: Maybe<OrderByEnum>;
   permissions?: Maybe<OrderByEnum>;
   updateAt?: Maybe<OrderByEnum>;
-  scopes?: Maybe<OrderByEnum>;
-};
-
-export type AuthroleScopesCreateInput = {
-  set?: Maybe<Array<Maybe<Rolescope>>>;
-};
-
-export type AuthroleScopesUpdateInput = {
-  set?: Maybe<Array<Maybe<Rolescope>>>;
 };
 
 export type AuthroleUpdateInput = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  authusers?: Maybe<AuthuserUpdateManyWithoutAuthroleInput>;
+  authusers?: Maybe<AuthuserUpdateManyInput>;
   createAt?: Maybe<Scalars['DateTime']>;
-  datapermissions?: Maybe<DatapermissionUpdateManyWithoutAuthroleInput>;
+  datapermissions?: Maybe<DatapermissionUpdateManyInput>;
   default?: Maybe<Scalars['Boolean']>;
   description?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   permissions?: Maybe<Scalars['Json']>;
   updateAt?: Maybe<Scalars['DateTime']>;
-  scopes?: Maybe<AuthroleScopesUpdateInput>;
 };
 
 export type AuthroleUpdateOneInput = {
@@ -638,7 +620,6 @@ export type AuthroleWhereInput = {
   id?: Maybe<Scalars['ID']>;
   id_eq?: Maybe<Scalars['ID']>;
   id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   updatedAt_eq?: Maybe<Scalars['DateTime']>;
   updatedAt_neq?: Maybe<Scalars['DateTime']>;
@@ -657,7 +638,7 @@ export type AuthroleWhereInput = {
   createdAt_lte?: Maybe<Scalars['DateTime']>;
   createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
   createdAt_between?: Maybe<BetweenFilterDateTime>;
-  authusers?: Maybe<FilterAuthuser>;
+  authusers?: Maybe<AuthuserWhereInput>;
   createAt?: Maybe<Scalars['DateTime']>;
   createAt_eq?: Maybe<Scalars['DateTime']>;
   createAt_neq?: Maybe<Scalars['DateTime']>;
@@ -667,7 +648,7 @@ export type AuthroleWhereInput = {
   createAt_lte?: Maybe<Scalars['DateTime']>;
   createAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
   createAt_between?: Maybe<BetweenFilterDateTime>;
-  datapermissions?: Maybe<FilterDatapermission>;
+  datapermissions?: Maybe<DatapermissionWhereInput>;
   default?: Maybe<Scalars['Boolean']>;
   default_eq?: Maybe<Scalars['Boolean']>;
   default_neq?: Maybe<Scalars['Boolean']>;
@@ -683,7 +664,6 @@ export type AuthroleWhereInput = {
   name_contains?: Maybe<Scalars['String']>;
   name_notcontains?: Maybe<Scalars['String']>;
   name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  permissions_object?: Maybe<Scalars['Json']>;
   updateAt?: Maybe<Scalars['DateTime']>;
   updateAt_eq?: Maybe<Scalars['DateTime']>;
   updateAt_neq?: Maybe<Scalars['DateTime']>;
@@ -693,11 +673,6 @@ export type AuthroleWhereInput = {
   updateAt_lte?: Maybe<Scalars['DateTime']>;
   updateAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
   updateAt_between?: Maybe<BetweenFilterDateTime>;
-  scopes?: Maybe<Rolescope>;
-  scopes_eq?: Maybe<Rolescope>;
-  scopes_neq?: Maybe<Rolescope>;
-  scopes_contains?: Maybe<Scalars['String']>;
-  scopes_notcontains?: Maybe<Scalars['String']>;
 };
 
 export type AuthroleWhereUniqueInput = {
@@ -743,23 +718,6 @@ export type AuthsessionCreateManyInput = {
   connect?: Maybe<Array<Maybe<AuthsessionWhereUniqueInput>>>;
 };
 
-export type AuthsessionCreateManyWithoutAuthuserInput = {
-  create?: Maybe<Array<Maybe<AuthsessionCreateWithoutAuthuserInput>>>;
-  connect?: Maybe<Array<Maybe<AuthsessionWhereUniqueInput>>>;
-};
-
-export type AuthsessionCreateWithoutAuthuserInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  cognitoIdToken?: Maybe<Scalars['String']>;
-  expiresIn?: Maybe<Scalars['DateTime']>;
-  fromUrl?: Maybe<Scalars['String']>;
-  interchanges?: Maybe<Scalars['String']>;
-  ipAgent?: Maybe<Scalars['String']>;
-  sessionId?: Maybe<Scalars['String']>;
-  userAgent?: Maybe<Scalars['String']>;
-};
-
 export type AuthsessionOrderInput = {
   id?: Maybe<OrderByEnum>;
   updatedAt?: Maybe<OrderByEnum>;
@@ -793,32 +751,12 @@ export type AuthsessionUpdateManyInput = {
   delete?: Maybe<Array<Maybe<AuthsessionWhereUniqueInput>>>;
 };
 
-export type AuthsessionUpdateManyWithoutAuthuserInput = {
-  create?: Maybe<Array<Maybe<AuthsessionUpdateWithoutAuthuserInput>>>;
-  connect?: Maybe<Array<Maybe<AuthsessionWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<AuthsessionWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<AuthsessionWhereUniqueInput>>>;
-};
-
-export type AuthsessionUpdateWithoutAuthuserInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  cognitoIdToken?: Maybe<Scalars['String']>;
-  expiresIn?: Maybe<Scalars['DateTime']>;
-  fromUrl?: Maybe<Scalars['String']>;
-  interchanges?: Maybe<Scalars['String']>;
-  ipAgent?: Maybe<Scalars['String']>;
-  sessionId?: Maybe<Scalars['String']>;
-  userAgent?: Maybe<Scalars['String']>;
-};
-
 export type AuthsessionWhereInput = {
   OR?: Maybe<Array<AuthsessionWhereInput>>;
   AND?: Maybe<Array<AuthsessionWhereInput>>;
   id?: Maybe<Scalars['ID']>;
   id_eq?: Maybe<Scalars['ID']>;
   id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   updatedAt_eq?: Maybe<Scalars['DateTime']>;
   updatedAt_neq?: Maybe<Scalars['DateTime']>;
@@ -899,16 +837,11 @@ export type Authuser = {
   email: Scalars['Email'];
   isRoot?: Maybe<Scalars['Boolean']>;
   name: Scalars['String'];
-  sessions: Array<Authsession>;
+  sessions?: Maybe<Array<Authsession>>;
   sub: Scalars['String'];
   username: Scalars['String'];
   notificationConfig?: Maybe<Scalars['Json']>;
   subscriptionConfig?: Maybe<Scalars['Json']>;
-};
-
-
-export type AuthuserSessionsArgs = {
-  where?: Maybe<AuthsessionWhereInput>;
 };
 
 export type AuthuserConnection = {
@@ -923,34 +856,21 @@ export type AuthuserCreateInput = {
   email?: Maybe<Scalars['Email']>;
   isRoot?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
-  sessions?: Maybe<AuthsessionCreateManyWithoutAuthuserInput>;
+  sessions?: Maybe<AuthsessionCreateManyInput>;
   sub?: Maybe<Scalars['String']>;
   username?: Maybe<Scalars['String']>;
   notificationConfig?: Maybe<Scalars['Json']>;
   subscriptionConfig?: Maybe<Scalars['Json']>;
 };
 
-export type AuthuserCreateManyWithoutAuthroleInput = {
-  create?: Maybe<Array<Maybe<AuthuserCreateWithoutAuthroleInput>>>;
+export type AuthuserCreateManyInput = {
+  create?: Maybe<Array<Maybe<AuthuserCreateInput>>>;
   connect?: Maybe<Array<Maybe<AuthuserWhereUniqueInput>>>;
 };
 
 export type AuthuserCreateOneInput = {
   create?: Maybe<AuthuserCreateInput>;
   connect?: Maybe<AuthuserWhereUniqueInput>;
-};
-
-export type AuthuserCreateWithoutAuthroleInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  email?: Maybe<Scalars['Email']>;
-  isRoot?: Maybe<Scalars['Boolean']>;
-  name?: Maybe<Scalars['String']>;
-  sessions?: Maybe<AuthsessionCreateManyInput>;
-  sub?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
-  notificationConfig?: Maybe<Scalars['Json']>;
-  subscriptionConfig?: Maybe<Scalars['Json']>;
 };
 
 export type AuthuserOrderInput = {
@@ -973,15 +893,15 @@ export type AuthuserUpdateInput = {
   email?: Maybe<Scalars['Email']>;
   isRoot?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
-  sessions?: Maybe<AuthsessionUpdateManyWithoutAuthuserInput>;
+  sessions?: Maybe<AuthsessionUpdateManyInput>;
   sub?: Maybe<Scalars['String']>;
   username?: Maybe<Scalars['String']>;
   notificationConfig?: Maybe<Scalars['Json']>;
   subscriptionConfig?: Maybe<Scalars['Json']>;
 };
 
-export type AuthuserUpdateManyWithoutAuthroleInput = {
-  create?: Maybe<Array<Maybe<AuthuserUpdateWithoutAuthroleInput>>>;
+export type AuthuserUpdateManyInput = {
+  create?: Maybe<Array<Maybe<AuthuserCreateInput>>>;
   connect?: Maybe<Array<Maybe<AuthuserWhereUniqueInput>>>;
   disconnect?: Maybe<Array<Maybe<AuthuserWhereUniqueInput>>>;
   delete?: Maybe<Array<Maybe<AuthuserWhereUniqueInput>>>;
@@ -994,26 +914,12 @@ export type AuthuserUpdateOneInput = {
   delete?: Maybe<Scalars['Boolean']>;
 };
 
-export type AuthuserUpdateWithoutAuthroleInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  email?: Maybe<Scalars['Email']>;
-  isRoot?: Maybe<Scalars['Boolean']>;
-  name?: Maybe<Scalars['String']>;
-  sessions?: Maybe<AuthsessionUpdateManyInput>;
-  sub?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
-  notificationConfig?: Maybe<Scalars['Json']>;
-  subscriptionConfig?: Maybe<Scalars['Json']>;
-};
-
 export type AuthuserWhereInput = {
   OR?: Maybe<Array<AuthuserWhereInput>>;
   AND?: Maybe<Array<AuthuserWhereInput>>;
   id?: Maybe<Scalars['ID']>;
   id_eq?: Maybe<Scalars['ID']>;
   id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   updatedAt_eq?: Maybe<Scalars['DateTime']>;
   updatedAt_neq?: Maybe<Scalars['DateTime']>;
@@ -1047,7 +953,7 @@ export type AuthuserWhereInput = {
   name_contains?: Maybe<Scalars['String']>;
   name_notcontains?: Maybe<Scalars['String']>;
   name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  sessions?: Maybe<FilterAuthsession>;
+  sessions?: Maybe<AuthsessionWhereInput>;
   sub?: Maybe<Scalars['String']>;
   sub_eq?: Maybe<Scalars['String']>;
   sub_neq?: Maybe<Scalars['String']>;
@@ -1060,8 +966,6 @@ export type AuthuserWhereInput = {
   username_contains?: Maybe<Scalars['String']>;
   username_notcontains?: Maybe<Scalars['String']>;
   username_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  notificationConfig_object?: Maybe<Scalars['Json']>;
-  subscriptionConfig_object?: Maybe<Scalars['Json']>;
 };
 
 export type AuthuserWhereUniqueInput = {
@@ -1092,147 +996,6 @@ export enum CacheControlScope {
   Private = 'PRIVATE'
 }
 
-export type Chat = {
-  __typename?: 'Chat';
-  id: Scalars['ID'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  users: Array<Profile>;
-  messages: Array<Message>;
-  type?: Maybe<Chattype>;
-};
-
-
-export type ChatUsersArgs = {
-  where?: Maybe<ProfileWhereInput>;
-};
-
-
-export type ChatMessagesArgs = {
-  where?: Maybe<MessageWhereInput>;
-};
-
-export type ChatConnection = {
-  __typename?: 'ChatConnection';
-  totalCount: Scalars['Int'];
-};
-
-export type ChatCreateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  users?: Maybe<ProfileCreateManyWithoutProfile_UsersfromchatfkInput>;
-  messages?: Maybe<MessageCreateManyWithoutChatInput>;
-  type?: Maybe<Chattype>;
-};
-
-export type ChatCreateManyWithoutUsersInput = {
-  create?: Maybe<Array<Maybe<ChatCreateWithoutUsersInput>>>;
-  connect?: Maybe<Array<Maybe<ChatWhereUniqueInput>>>;
-};
-
-export type ChatCreateOneInput = {
-  create?: Maybe<ChatCreateInput>;
-  connect?: Maybe<ChatWhereUniqueInput>;
-};
-
-export type ChatCreateWithoutUsersInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  messages?: Maybe<MessageCreateManyInput>;
-  type?: Maybe<Chattype>;
-};
-
-export type ChatOrderInput = {
-  id?: Maybe<OrderByEnum>;
-  updatedAt?: Maybe<OrderByEnum>;
-  createdAt?: Maybe<OrderByEnum>;
-  name?: Maybe<OrderByEnum>;
-  type?: Maybe<OrderByEnum>;
-};
-
-export type ChatUpdateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  users?: Maybe<ProfileUpdateManyWithoutProfile_UsersfromchatfkInput>;
-  messages?: Maybe<MessageUpdateManyWithoutChatInput>;
-  type?: Maybe<Chattype>;
-};
-
-export type ChatUpdateManyWithoutUsersInput = {
-  create?: Maybe<Array<Maybe<ChatUpdateWithoutUsersInput>>>;
-  connect?: Maybe<Array<Maybe<ChatWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<ChatWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<ChatWhereUniqueInput>>>;
-};
-
-export type ChatUpdateOneInput = {
-  create?: Maybe<ChatCreateInput>;
-  connect?: Maybe<ChatWhereUniqueInput>;
-  disconnect?: Maybe<Scalars['Boolean']>;
-  delete?: Maybe<Scalars['Boolean']>;
-};
-
-export type ChatUpdateWithoutUsersInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  messages?: Maybe<MessageUpdateManyInput>;
-  type?: Maybe<Chattype>;
-};
-
-export type ChatWhereInput = {
-  OR?: Maybe<Array<ChatWhereInput>>;
-  AND?: Maybe<Array<ChatWhereInput>>;
-  id?: Maybe<Scalars['ID']>;
-  id_eq?: Maybe<Scalars['ID']>;
-  id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  updatedAt_eq?: Maybe<Scalars['DateTime']>;
-  updatedAt_neq?: Maybe<Scalars['DateTime']>;
-  updatedAt_gt?: Maybe<Scalars['DateTime']>;
-  updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedAt_lt?: Maybe<Scalars['DateTime']>;
-  updatedAt_lte?: Maybe<Scalars['DateTime']>;
-  updatedAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  updatedAt_between?: Maybe<BetweenFilterDateTime>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  createdAt_eq?: Maybe<Scalars['DateTime']>;
-  createdAt_neq?: Maybe<Scalars['DateTime']>;
-  createdAt_gt?: Maybe<Scalars['DateTime']>;
-  createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdAt_lt?: Maybe<Scalars['DateTime']>;
-  createdAt_lte?: Maybe<Scalars['DateTime']>;
-  createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  createdAt_between?: Maybe<BetweenFilterDateTime>;
-  name?: Maybe<Scalars['String']>;
-  name_eq?: Maybe<Scalars['String']>;
-  name_neq?: Maybe<Scalars['String']>;
-  name_contains?: Maybe<Scalars['String']>;
-  name_notcontains?: Maybe<Scalars['String']>;
-  name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  users?: Maybe<FilterProfile>;
-  messages?: Maybe<FilterMessage>;
-  type?: Maybe<Chattype>;
-  type_eq?: Maybe<Chattype>;
-  type_neq?: Maybe<Chattype>;
-  type_contains?: Maybe<Scalars['String']>;
-  type_notcontains?: Maybe<Scalars['String']>;
-};
-
-export type ChatWhereUniqueInput = {
-  id?: Maybe<Scalars['ID']>;
-};
-
-export enum Chattype {
-  Private = 'PRIVATE',
-  Group = 'GROUP'
-}
-
 export enum Clientscope {
   Registration = 'REGISTRATION',
   Login = 'LOGIN',
@@ -1243,341 +1006,6 @@ export enum Clienttype {
   Public = 'PUBLIC',
   Confidential = 'CONFIDENTIAL'
 }
-
-export type Comment = {
-  __typename?: 'Comment';
-  id: Scalars['ID'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  author?: Maybe<Profile>;
-  text?: Maybe<Scalars['String']>;
-  project?: Maybe<Project>;
-};
-
-export type CommentConnection = {
-  __typename?: 'CommentConnection';
-  totalCount: Scalars['Int'];
-};
-
-export type CommentCreateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  author?: Maybe<ProfileCreateOneInput>;
-  text?: Maybe<Scalars['String']>;
-  project?: Maybe<ProjectCreateOneInput>;
-};
-
-export type CommentCreateManyInput = {
-  create?: Maybe<Array<Maybe<CommentCreateInput>>>;
-  connect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
-};
-
-export type CommentCreateManyWithoutProjectInput = {
-  create?: Maybe<Array<Maybe<CommentCreateWithoutProjectInput>>>;
-  connect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
-};
-
-export type CommentCreateWithoutProjectInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  author?: Maybe<ProfileCreateOneInput>;
-  text?: Maybe<Scalars['String']>;
-};
-
-export type CommentOrderInput = {
-  id?: Maybe<OrderByEnum>;
-  updatedAt?: Maybe<OrderByEnum>;
-  createdAt?: Maybe<OrderByEnum>;
-  text?: Maybe<OrderByEnum>;
-};
-
-export type CommentUpdateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  author?: Maybe<ProfileUpdateOneInput>;
-  text?: Maybe<Scalars['String']>;
-  project?: Maybe<ProjectUpdateOneInput>;
-};
-
-export type CommentUpdateManyInput = {
-  create?: Maybe<Array<Maybe<CommentCreateInput>>>;
-  connect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
-};
-
-export type CommentUpdateManyWithoutProjectInput = {
-  create?: Maybe<Array<Maybe<CommentUpdateWithoutProjectInput>>>;
-  connect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<CommentWhereUniqueInput>>>;
-};
-
-export type CommentUpdateWithoutProjectInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  author?: Maybe<ProfileUpdateOneInput>;
-  text?: Maybe<Scalars['String']>;
-};
-
-export type CommentWhereInput = {
-  OR?: Maybe<Array<CommentWhereInput>>;
-  AND?: Maybe<Array<CommentWhereInput>>;
-  id?: Maybe<Scalars['ID']>;
-  id_eq?: Maybe<Scalars['ID']>;
-  id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  updatedAt_eq?: Maybe<Scalars['DateTime']>;
-  updatedAt_neq?: Maybe<Scalars['DateTime']>;
-  updatedAt_gt?: Maybe<Scalars['DateTime']>;
-  updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedAt_lt?: Maybe<Scalars['DateTime']>;
-  updatedAt_lte?: Maybe<Scalars['DateTime']>;
-  updatedAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  updatedAt_between?: Maybe<BetweenFilterDateTime>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  createdAt_eq?: Maybe<Scalars['DateTime']>;
-  createdAt_neq?: Maybe<Scalars['DateTime']>;
-  createdAt_gt?: Maybe<Scalars['DateTime']>;
-  createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdAt_lt?: Maybe<Scalars['DateTime']>;
-  createdAt_lte?: Maybe<Scalars['DateTime']>;
-  createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  createdAt_between?: Maybe<BetweenFilterDateTime>;
-  author?: Maybe<ProfileWhereInput>;
-  text?: Maybe<Scalars['String']>;
-  text_eq?: Maybe<Scalars['String']>;
-  text_neq?: Maybe<Scalars['String']>;
-  text_contains?: Maybe<Scalars['String']>;
-  text_notcontains?: Maybe<Scalars['String']>;
-  text_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  project?: Maybe<ProjectWhereInput>;
-};
-
-export type CommentWhereUniqueInput = {
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type Connection = {
-  __typename?: 'Connection';
-  id: Scalars['ID'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  sender?: Maybe<Profile>;
-  receiver?: Maybe<Profile>;
-  status?: Maybe<Statusconnection>;
-};
-
-export type ConnectionConnection = {
-  __typename?: 'ConnectionConnection';
-  totalCount: Scalars['Int'];
-};
-
-export type ConnectionCreateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  sender?: Maybe<ProfileCreateOneInput>;
-  receiver?: Maybe<ProfileCreateOneInput>;
-  status?: Maybe<Statusconnection>;
-};
-
-export type ConnectionCreateManyInput = {
-  create?: Maybe<Array<Maybe<ConnectionCreateInput>>>;
-  connect?: Maybe<Array<Maybe<ConnectionWhereUniqueInput>>>;
-};
-
-export type ConnectionCreateManyWithoutReceiverInput = {
-  create?: Maybe<Array<Maybe<ConnectionCreateWithoutReceiverInput>>>;
-  connect?: Maybe<Array<Maybe<ConnectionWhereUniqueInput>>>;
-};
-
-export type ConnectionCreateManyWithoutSenderInput = {
-  create?: Maybe<Array<Maybe<ConnectionCreateWithoutSenderInput>>>;
-  connect?: Maybe<Array<Maybe<ConnectionWhereUniqueInput>>>;
-};
-
-export type ConnectionCreateWithoutReceiverInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  sender?: Maybe<ProfileCreateOneInput>;
-  status?: Maybe<Statusconnection>;
-};
-
-export type ConnectionCreateWithoutSenderInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  receiver?: Maybe<ProfileCreateOneInput>;
-  status?: Maybe<Statusconnection>;
-};
-
-export type ConnectionOrderInput = {
-  id?: Maybe<OrderByEnum>;
-  updatedAt?: Maybe<OrderByEnum>;
-  createdAt?: Maybe<OrderByEnum>;
-  status?: Maybe<OrderByEnum>;
-};
-
-export type ConnectionUpdateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  sender?: Maybe<ProfileUpdateOneInput>;
-  receiver?: Maybe<ProfileUpdateOneInput>;
-  status?: Maybe<Statusconnection>;
-};
-
-export type ConnectionUpdateManyInput = {
-  create?: Maybe<Array<Maybe<ConnectionCreateInput>>>;
-  connect?: Maybe<Array<Maybe<ConnectionWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<ConnectionWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<ConnectionWhereUniqueInput>>>;
-};
-
-export type ConnectionUpdateManyWithoutReceiverInput = {
-  create?: Maybe<Array<Maybe<ConnectionUpdateWithoutReceiverInput>>>;
-  connect?: Maybe<Array<Maybe<ConnectionWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<ConnectionWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<ConnectionWhereUniqueInput>>>;
-};
-
-export type ConnectionUpdateManyWithoutSenderInput = {
-  create?: Maybe<Array<Maybe<ConnectionUpdateWithoutSenderInput>>>;
-  connect?: Maybe<Array<Maybe<ConnectionWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<ConnectionWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<ConnectionWhereUniqueInput>>>;
-};
-
-export type ConnectionUpdateWithoutReceiverInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  sender?: Maybe<ProfileUpdateOneInput>;
-  status?: Maybe<Statusconnection>;
-};
-
-export type ConnectionUpdateWithoutSenderInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  receiver?: Maybe<ProfileUpdateOneInput>;
-  status?: Maybe<Statusconnection>;
-};
-
-export type ConnectionWhereInput = {
-  OR?: Maybe<Array<ConnectionWhereInput>>;
-  AND?: Maybe<Array<ConnectionWhereInput>>;
-  id?: Maybe<Scalars['ID']>;
-  id_eq?: Maybe<Scalars['ID']>;
-  id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  updatedAt_eq?: Maybe<Scalars['DateTime']>;
-  updatedAt_neq?: Maybe<Scalars['DateTime']>;
-  updatedAt_gt?: Maybe<Scalars['DateTime']>;
-  updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedAt_lt?: Maybe<Scalars['DateTime']>;
-  updatedAt_lte?: Maybe<Scalars['DateTime']>;
-  updatedAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  updatedAt_between?: Maybe<BetweenFilterDateTime>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  createdAt_eq?: Maybe<Scalars['DateTime']>;
-  createdAt_neq?: Maybe<Scalars['DateTime']>;
-  createdAt_gt?: Maybe<Scalars['DateTime']>;
-  createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdAt_lt?: Maybe<Scalars['DateTime']>;
-  createdAt_lte?: Maybe<Scalars['DateTime']>;
-  createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  createdAt_between?: Maybe<BetweenFilterDateTime>;
-  sender?: Maybe<ProfileWhereInput>;
-  receiver?: Maybe<ProfileWhereInput>;
-  status?: Maybe<Statusconnection>;
-  status_eq?: Maybe<Statusconnection>;
-  status_neq?: Maybe<Statusconnection>;
-  status_contains?: Maybe<Scalars['String']>;
-  status_notcontains?: Maybe<Scalars['String']>;
-};
-
-export type ConnectionWhereUniqueInput = {
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type Country = {
-  __typename?: 'Country';
-  id: Scalars['ID'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  code: Scalars['String'];
-};
-
-export type CountryConnection = {
-  __typename?: 'CountryConnection';
-  totalCount: Scalars['Int'];
-};
-
-export type CountryCreateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  code?: Maybe<Scalars['String']>;
-};
-
-export type CountryOrderInput = {
-  id?: Maybe<OrderByEnum>;
-  updatedAt?: Maybe<OrderByEnum>;
-  createdAt?: Maybe<OrderByEnum>;
-  name?: Maybe<OrderByEnum>;
-  code?: Maybe<OrderByEnum>;
-};
-
-export type CountryUpdateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  code?: Maybe<Scalars['String']>;
-};
-
-export type CountryWhereInput = {
-  OR?: Maybe<Array<CountryWhereInput>>;
-  AND?: Maybe<Array<CountryWhereInput>>;
-  id?: Maybe<Scalars['ID']>;
-  id_eq?: Maybe<Scalars['ID']>;
-  id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  updatedAt_eq?: Maybe<Scalars['DateTime']>;
-  updatedAt_neq?: Maybe<Scalars['DateTime']>;
-  updatedAt_gt?: Maybe<Scalars['DateTime']>;
-  updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedAt_lt?: Maybe<Scalars['DateTime']>;
-  updatedAt_lte?: Maybe<Scalars['DateTime']>;
-  updatedAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  updatedAt_between?: Maybe<BetweenFilterDateTime>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  createdAt_eq?: Maybe<Scalars['DateTime']>;
-  createdAt_neq?: Maybe<Scalars['DateTime']>;
-  createdAt_gt?: Maybe<Scalars['DateTime']>;
-  createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdAt_lt?: Maybe<Scalars['DateTime']>;
-  createdAt_lte?: Maybe<Scalars['DateTime']>;
-  createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  createdAt_between?: Maybe<BetweenFilterDateTime>;
-  name?: Maybe<Scalars['String']>;
-  name_eq?: Maybe<Scalars['String']>;
-  name_neq?: Maybe<Scalars['String']>;
-  name_contains?: Maybe<Scalars['String']>;
-  name_notcontains?: Maybe<Scalars['String']>;
-  name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  code?: Maybe<Scalars['String']>;
-  code_eq?: Maybe<Scalars['String']>;
-  code_neq?: Maybe<Scalars['String']>;
-  code_contains?: Maybe<Scalars['String']>;
-  code_notcontains?: Maybe<Scalars['String']>;
-  code_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type CountryWhereUniqueInput = {
-  id?: Maybe<Scalars['ID']>;
-  code?: Maybe<Scalars['String']>;
-};
 
 export type Datapermission = {
   __typename?: 'Datapermission';
@@ -1618,36 +1046,9 @@ export type DatapermissionCreateInput = {
   str?: Maybe<Scalars['String']>;
 };
 
-export type DatapermissionCreateManyWithoutAppclientInput = {
-  create?: Maybe<Array<Maybe<DatapermissionCreateWithoutAppclientInput>>>;
+export type DatapermissionCreateManyInput = {
+  create?: Maybe<Array<Maybe<DatapermissionCreateInput>>>;
   connect?: Maybe<Array<Maybe<DatapermissionWhereUniqueInput>>>;
-};
-
-export type DatapermissionCreateManyWithoutAuthroleInput = {
-  create?: Maybe<Array<Maybe<DatapermissionCreateWithoutAuthroleInput>>>;
-  connect?: Maybe<Array<Maybe<DatapermissionWhereUniqueInput>>>;
-};
-
-export type DatapermissionCreateWithoutAppclientInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  action?: Maybe<Actiontype>;
-  attributes?: Maybe<DatapermissionAttributesCreateInput>;
-  authrole?: Maybe<AuthroleCreateOneInput>;
-  entity?: Maybe<Scalars['String']>;
-  private?: Maybe<Scalars['Json']>;
-  str?: Maybe<Scalars['String']>;
-};
-
-export type DatapermissionCreateWithoutAuthroleInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  action?: Maybe<Actiontype>;
-  appclient?: Maybe<AppclientCreateOneInput>;
-  attributes?: Maybe<DatapermissionAttributesCreateInput>;
-  entity?: Maybe<Scalars['String']>;
-  private?: Maybe<Scalars['Json']>;
-  str?: Maybe<Scalars['String']>;
 };
 
 export type DatapermissionOrderInput = {
@@ -1673,40 +1074,11 @@ export type DatapermissionUpdateInput = {
   str?: Maybe<Scalars['String']>;
 };
 
-export type DatapermissionUpdateManyWithoutAppclientInput = {
-  create?: Maybe<Array<Maybe<DatapermissionUpdateWithoutAppclientInput>>>;
+export type DatapermissionUpdateManyInput = {
+  create?: Maybe<Array<Maybe<DatapermissionCreateInput>>>;
   connect?: Maybe<Array<Maybe<DatapermissionWhereUniqueInput>>>;
   disconnect?: Maybe<Array<Maybe<DatapermissionWhereUniqueInput>>>;
   delete?: Maybe<Array<Maybe<DatapermissionWhereUniqueInput>>>;
-};
-
-export type DatapermissionUpdateManyWithoutAuthroleInput = {
-  create?: Maybe<Array<Maybe<DatapermissionUpdateWithoutAuthroleInput>>>;
-  connect?: Maybe<Array<Maybe<DatapermissionWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<DatapermissionWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<DatapermissionWhereUniqueInput>>>;
-};
-
-export type DatapermissionUpdateWithoutAppclientInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  action?: Maybe<Actiontype>;
-  attributes?: Maybe<DatapermissionAttributesUpdateInput>;
-  authrole?: Maybe<AuthroleUpdateOneInput>;
-  entity?: Maybe<Scalars['String']>;
-  private?: Maybe<Scalars['Json']>;
-  str?: Maybe<Scalars['String']>;
-};
-
-export type DatapermissionUpdateWithoutAuthroleInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  action?: Maybe<Actiontype>;
-  appclient?: Maybe<AppclientUpdateOneInput>;
-  attributes?: Maybe<DatapermissionAttributesUpdateInput>;
-  entity?: Maybe<Scalars['String']>;
-  private?: Maybe<Scalars['Json']>;
-  str?: Maybe<Scalars['String']>;
 };
 
 export type DatapermissionWhereInput = {
@@ -1715,7 +1087,6 @@ export type DatapermissionWhereInput = {
   id?: Maybe<Scalars['ID']>;
   id_eq?: Maybe<Scalars['ID']>;
   id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   updatedAt_eq?: Maybe<Scalars['DateTime']>;
   updatedAt_neq?: Maybe<Scalars['DateTime']>;
@@ -1740,7 +1111,6 @@ export type DatapermissionWhereInput = {
   action_contains?: Maybe<Scalars['String']>;
   action_notcontains?: Maybe<Scalars['String']>;
   appclient?: Maybe<AppclientWhereInput>;
-  attributes_object?: Maybe<Scalars['Json']>;
   authrole?: Maybe<AuthroleWhereInput>;
   entity?: Maybe<Scalars['String']>;
   entity_eq?: Maybe<Scalars['String']>;
@@ -1748,7 +1118,6 @@ export type DatapermissionWhereInput = {
   entity_contains?: Maybe<Scalars['String']>;
   entity_notcontains?: Maybe<Scalars['String']>;
   entity_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  private_object?: Maybe<Scalars['Json']>;
   str?: Maybe<Scalars['String']>;
   str_eq?: Maybe<Scalars['String']>;
   str_neq?: Maybe<Scalars['String']>;
@@ -1818,7 +1187,6 @@ export type DocumentfileWhereInput = {
   id?: Maybe<Scalars['ID']>;
   id_eq?: Maybe<Scalars['ID']>;
   id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   updatedAt_eq?: Maybe<Scalars['DateTime']>;
   updatedAt_neq?: Maybe<Scalars['DateTime']>;
@@ -1844,7 +1212,6 @@ export type DocumentfileWhereInput = {
   description_contains?: Maybe<Scalars['String']>;
   description_notcontains?: Maybe<Scalars['String']>;
   description_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  metainfo_object?: Maybe<Scalars['Json']>;
   mimeType?: Maybe<MimetypeWhereInput>;
   name?: Maybe<Scalars['String']>;
   name_eq?: Maybe<Scalars['String']>;
@@ -1863,151 +1230,6 @@ export type DocumentfileWhereUniqueInput = {
   id?: Maybe<Scalars['ID']>;
 };
 
-
-export type Faq = {
-  __typename?: 'Faq';
-  id: Scalars['ID'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  question?: Maybe<Scalars['String']>;
-  answer?: Maybe<Scalars['String']>;
-};
-
-export type FaqConnection = {
-  __typename?: 'FaqConnection';
-  totalCount: Scalars['Int'];
-};
-
-export type FaqCreateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  question?: Maybe<Scalars['String']>;
-  answer?: Maybe<Scalars['String']>;
-};
-
-export type FaqOrderInput = {
-  id?: Maybe<OrderByEnum>;
-  updatedAt?: Maybe<OrderByEnum>;
-  createdAt?: Maybe<OrderByEnum>;
-  question?: Maybe<OrderByEnum>;
-  answer?: Maybe<OrderByEnum>;
-};
-
-export type FaqUpdateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  question?: Maybe<Scalars['String']>;
-  answer?: Maybe<Scalars['String']>;
-};
-
-export type FaqWhereInput = {
-  OR?: Maybe<Array<FaqWhereInput>>;
-  AND?: Maybe<Array<FaqWhereInput>>;
-  id?: Maybe<Scalars['ID']>;
-  id_eq?: Maybe<Scalars['ID']>;
-  id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  updatedAt_eq?: Maybe<Scalars['DateTime']>;
-  updatedAt_neq?: Maybe<Scalars['DateTime']>;
-  updatedAt_gt?: Maybe<Scalars['DateTime']>;
-  updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedAt_lt?: Maybe<Scalars['DateTime']>;
-  updatedAt_lte?: Maybe<Scalars['DateTime']>;
-  updatedAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  updatedAt_between?: Maybe<BetweenFilterDateTime>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  createdAt_eq?: Maybe<Scalars['DateTime']>;
-  createdAt_neq?: Maybe<Scalars['DateTime']>;
-  createdAt_gt?: Maybe<Scalars['DateTime']>;
-  createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdAt_lt?: Maybe<Scalars['DateTime']>;
-  createdAt_lte?: Maybe<Scalars['DateTime']>;
-  createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  createdAt_between?: Maybe<BetweenFilterDateTime>;
-  question?: Maybe<Scalars['String']>;
-  question_eq?: Maybe<Scalars['String']>;
-  question_neq?: Maybe<Scalars['String']>;
-  question_contains?: Maybe<Scalars['String']>;
-  question_notcontains?: Maybe<Scalars['String']>;
-  question_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  answer?: Maybe<Scalars['String']>;
-  answer_eq?: Maybe<Scalars['String']>;
-  answer_neq?: Maybe<Scalars['String']>;
-  answer_contains?: Maybe<Scalars['String']>;
-  answer_notcontains?: Maybe<Scalars['String']>;
-  answer_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type FaqWhereUniqueInput = {
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type FilterAuthsession = {
-  some?: Maybe<AuthsessionWhereInput>;
-  every?: Maybe<AuthsessionWhereInput>;
-  none?: Maybe<AuthsessionWhereInput>;
-};
-
-export type FilterAuthuser = {
-  some?: Maybe<AuthuserWhereInput>;
-  every?: Maybe<AuthuserWhereInput>;
-  none?: Maybe<AuthuserWhereInput>;
-};
-
-export type FilterChat = {
-  some?: Maybe<ChatWhereInput>;
-  every?: Maybe<ChatWhereInput>;
-  none?: Maybe<ChatWhereInput>;
-};
-
-export type FilterComment = {
-  some?: Maybe<CommentWhereInput>;
-  every?: Maybe<CommentWhereInput>;
-  none?: Maybe<CommentWhereInput>;
-};
-
-export type FilterConnection = {
-  some?: Maybe<ConnectionWhereInput>;
-  every?: Maybe<ConnectionWhereInput>;
-  none?: Maybe<ConnectionWhereInput>;
-};
-
-export type FilterDatapermission = {
-  some?: Maybe<DatapermissionWhereInput>;
-  every?: Maybe<DatapermissionWhereInput>;
-  none?: Maybe<DatapermissionWhereInput>;
-};
-
-export type FilterMessage = {
-  some?: Maybe<MessageWhereInput>;
-  every?: Maybe<MessageWhereInput>;
-  none?: Maybe<MessageWhereInput>;
-};
-
-export type FilterMimetype = {
-  some?: Maybe<MimetypeWhereInput>;
-  every?: Maybe<MimetypeWhereInput>;
-  none?: Maybe<MimetypeWhereInput>;
-};
-
-export type FilterProfile = {
-  some?: Maybe<ProfileWhereInput>;
-  every?: Maybe<ProfileWhereInput>;
-  none?: Maybe<ProfileWhereInput>;
-};
-
-export type FilterProject = {
-  some?: Maybe<ProjectWhereInput>;
-  every?: Maybe<ProjectWhereInput>;
-  none?: Maybe<ProjectWhereInput>;
-};
-
-export type FilterRequest = {
-  some?: Maybe<RequestWhereInput>;
-  every?: Maybe<RequestWhereInput>;
-  none?: Maybe<RequestWhereInput>;
-};
 
 export enum Granttype {
   Implicit = 'IMPLICIT',
@@ -2044,11 +1266,6 @@ export type ImagefileCreateInput = {
   url?: Maybe<Scalars['Url']>;
 };
 
-export type ImagefileCreateOneInput = {
-  create?: Maybe<ImagefileCreateInput>;
-  connect?: Maybe<ImagefileWhereUniqueInput>;
-};
-
 export type ImagefileOrderInput = {
   id?: Maybe<OrderByEnum>;
   updatedAt?: Maybe<OrderByEnum>;
@@ -2070,20 +1287,12 @@ export type ImagefileUpdateInput = {
   url?: Maybe<Scalars['Url']>;
 };
 
-export type ImagefileUpdateOneInput = {
-  create?: Maybe<ImagefileCreateInput>;
-  connect?: Maybe<ImagefileWhereUniqueInput>;
-  disconnect?: Maybe<Scalars['Boolean']>;
-  delete?: Maybe<Scalars['Boolean']>;
-};
-
 export type ImagefileWhereInput = {
   OR?: Maybe<Array<ImagefileWhereInput>>;
   AND?: Maybe<Array<ImagefileWhereInput>>;
   id?: Maybe<Scalars['ID']>;
   id_eq?: Maybe<Scalars['ID']>;
   id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   updatedAt_eq?: Maybe<Scalars['DateTime']>;
   updatedAt_neq?: Maybe<Scalars['DateTime']>;
@@ -2109,7 +1318,6 @@ export type ImagefileWhereInput = {
   description_contains?: Maybe<Scalars['String']>;
   description_notcontains?: Maybe<Scalars['String']>;
   description_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  metainfo_object?: Maybe<Scalars['Json']>;
   mimeType?: Maybe<MimetypeWhereInput>;
   name?: Maybe<Scalars['String']>;
   name_eq?: Maybe<Scalars['String']>;
@@ -2128,57 +1336,91 @@ export type ImagefileWhereUniqueInput = {
   id?: Maybe<Scalars['ID']>;
 };
 
-export type Interest = {
-  __typename?: 'Interest';
+
+
+export type Language = {
+  __typename?: 'Language';
   id: Scalars['ID'];
   updatedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  code: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  icon?: Maybe<Scalars['String']>;
+  namelanguage?: Maybe<Scalars['String']>;
+  isolanguage?: Maybe<Scalars['String']>;
+  nativename?: Maybe<Scalars['String']>;
+  flag?: Maybe<Scalars['Url']>;
+  applications?: Maybe<Array<Application>>;
+  language_DefaultLanguageFromApplicationFk?: Maybe<Array<Application>>;
+  language_LanguagesFromApplicationFk?: Maybe<Array<Application>>;
 };
 
-export type InterestConnection = {
-  __typename?: 'InterestConnection';
+export type LanguageConnection = {
+  __typename?: 'LanguageConnection';
   totalCount: Scalars['Int'];
 };
 
-export type InterestCreateInput = {
+export type LanguageCreateInput = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  code?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  icon?: Maybe<Scalars['String']>;
+  namelanguage?: Maybe<Scalars['String']>;
+  isolanguage?: Maybe<Scalars['String']>;
+  nativename?: Maybe<Scalars['String']>;
+  flag?: Maybe<Scalars['Url']>;
+  applications?: Maybe<ApplicationCreateManyInput>;
+  language_DefaultLanguageFromApplicationFk?: Maybe<ApplicationCreateManyInput>;
+  language_LanguagesFromApplicationFk?: Maybe<ApplicationCreateManyInput>;
 };
 
-export type InterestOrderInput = {
+export type LanguageCreateManyInput = {
+  create?: Maybe<Array<Maybe<LanguageCreateInput>>>;
+  connect?: Maybe<Array<Maybe<LanguageWhereUniqueInput>>>;
+};
+
+export type LanguageCreateOneInput = {
+  create?: Maybe<LanguageCreateInput>;
+  connect?: Maybe<LanguageWhereUniqueInput>;
+};
+
+export type LanguageOrderInput = {
   id?: Maybe<OrderByEnum>;
   updatedAt?: Maybe<OrderByEnum>;
   createdAt?: Maybe<OrderByEnum>;
-  code?: Maybe<OrderByEnum>;
-  name?: Maybe<OrderByEnum>;
-  description?: Maybe<OrderByEnum>;
-  icon?: Maybe<OrderByEnum>;
+  namelanguage?: Maybe<OrderByEnum>;
+  isolanguage?: Maybe<OrderByEnum>;
+  nativename?: Maybe<OrderByEnum>;
+  flag?: Maybe<OrderByEnum>;
 };
 
-export type InterestUpdateInput = {
+export type LanguageUpdateInput = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  code?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  icon?: Maybe<Scalars['String']>;
+  namelanguage?: Maybe<Scalars['String']>;
+  isolanguage?: Maybe<Scalars['String']>;
+  nativename?: Maybe<Scalars['String']>;
+  flag?: Maybe<Scalars['Url']>;
+  applications?: Maybe<ApplicationUpdateManyInput>;
+  language_DefaultLanguageFromApplicationFk?: Maybe<ApplicationUpdateManyInput>;
+  language_LanguagesFromApplicationFk?: Maybe<ApplicationUpdateManyInput>;
 };
 
-export type InterestWhereInput = {
-  OR?: Maybe<Array<InterestWhereInput>>;
-  AND?: Maybe<Array<InterestWhereInput>>;
+export type LanguageUpdateManyInput = {
+  create?: Maybe<Array<Maybe<LanguageCreateInput>>>;
+  connect?: Maybe<Array<Maybe<LanguageWhereUniqueInput>>>;
+  disconnect?: Maybe<Array<Maybe<LanguageWhereUniqueInput>>>;
+  delete?: Maybe<Array<Maybe<LanguageWhereUniqueInput>>>;
+};
+
+export type LanguageUpdateOneInput = {
+  create?: Maybe<LanguageCreateInput>;
+  connect?: Maybe<LanguageWhereUniqueInput>;
+  disconnect?: Maybe<Scalars['Boolean']>;
+  delete?: Maybe<Scalars['Boolean']>;
+};
+
+export type LanguageWhereInput = {
+  OR?: Maybe<Array<LanguageWhereInput>>;
+  AND?: Maybe<Array<LanguageWhereInput>>;
   id?: Maybe<Scalars['ID']>;
   id_eq?: Maybe<Scalars['ID']>;
   id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   updatedAt_eq?: Maybe<Scalars['DateTime']>;
   updatedAt_neq?: Maybe<Scalars['DateTime']>;
@@ -2197,211 +1439,37 @@ export type InterestWhereInput = {
   createdAt_lte?: Maybe<Scalars['DateTime']>;
   createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
   createdAt_between?: Maybe<BetweenFilterDateTime>;
-  code?: Maybe<Scalars['String']>;
-  code_eq?: Maybe<Scalars['String']>;
-  code_neq?: Maybe<Scalars['String']>;
-  code_contains?: Maybe<Scalars['String']>;
-  code_notcontains?: Maybe<Scalars['String']>;
-  code_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  name?: Maybe<Scalars['String']>;
-  name_eq?: Maybe<Scalars['String']>;
-  name_neq?: Maybe<Scalars['String']>;
-  name_contains?: Maybe<Scalars['String']>;
-  name_notcontains?: Maybe<Scalars['String']>;
-  name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  description?: Maybe<Scalars['String']>;
-  description_eq?: Maybe<Scalars['String']>;
-  description_neq?: Maybe<Scalars['String']>;
-  description_contains?: Maybe<Scalars['String']>;
-  description_notcontains?: Maybe<Scalars['String']>;
-  description_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  icon?: Maybe<Scalars['String']>;
-  icon_eq?: Maybe<Scalars['String']>;
-  icon_neq?: Maybe<Scalars['String']>;
-  icon_contains?: Maybe<Scalars['String']>;
-  icon_notcontains?: Maybe<Scalars['String']>;
-  icon_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  namelanguage?: Maybe<Scalars['String']>;
+  namelanguage_eq?: Maybe<Scalars['String']>;
+  namelanguage_neq?: Maybe<Scalars['String']>;
+  namelanguage_contains?: Maybe<Scalars['String']>;
+  namelanguage_notcontains?: Maybe<Scalars['String']>;
+  namelanguage_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  isolanguage?: Maybe<Scalars['String']>;
+  isolanguage_eq?: Maybe<Scalars['String']>;
+  isolanguage_neq?: Maybe<Scalars['String']>;
+  isolanguage_contains?: Maybe<Scalars['String']>;
+  isolanguage_notcontains?: Maybe<Scalars['String']>;
+  isolanguage_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  nativename?: Maybe<Scalars['String']>;
+  nativename_eq?: Maybe<Scalars['String']>;
+  nativename_neq?: Maybe<Scalars['String']>;
+  nativename_contains?: Maybe<Scalars['String']>;
+  nativename_notcontains?: Maybe<Scalars['String']>;
+  nativename_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  flag?: Maybe<Scalars['Url']>;
+  flag_eq?: Maybe<Scalars['Url']>;
+  flag_neq?: Maybe<Scalars['Url']>;
+  flag_contains?: Maybe<Scalars['Url']>;
+  flag_notcontains?: Maybe<Scalars['Url']>;
+  applications?: Maybe<ApplicationWhereInput>;
+  language_DefaultLanguageFromApplicationFk?: Maybe<ApplicationWhereInput>;
+  language_LanguagesFromApplicationFk?: Maybe<ApplicationWhereInput>;
 };
 
-export type InterestWhereUniqueInput = {
-  id?: Maybe<Scalars['ID']>;
-  code?: Maybe<Scalars['String']>;
-};
-
-
-
-export type Message = {
-  __typename?: 'Message';
-  id: Scalars['ID'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  sender?: Maybe<Profile>;
-  text?: Maybe<Scalars['String']>;
-  type?: Maybe<Messagetype>;
-  seen: Array<Profile>;
-  chat?: Maybe<Chat>;
-};
-
-
-export type MessageSeenArgs = {
-  where?: Maybe<ProfileWhereInput>;
-};
-
-export type MessageConnection = {
-  __typename?: 'MessageConnection';
-  totalCount: Scalars['Int'];
-};
-
-export type MessageCreateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  sender?: Maybe<ProfileCreateOneInput>;
-  text?: Maybe<Scalars['String']>;
-  type?: Maybe<Messagetype>;
-  seen?: Maybe<ProfileCreateManyWithoutProfile_SeenfrommessagefkInput>;
-  chat?: Maybe<ChatCreateOneInput>;
-};
-
-export type MessageCreateManyInput = {
-  create?: Maybe<Array<Maybe<MessageCreateInput>>>;
-  connect?: Maybe<Array<Maybe<MessageWhereUniqueInput>>>;
-};
-
-export type MessageCreateManyWithoutChatInput = {
-  create?: Maybe<Array<Maybe<MessageCreateWithoutChatInput>>>;
-  connect?: Maybe<Array<Maybe<MessageWhereUniqueInput>>>;
-};
-
-export type MessageCreateManyWithoutSeenInput = {
-  create?: Maybe<Array<Maybe<MessageCreateWithoutSeenInput>>>;
-  connect?: Maybe<Array<Maybe<MessageWhereUniqueInput>>>;
-};
-
-export type MessageCreateWithoutChatInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  sender?: Maybe<ProfileCreateOneInput>;
-  text?: Maybe<Scalars['String']>;
-  type?: Maybe<Messagetype>;
-  seen?: Maybe<ProfileCreateManyWithoutProfile_SeenfrommessagefkInput>;
-};
-
-export type MessageCreateWithoutSeenInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  sender?: Maybe<ProfileCreateOneInput>;
-  text?: Maybe<Scalars['String']>;
-  type?: Maybe<Messagetype>;
-  chat?: Maybe<ChatCreateOneInput>;
-};
-
-export type MessageOrderInput = {
-  id?: Maybe<OrderByEnum>;
-  updatedAt?: Maybe<OrderByEnum>;
-  createdAt?: Maybe<OrderByEnum>;
-  text?: Maybe<OrderByEnum>;
-  type?: Maybe<OrderByEnum>;
-};
-
-export type MessageUpdateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  sender?: Maybe<ProfileUpdateOneInput>;
-  text?: Maybe<Scalars['String']>;
-  type?: Maybe<Messagetype>;
-  seen?: Maybe<ProfileUpdateManyWithoutProfile_SeenfrommessagefkInput>;
-  chat?: Maybe<ChatUpdateOneInput>;
-};
-
-export type MessageUpdateManyInput = {
-  create?: Maybe<Array<Maybe<MessageCreateInput>>>;
-  connect?: Maybe<Array<Maybe<MessageWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<MessageWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<MessageWhereUniqueInput>>>;
-};
-
-export type MessageUpdateManyWithoutChatInput = {
-  create?: Maybe<Array<Maybe<MessageUpdateWithoutChatInput>>>;
-  connect?: Maybe<Array<Maybe<MessageWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<MessageWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<MessageWhereUniqueInput>>>;
-};
-
-export type MessageUpdateManyWithoutSeenInput = {
-  create?: Maybe<Array<Maybe<MessageUpdateWithoutSeenInput>>>;
-  connect?: Maybe<Array<Maybe<MessageWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<MessageWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<MessageWhereUniqueInput>>>;
-};
-
-export type MessageUpdateWithoutChatInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  sender?: Maybe<ProfileUpdateOneInput>;
-  text?: Maybe<Scalars['String']>;
-  type?: Maybe<Messagetype>;
-  seen?: Maybe<ProfileUpdateManyWithoutProfile_SeenfrommessagefkInput>;
-};
-
-export type MessageUpdateWithoutSeenInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  sender?: Maybe<ProfileUpdateOneInput>;
-  text?: Maybe<Scalars['String']>;
-  type?: Maybe<Messagetype>;
-  chat?: Maybe<ChatUpdateOneInput>;
-};
-
-export type MessageWhereInput = {
-  OR?: Maybe<Array<MessageWhereInput>>;
-  AND?: Maybe<Array<MessageWhereInput>>;
-  id?: Maybe<Scalars['ID']>;
-  id_eq?: Maybe<Scalars['ID']>;
-  id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  updatedAt_eq?: Maybe<Scalars['DateTime']>;
-  updatedAt_neq?: Maybe<Scalars['DateTime']>;
-  updatedAt_gt?: Maybe<Scalars['DateTime']>;
-  updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedAt_lt?: Maybe<Scalars['DateTime']>;
-  updatedAt_lte?: Maybe<Scalars['DateTime']>;
-  updatedAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  updatedAt_between?: Maybe<BetweenFilterDateTime>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  createdAt_eq?: Maybe<Scalars['DateTime']>;
-  createdAt_neq?: Maybe<Scalars['DateTime']>;
-  createdAt_gt?: Maybe<Scalars['DateTime']>;
-  createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdAt_lt?: Maybe<Scalars['DateTime']>;
-  createdAt_lte?: Maybe<Scalars['DateTime']>;
-  createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  createdAt_between?: Maybe<BetweenFilterDateTime>;
-  sender?: Maybe<ProfileWhereInput>;
-  text?: Maybe<Scalars['String']>;
-  text_eq?: Maybe<Scalars['String']>;
-  text_neq?: Maybe<Scalars['String']>;
-  text_contains?: Maybe<Scalars['String']>;
-  text_notcontains?: Maybe<Scalars['String']>;
-  text_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  type?: Maybe<Messagetype>;
-  type_eq?: Maybe<Messagetype>;
-  type_neq?: Maybe<Messagetype>;
-  type_contains?: Maybe<Scalars['String']>;
-  type_notcontains?: Maybe<Scalars['String']>;
-  seen?: Maybe<FilterProfile>;
-  chat?: Maybe<ChatWhereInput>;
-};
-
-export type MessageWhereUniqueInput = {
+export type LanguageWhereUniqueInput = {
   id?: Maybe<Scalars['ID']>;
 };
-
-export enum Messagetype {
-  Default = 'DEFAULT',
-  System = 'SYSTEM',
-  Deleted = 'DELETED'
-}
 
 export type Mimetype = {
   __typename?: 'Mimetype';
@@ -2485,7 +1553,6 @@ export type MimetypeWhereInput = {
   id?: Maybe<Scalars['ID']>;
   id_eq?: Maybe<Scalars['ID']>;
   id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   updatedAt_eq?: Maybe<Scalars['DateTime']>;
   updatedAt_neq?: Maybe<Scalars['DateTime']>;
@@ -2534,9 +1601,18 @@ export type MimetypeWhereUniqueInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createTrigger: Trigger;
-  updateTrigger: Trigger;
-  deleteTrigger: Trigger;
+  createLanguage: Language;
+  updateLanguage: Language;
+  deleteLanguage: Language;
+  createSchema: Schema;
+  updateSchema: Schema;
+  deleteSchema: Schema;
+  createApplication: Application;
+  updateApplication: Application;
+  deleteApplication: Application;
+  createTranslation: Translation;
+  updateTranslation: Translation;
+  deleteTranslation: Translation;
   createAppclient: Appclient;
   updateAppclient: Appclient;
   deleteAppclient: Appclient;
@@ -2573,61 +1649,70 @@ export type Mutation = {
   createVideofile: Videofile;
   updateVideofile: Videofile;
   deleteVideofile: Videofile;
-  createRegistration: Registration;
-  updateRegistration: Registration;
-  deleteRegistration: Registration;
-  createFaq: Faq;
-  updateFaq: Faq;
-  deleteFaq: Faq;
-  createAnswer: Answer;
-  updateAnswer: Answer;
-  deleteAnswer: Answer;
-  createCountry: Country;
-  updateCountry: Country;
-  deleteCountry: Country;
-  createSkill: Skill;
-  updateSkill: Skill;
-  deleteSkill: Skill;
-  createInterest: Interest;
-  updateInterest: Interest;
-  deleteInterest: Interest;
-  createProfile: Profile;
-  updateProfile: Profile;
-  deleteProfile: Profile;
-  createChat: Chat;
-  updateChat: Chat;
-  deleteChat: Chat;
-  createMessage: Message;
-  updateMessage: Message;
-  deleteMessage: Message;
-  createConnection: Connection;
-  updateConnection: Connection;
-  deleteConnection: Connection;
-  createProject: Project;
-  updateProject: Project;
-  deleteProject: Project;
-  createRequest: Request;
-  updateRequest: Request;
-  deleteRequest: Request;
-  createComment: Comment;
-  updateComment: Comment;
-  deleteComment: Comment;
 };
 
 
-export type MutationCreateTriggerArgs = {
-  data: TriggerCreateInput;
+export type MutationCreateLanguageArgs = {
+  data: LanguageCreateInput;
 };
 
 
-export type MutationUpdateTriggerArgs = {
-  where: TriggerWhereUniqueInput;
-  data: TriggerUpdateInput;
+export type MutationUpdateLanguageArgs = {
+  where: LanguageWhereUniqueInput;
+  data: LanguageUpdateInput;
 };
 
 
-export type MutationDeleteTriggerArgs = {
-  where: TriggerWhereUniqueInput;
+export type MutationDeleteLanguageArgs = {
+  where: LanguageWhereUniqueInput;
+};
+
+
+export type MutationCreateSchemaArgs = {
+  data: SchemaCreateInput;
+};
+
+
+export type MutationUpdateSchemaArgs = {
+  where: SchemaWhereUniqueInput;
+  data: SchemaUpdateInput;
+};
+
+
+export type MutationDeleteSchemaArgs = {
+  where: SchemaWhereUniqueInput;
+};
+
+
+export type MutationCreateApplicationArgs = {
+  data: ApplicationCreateInput;
+};
+
+
+export type MutationUpdateApplicationArgs = {
+  where: ApplicationWhereUniqueInput;
+  data: ApplicationUpdateInput;
+};
+
+
+export type MutationDeleteApplicationArgs = {
+  where: ApplicationWhereUniqueInput;
+};
+
+
+export type MutationCreateTranslationArgs = {
+  data: TranslationCreateInput;
+};
+
+
+export type MutationUpdateTranslationArgs = {
+  where: TranslationWhereUniqueInput;
+  data: TranslationUpdateInput;
+};
+
+
+export type MutationDeleteTranslationArgs = {
+  where: TranslationWhereUniqueInput;
 };
 
 
@@ -2822,789 +1907,26 @@ export type MutationDeleteVideofileArgs = {
   where: VideofileWhereUniqueInput;
 };
 
-
-export type MutationCreateRegistrationArgs = {
-  data: RegistrationCreateInput;
-};
-
-
-export type MutationUpdateRegistrationArgs = {
-  where: RegistrationWhereUniqueInput;
-  data: RegistrationUpdateInput;
-};
-
-
-export type MutationDeleteRegistrationArgs = {
-  where: RegistrationWhereUniqueInput;
-};
-
-
-export type MutationCreateFaqArgs = {
-  data: FaqCreateInput;
-};
-
-
-export type MutationUpdateFaqArgs = {
-  where: FaqWhereUniqueInput;
-  data: FaqUpdateInput;
-};
-
-
-export type MutationDeleteFaqArgs = {
-  where: FaqWhereUniqueInput;
-};
-
-
-export type MutationCreateAnswerArgs = {
-  data: AnswerCreateInput;
-};
-
-
-export type MutationUpdateAnswerArgs = {
-  where: AnswerWhereUniqueInput;
-  data: AnswerUpdateInput;
-};
-
-
-export type MutationDeleteAnswerArgs = {
-  where: AnswerWhereUniqueInput;
-};
-
-
-export type MutationCreateCountryArgs = {
-  data: CountryCreateInput;
-};
-
-
-export type MutationUpdateCountryArgs = {
-  where: CountryWhereUniqueInput;
-  data: CountryUpdateInput;
-};
-
-
-export type MutationDeleteCountryArgs = {
-  where: CountryWhereUniqueInput;
-};
-
-
-export type MutationCreateSkillArgs = {
-  data: SkillCreateInput;
-};
-
-
-export type MutationUpdateSkillArgs = {
-  where: SkillWhereUniqueInput;
-  data: SkillUpdateInput;
-};
-
-
-export type MutationDeleteSkillArgs = {
-  where: SkillWhereUniqueInput;
-};
-
-
-export type MutationCreateInterestArgs = {
-  data: InterestCreateInput;
-};
-
-
-export type MutationUpdateInterestArgs = {
-  where: InterestWhereUniqueInput;
-  data: InterestUpdateInput;
-};
-
-
-export type MutationDeleteInterestArgs = {
-  where: InterestWhereUniqueInput;
-};
-
-
-export type MutationCreateProfileArgs = {
-  data: ProfileCreateInput;
-};
-
-
-export type MutationUpdateProfileArgs = {
-  where: ProfileWhereUniqueInput;
-  data: ProfileUpdateInput;
-};
-
-
-export type MutationDeleteProfileArgs = {
-  where: ProfileWhereUniqueInput;
-};
-
-
-export type MutationCreateChatArgs = {
-  data: ChatCreateInput;
-};
-
-
-export type MutationUpdateChatArgs = {
-  where: ChatWhereUniqueInput;
-  data: ChatUpdateInput;
-};
-
-
-export type MutationDeleteChatArgs = {
-  where: ChatWhereUniqueInput;
-};
-
-
-export type MutationCreateMessageArgs = {
-  data: MessageCreateInput;
-};
-
-
-export type MutationUpdateMessageArgs = {
-  where: MessageWhereUniqueInput;
-  data: MessageUpdateInput;
-};
-
-
-export type MutationDeleteMessageArgs = {
-  where: MessageWhereUniqueInput;
-};
-
-
-export type MutationCreateConnectionArgs = {
-  data: ConnectionCreateInput;
-};
-
-
-export type MutationUpdateConnectionArgs = {
-  where: ConnectionWhereUniqueInput;
-  data: ConnectionUpdateInput;
-};
-
-
-export type MutationDeleteConnectionArgs = {
-  where: ConnectionWhereUniqueInput;
-};
-
-
-export type MutationCreateProjectArgs = {
-  data: ProjectCreateInput;
-};
-
-
-export type MutationUpdateProjectArgs = {
-  where: ProjectWhereUniqueInput;
-  data: ProjectUpdateInput;
-};
-
-
-export type MutationDeleteProjectArgs = {
-  where: ProjectWhereUniqueInput;
-};
-
-
-export type MutationCreateRequestArgs = {
-  data: RequestCreateInput;
-};
-
-
-export type MutationUpdateRequestArgs = {
-  where: RequestWhereUniqueInput;
-  data: RequestUpdateInput;
-};
-
-
-export type MutationDeleteRequestArgs = {
-  where: RequestWhereUniqueInput;
-};
-
-
-export type MutationCreateCommentArgs = {
-  data: CommentCreateInput;
-};
-
-
-export type MutationUpdateCommentArgs = {
-  where: CommentWhereUniqueInput;
-  data: CommentUpdateInput;
-};
-
-
-export type MutationDeleteCommentArgs = {
-  where: CommentWhereUniqueInput;
-};
-
-export enum Notificationactiontype {
-  Create = 'CREATE',
-  Read = 'READ',
-  Update = 'UPDATE',
-  Delete = 'DELETE'
-}
-
 export enum OrderByEnum {
   Asc = 'ASC',
   Desc = 'DESC'
 }
 
 
-export type Profile = {
-  __typename?: 'Profile';
-  id: Scalars['ID'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  user?: Maybe<Authuser>;
-  avatar?: Maybe<Imagefile>;
-  video?: Maybe<Videofile>;
-  description?: Maybe<Scalars['String']>;
-  profession?: Maybe<Scalars['String']>;
-  profile_UsersFromChatFk: Array<Chat>;
-  profile_SeenFromMessageFk: Array<Message>;
-  sentConnections: Array<Connection>;
-  receivedConnections: Array<Connection>;
-  linkedin?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  skills?: Maybe<Scalars['Json']>;
-  interests?: Maybe<Scalars['Json']>;
-  feedback?: Maybe<Scalars['String']>;
-  invitations: Array<Request>;
-  requests: Array<Request>;
-  founder_projects: Array<Project>;
-  email?: Maybe<Scalars['Email']>;
-};
-
-
-export type ProfileProfile_UsersFromChatFkArgs = {
-  where?: Maybe<ChatWhereInput>;
-};
-
-
-export type ProfileProfile_SeenFromMessageFkArgs = {
-  where?: Maybe<MessageWhereInput>;
-};
-
-
-export type ProfileSentConnectionsArgs = {
-  where?: Maybe<ConnectionWhereInput>;
-};
-
-
-export type ProfileReceivedConnectionsArgs = {
-  where?: Maybe<ConnectionWhereInput>;
-};
-
-
-export type ProfileInvitationsArgs = {
-  where?: Maybe<RequestWhereInput>;
-};
-
-
-export type ProfileRequestsArgs = {
-  where?: Maybe<RequestWhereInput>;
-};
-
-
-export type ProfileFounder_ProjectsArgs = {
-  where?: Maybe<ProjectWhereInput>;
-};
-
-export type ProfileConnection = {
-  __typename?: 'ProfileConnection';
-  totalCount: Scalars['Int'];
-};
-
-export type ProfileCreateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  user?: Maybe<AuthuserCreateOneInput>;
-  avatar?: Maybe<ImagefileCreateOneInput>;
-  video?: Maybe<VideofileCreateOneInput>;
-  description?: Maybe<Scalars['String']>;
-  profession?: Maybe<Scalars['String']>;
-  profile_UsersFromChatFk?: Maybe<ChatCreateManyWithoutUsersInput>;
-  profile_SeenFromMessageFk?: Maybe<MessageCreateManyWithoutSeenInput>;
-  sentConnections?: Maybe<ConnectionCreateManyWithoutSenderInput>;
-  receivedConnections?: Maybe<ConnectionCreateManyWithoutReceiverInput>;
-  linkedin?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  skills?: Maybe<Scalars['Json']>;
-  interests?: Maybe<Scalars['Json']>;
-  feedback?: Maybe<Scalars['String']>;
-  invitations?: Maybe<RequestCreateManyWithoutInviteeInput>;
-  requests?: Maybe<RequestCreateManyWithoutInviterInput>;
-  founder_projects?: Maybe<ProjectCreateManyWithoutFoundersInput>;
-  email?: Maybe<Scalars['Email']>;
-};
-
-export type ProfileCreateManyWithoutFounder_ProjectsInput = {
-  create?: Maybe<Array<Maybe<ProfileCreateWithoutFounder_ProjectsInput>>>;
-  connect?: Maybe<Array<Maybe<ProfileWhereUniqueInput>>>;
-};
-
-export type ProfileCreateManyWithoutProfile_SeenfrommessagefkInput = {
-  create?: Maybe<Array<Maybe<ProfileCreateWithoutProfile_SeenfrommessagefkInput>>>;
-  connect?: Maybe<Array<Maybe<ProfileWhereUniqueInput>>>;
-};
-
-export type ProfileCreateManyWithoutProfile_UsersfromchatfkInput = {
-  create?: Maybe<Array<Maybe<ProfileCreateWithoutProfile_UsersfromchatfkInput>>>;
-  connect?: Maybe<Array<Maybe<ProfileWhereUniqueInput>>>;
-};
-
-export type ProfileCreateOneInput = {
-  create?: Maybe<ProfileCreateInput>;
-  connect?: Maybe<ProfileWhereUniqueInput>;
-};
-
-export type ProfileCreateWithoutFounder_ProjectsInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  user?: Maybe<AuthuserCreateOneInput>;
-  avatar?: Maybe<ImagefileCreateOneInput>;
-  video?: Maybe<VideofileCreateOneInput>;
-  description?: Maybe<Scalars['String']>;
-  profession?: Maybe<Scalars['String']>;
-  profile_UsersFromChatFk?: Maybe<ChatCreateManyWithoutUsersInput>;
-  profile_SeenFromMessageFk?: Maybe<MessageCreateManyWithoutSeenInput>;
-  sentConnections?: Maybe<ConnectionCreateManyInput>;
-  receivedConnections?: Maybe<ConnectionCreateManyInput>;
-  linkedin?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  skills?: Maybe<Scalars['Json']>;
-  interests?: Maybe<Scalars['Json']>;
-  feedback?: Maybe<Scalars['String']>;
-  invitations?: Maybe<RequestCreateManyInput>;
-  requests?: Maybe<RequestCreateManyInput>;
-  email?: Maybe<Scalars['Email']>;
-};
-
-export type ProfileCreateWithoutProfile_SeenfrommessagefkInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  user?: Maybe<AuthuserCreateOneInput>;
-  avatar?: Maybe<ImagefileCreateOneInput>;
-  video?: Maybe<VideofileCreateOneInput>;
-  description?: Maybe<Scalars['String']>;
-  profession?: Maybe<Scalars['String']>;
-  profile_UsersFromChatFk?: Maybe<ChatCreateManyWithoutUsersInput>;
-  sentConnections?: Maybe<ConnectionCreateManyInput>;
-  receivedConnections?: Maybe<ConnectionCreateManyInput>;
-  linkedin?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  skills?: Maybe<Scalars['Json']>;
-  interests?: Maybe<Scalars['Json']>;
-  feedback?: Maybe<Scalars['String']>;
-  invitations?: Maybe<RequestCreateManyInput>;
-  requests?: Maybe<RequestCreateManyInput>;
-  founder_projects?: Maybe<ProjectCreateManyWithoutFoundersInput>;
-  email?: Maybe<Scalars['Email']>;
-};
-
-export type ProfileCreateWithoutProfile_UsersfromchatfkInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  user?: Maybe<AuthuserCreateOneInput>;
-  avatar?: Maybe<ImagefileCreateOneInput>;
-  video?: Maybe<VideofileCreateOneInput>;
-  description?: Maybe<Scalars['String']>;
-  profession?: Maybe<Scalars['String']>;
-  profile_SeenFromMessageFk?: Maybe<MessageCreateManyWithoutSeenInput>;
-  sentConnections?: Maybe<ConnectionCreateManyInput>;
-  receivedConnections?: Maybe<ConnectionCreateManyInput>;
-  linkedin?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  skills?: Maybe<Scalars['Json']>;
-  interests?: Maybe<Scalars['Json']>;
-  feedback?: Maybe<Scalars['String']>;
-  invitations?: Maybe<RequestCreateManyInput>;
-  requests?: Maybe<RequestCreateManyInput>;
-  founder_projects?: Maybe<ProjectCreateManyWithoutFoundersInput>;
-  email?: Maybe<Scalars['Email']>;
-};
-
-export type ProfileOrderInput = {
-  id?: Maybe<OrderByEnum>;
-  updatedAt?: Maybe<OrderByEnum>;
-  createdAt?: Maybe<OrderByEnum>;
-  description?: Maybe<OrderByEnum>;
-  profession?: Maybe<OrderByEnum>;
-  linkedin?: Maybe<OrderByEnum>;
-  phone?: Maybe<OrderByEnum>;
-  skills?: Maybe<OrderByEnum>;
-  interests?: Maybe<OrderByEnum>;
-  feedback?: Maybe<OrderByEnum>;
-  email?: Maybe<OrderByEnum>;
-};
-
-export type ProfileUpdateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  user?: Maybe<AuthuserUpdateOneInput>;
-  avatar?: Maybe<ImagefileUpdateOneInput>;
-  video?: Maybe<VideofileUpdateOneInput>;
-  description?: Maybe<Scalars['String']>;
-  profession?: Maybe<Scalars['String']>;
-  profile_UsersFromChatFk?: Maybe<ChatUpdateManyWithoutUsersInput>;
-  profile_SeenFromMessageFk?: Maybe<MessageUpdateManyWithoutSeenInput>;
-  sentConnections?: Maybe<ConnectionUpdateManyWithoutSenderInput>;
-  receivedConnections?: Maybe<ConnectionUpdateManyWithoutReceiverInput>;
-  linkedin?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  skills?: Maybe<Scalars['Json']>;
-  interests?: Maybe<Scalars['Json']>;
-  feedback?: Maybe<Scalars['String']>;
-  invitations?: Maybe<RequestUpdateManyWithoutInviteeInput>;
-  requests?: Maybe<RequestUpdateManyWithoutInviterInput>;
-  founder_projects?: Maybe<ProjectUpdateManyWithoutFoundersInput>;
-  email?: Maybe<Scalars['Email']>;
-};
-
-export type ProfileUpdateManyWithoutFounder_ProjectsInput = {
-  create?: Maybe<Array<Maybe<ProfileUpdateWithoutFounder_ProjectsInput>>>;
-  connect?: Maybe<Array<Maybe<ProfileWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<ProfileWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<ProfileWhereUniqueInput>>>;
-};
-
-export type ProfileUpdateManyWithoutProfile_SeenfrommessagefkInput = {
-  create?: Maybe<Array<Maybe<ProfileUpdateWithoutProfile_SeenfrommessagefkInput>>>;
-  connect?: Maybe<Array<Maybe<ProfileWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<ProfileWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<ProfileWhereUniqueInput>>>;
-};
-
-export type ProfileUpdateManyWithoutProfile_UsersfromchatfkInput = {
-  create?: Maybe<Array<Maybe<ProfileUpdateWithoutProfile_UsersfromchatfkInput>>>;
-  connect?: Maybe<Array<Maybe<ProfileWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<ProfileWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<ProfileWhereUniqueInput>>>;
-};
-
-export type ProfileUpdateOneInput = {
-  create?: Maybe<ProfileCreateInput>;
-  connect?: Maybe<ProfileWhereUniqueInput>;
-  disconnect?: Maybe<Scalars['Boolean']>;
-  delete?: Maybe<Scalars['Boolean']>;
-};
-
-export type ProfileUpdateWithoutFounder_ProjectsInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  user?: Maybe<AuthuserUpdateOneInput>;
-  avatar?: Maybe<ImagefileUpdateOneInput>;
-  video?: Maybe<VideofileUpdateOneInput>;
-  description?: Maybe<Scalars['String']>;
-  profession?: Maybe<Scalars['String']>;
-  profile_UsersFromChatFk?: Maybe<ChatUpdateManyWithoutUsersInput>;
-  profile_SeenFromMessageFk?: Maybe<MessageUpdateManyWithoutSeenInput>;
-  sentConnections?: Maybe<ConnectionUpdateManyInput>;
-  receivedConnections?: Maybe<ConnectionUpdateManyInput>;
-  linkedin?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  skills?: Maybe<Scalars['Json']>;
-  interests?: Maybe<Scalars['Json']>;
-  feedback?: Maybe<Scalars['String']>;
-  invitations?: Maybe<RequestUpdateManyInput>;
-  requests?: Maybe<RequestUpdateManyInput>;
-  email?: Maybe<Scalars['Email']>;
-};
-
-export type ProfileUpdateWithoutProfile_SeenfrommessagefkInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  user?: Maybe<AuthuserUpdateOneInput>;
-  avatar?: Maybe<ImagefileUpdateOneInput>;
-  video?: Maybe<VideofileUpdateOneInput>;
-  description?: Maybe<Scalars['String']>;
-  profession?: Maybe<Scalars['String']>;
-  profile_UsersFromChatFk?: Maybe<ChatUpdateManyWithoutUsersInput>;
-  sentConnections?: Maybe<ConnectionUpdateManyInput>;
-  receivedConnections?: Maybe<ConnectionUpdateManyInput>;
-  linkedin?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  skills?: Maybe<Scalars['Json']>;
-  interests?: Maybe<Scalars['Json']>;
-  feedback?: Maybe<Scalars['String']>;
-  invitations?: Maybe<RequestUpdateManyInput>;
-  requests?: Maybe<RequestUpdateManyInput>;
-  founder_projects?: Maybe<ProjectUpdateManyWithoutFoundersInput>;
-  email?: Maybe<Scalars['Email']>;
-};
-
-export type ProfileUpdateWithoutProfile_UsersfromchatfkInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  user?: Maybe<AuthuserUpdateOneInput>;
-  avatar?: Maybe<ImagefileUpdateOneInput>;
-  video?: Maybe<VideofileUpdateOneInput>;
-  description?: Maybe<Scalars['String']>;
-  profession?: Maybe<Scalars['String']>;
-  profile_SeenFromMessageFk?: Maybe<MessageUpdateManyWithoutSeenInput>;
-  sentConnections?: Maybe<ConnectionUpdateManyInput>;
-  receivedConnections?: Maybe<ConnectionUpdateManyInput>;
-  linkedin?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  skills?: Maybe<Scalars['Json']>;
-  interests?: Maybe<Scalars['Json']>;
-  feedback?: Maybe<Scalars['String']>;
-  invitations?: Maybe<RequestUpdateManyInput>;
-  requests?: Maybe<RequestUpdateManyInput>;
-  founder_projects?: Maybe<ProjectUpdateManyWithoutFoundersInput>;
-  email?: Maybe<Scalars['Email']>;
-};
-
-export type ProfileWhereInput = {
-  OR?: Maybe<Array<ProfileWhereInput>>;
-  AND?: Maybe<Array<ProfileWhereInput>>;
-  id?: Maybe<Scalars['ID']>;
-  id_eq?: Maybe<Scalars['ID']>;
-  id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  updatedAt_eq?: Maybe<Scalars['DateTime']>;
-  updatedAt_neq?: Maybe<Scalars['DateTime']>;
-  updatedAt_gt?: Maybe<Scalars['DateTime']>;
-  updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedAt_lt?: Maybe<Scalars['DateTime']>;
-  updatedAt_lte?: Maybe<Scalars['DateTime']>;
-  updatedAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  updatedAt_between?: Maybe<BetweenFilterDateTime>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  createdAt_eq?: Maybe<Scalars['DateTime']>;
-  createdAt_neq?: Maybe<Scalars['DateTime']>;
-  createdAt_gt?: Maybe<Scalars['DateTime']>;
-  createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdAt_lt?: Maybe<Scalars['DateTime']>;
-  createdAt_lte?: Maybe<Scalars['DateTime']>;
-  createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  createdAt_between?: Maybe<BetweenFilterDateTime>;
-  user?: Maybe<AuthuserWhereInput>;
-  avatar?: Maybe<ImagefileWhereInput>;
-  video?: Maybe<VideofileWhereInput>;
-  description?: Maybe<Scalars['String']>;
-  description_eq?: Maybe<Scalars['String']>;
-  description_neq?: Maybe<Scalars['String']>;
-  description_contains?: Maybe<Scalars['String']>;
-  description_notcontains?: Maybe<Scalars['String']>;
-  description_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  profession?: Maybe<Scalars['String']>;
-  profession_eq?: Maybe<Scalars['String']>;
-  profession_neq?: Maybe<Scalars['String']>;
-  profession_contains?: Maybe<Scalars['String']>;
-  profession_notcontains?: Maybe<Scalars['String']>;
-  profession_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  profile_UsersFromChatFk?: Maybe<FilterChat>;
-  profile_SeenFromMessageFk?: Maybe<FilterMessage>;
-  sentConnections?: Maybe<FilterConnection>;
-  receivedConnections?: Maybe<FilterConnection>;
-  linkedin?: Maybe<Scalars['String']>;
-  linkedin_eq?: Maybe<Scalars['String']>;
-  linkedin_neq?: Maybe<Scalars['String']>;
-  linkedin_contains?: Maybe<Scalars['String']>;
-  linkedin_notcontains?: Maybe<Scalars['String']>;
-  linkedin_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  phone?: Maybe<Scalars['String']>;
-  phone_eq?: Maybe<Scalars['String']>;
-  phone_neq?: Maybe<Scalars['String']>;
-  phone_contains?: Maybe<Scalars['String']>;
-  phone_notcontains?: Maybe<Scalars['String']>;
-  phone_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  skills_object?: Maybe<Scalars['Json']>;
-  interests_object?: Maybe<Scalars['Json']>;
-  feedback?: Maybe<Scalars['String']>;
-  feedback_eq?: Maybe<Scalars['String']>;
-  feedback_neq?: Maybe<Scalars['String']>;
-  feedback_contains?: Maybe<Scalars['String']>;
-  feedback_notcontains?: Maybe<Scalars['String']>;
-  feedback_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  invitations?: Maybe<FilterRequest>;
-  requests?: Maybe<FilterRequest>;
-  founder_projects?: Maybe<FilterProject>;
-  email?: Maybe<Scalars['Email']>;
-  email_eq?: Maybe<Scalars['Email']>;
-  email_neq?: Maybe<Scalars['Email']>;
-  email_contains?: Maybe<Scalars['Email']>;
-  email_notcontains?: Maybe<Scalars['Email']>;
-};
-
-export type ProfileWhereUniqueInput = {
-  id?: Maybe<Scalars['ID']>;
-  email?: Maybe<Scalars['Email']>;
-};
-
-export type Project = {
-  __typename?: 'Project';
-  id: Scalars['ID'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  video?: Maybe<Videofile>;
-  categories?: Maybe<Scalars['Json']>;
-  requests: Array<Request>;
-  comments: Array<Comment>;
-  founders: Array<Profile>;
-  chat?: Maybe<Chat>;
-  avatar?: Maybe<Imagefile>;
-};
-
-
-export type ProjectRequestsArgs = {
-  where?: Maybe<RequestWhereInput>;
-};
-
-
-export type ProjectCommentsArgs = {
-  where?: Maybe<CommentWhereInput>;
-};
-
-
-export type ProjectFoundersArgs = {
-  where?: Maybe<ProfileWhereInput>;
-};
-
-export type ProjectConnection = {
-  __typename?: 'ProjectConnection';
-  totalCount: Scalars['Int'];
-};
-
-export type ProjectCreateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  video?: Maybe<VideofileCreateOneInput>;
-  categories?: Maybe<Scalars['Json']>;
-  requests?: Maybe<RequestCreateManyWithoutProjectInput>;
-  comments?: Maybe<CommentCreateManyWithoutProjectInput>;
-  founders?: Maybe<ProfileCreateManyWithoutFounder_ProjectsInput>;
-  chat?: Maybe<ChatCreateOneInput>;
-  avatar?: Maybe<ImagefileCreateOneInput>;
-};
-
-export type ProjectCreateManyWithoutFoundersInput = {
-  create?: Maybe<Array<Maybe<ProjectCreateWithoutFoundersInput>>>;
-  connect?: Maybe<Array<Maybe<ProjectWhereUniqueInput>>>;
-};
-
-export type ProjectCreateOneInput = {
-  create?: Maybe<ProjectCreateInput>;
-  connect?: Maybe<ProjectWhereUniqueInput>;
-};
-
-export type ProjectCreateWithoutFoundersInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  video?: Maybe<VideofileCreateOneInput>;
-  categories?: Maybe<Scalars['Json']>;
-  requests?: Maybe<RequestCreateManyInput>;
-  comments?: Maybe<CommentCreateManyInput>;
-  chat?: Maybe<ChatCreateOneInput>;
-  avatar?: Maybe<ImagefileCreateOneInput>;
-};
-
-export type ProjectOrderInput = {
-  id?: Maybe<OrderByEnum>;
-  updatedAt?: Maybe<OrderByEnum>;
-  createdAt?: Maybe<OrderByEnum>;
-  name?: Maybe<OrderByEnum>;
-  description?: Maybe<OrderByEnum>;
-  categories?: Maybe<OrderByEnum>;
-};
-
-export type ProjectUpdateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  video?: Maybe<VideofileUpdateOneInput>;
-  categories?: Maybe<Scalars['Json']>;
-  requests?: Maybe<RequestUpdateManyWithoutProjectInput>;
-  comments?: Maybe<CommentUpdateManyWithoutProjectInput>;
-  founders?: Maybe<ProfileUpdateManyWithoutFounder_ProjectsInput>;
-  chat?: Maybe<ChatUpdateOneInput>;
-  avatar?: Maybe<ImagefileUpdateOneInput>;
-};
-
-export type ProjectUpdateManyWithoutFoundersInput = {
-  create?: Maybe<Array<Maybe<ProjectUpdateWithoutFoundersInput>>>;
-  connect?: Maybe<Array<Maybe<ProjectWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<ProjectWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<ProjectWhereUniqueInput>>>;
-};
-
-export type ProjectUpdateOneInput = {
-  create?: Maybe<ProjectCreateInput>;
-  connect?: Maybe<ProjectWhereUniqueInput>;
-  disconnect?: Maybe<Scalars['Boolean']>;
-  delete?: Maybe<Scalars['Boolean']>;
-};
-
-export type ProjectUpdateWithoutFoundersInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  video?: Maybe<VideofileUpdateOneInput>;
-  categories?: Maybe<Scalars['Json']>;
-  requests?: Maybe<RequestUpdateManyInput>;
-  comments?: Maybe<CommentUpdateManyInput>;
-  chat?: Maybe<ChatUpdateOneInput>;
-  avatar?: Maybe<ImagefileUpdateOneInput>;
-};
-
-export type ProjectWhereInput = {
-  OR?: Maybe<Array<ProjectWhereInput>>;
-  AND?: Maybe<Array<ProjectWhereInput>>;
-  id?: Maybe<Scalars['ID']>;
-  id_eq?: Maybe<Scalars['ID']>;
-  id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  updatedAt_eq?: Maybe<Scalars['DateTime']>;
-  updatedAt_neq?: Maybe<Scalars['DateTime']>;
-  updatedAt_gt?: Maybe<Scalars['DateTime']>;
-  updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedAt_lt?: Maybe<Scalars['DateTime']>;
-  updatedAt_lte?: Maybe<Scalars['DateTime']>;
-  updatedAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  updatedAt_between?: Maybe<BetweenFilterDateTime>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  createdAt_eq?: Maybe<Scalars['DateTime']>;
-  createdAt_neq?: Maybe<Scalars['DateTime']>;
-  createdAt_gt?: Maybe<Scalars['DateTime']>;
-  createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdAt_lt?: Maybe<Scalars['DateTime']>;
-  createdAt_lte?: Maybe<Scalars['DateTime']>;
-  createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  createdAt_between?: Maybe<BetweenFilterDateTime>;
-  name?: Maybe<Scalars['String']>;
-  name_eq?: Maybe<Scalars['String']>;
-  name_neq?: Maybe<Scalars['String']>;
-  name_contains?: Maybe<Scalars['String']>;
-  name_notcontains?: Maybe<Scalars['String']>;
-  name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  description?: Maybe<Scalars['String']>;
-  description_eq?: Maybe<Scalars['String']>;
-  description_neq?: Maybe<Scalars['String']>;
-  description_contains?: Maybe<Scalars['String']>;
-  description_notcontains?: Maybe<Scalars['String']>;
-  description_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  video?: Maybe<VideofileWhereInput>;
-  categories_object?: Maybe<Scalars['Json']>;
-  requests?: Maybe<FilterRequest>;
-  comments?: Maybe<FilterComment>;
-  founders?: Maybe<FilterProfile>;
-  chat?: Maybe<ChatWhereInput>;
-  avatar?: Maybe<ImagefileWhereInput>;
-};
-
-export type ProjectWhereUniqueInput = {
-  id?: Maybe<Scalars['ID']>;
-};
-
 export type Query = {
   __typename?: 'Query';
-  trigger: Trigger;
-  triggers: Array<Trigger>;
-  triggersConnection: TriggerConnection;
+  language: Language;
+  languages: Array<Language>;
+  languagesConnection: LanguageConnection;
+  schema: Schema;
+  schemata: Array<Schema>;
+  schemataConnection: SchemaConnection;
+  application: Application;
+  applications: Array<Application>;
+  applicationsConnection: ApplicationConnection;
+  translation: Translation;
+  translations: Array<Translation>;
+  translationsConnection: TranslationConnection;
   appclient: Appclient;
   appclients: Array<Appclient>;
   appclientsConnection: AppclientConnection;
@@ -3641,65 +1963,86 @@ export type Query = {
   videofile: Videofile;
   videofiles: Array<Videofile>;
   videofilesConnection: VideofileConnection;
-  registration: Registration;
-  registrations: Array<Registration>;
-  registrationsConnection: RegistrationConnection;
-  faq: Faq;
-  faqs: Array<Faq>;
-  faqsConnection: FaqConnection;
-  answer: Answer;
-  answers: Array<Answer>;
-  answersConnection: AnswerConnection;
-  country: Country;
-  countries: Array<Country>;
-  countriesConnection: CountryConnection;
-  skill: Skill;
-  skills: Array<Skill>;
-  skillsConnection: SkillConnection;
-  interest: Interest;
-  interests: Array<Interest>;
-  interestsConnection: InterestConnection;
-  profile: Profile;
-  profiles: Array<Profile>;
-  profilesConnection: ProfileConnection;
-  chat: Chat;
-  chats: Array<Chat>;
-  chatsConnection: ChatConnection;
-  message: Message;
-  messages: Array<Message>;
-  messagesConnection: MessageConnection;
-  connection: Connection;
-  connections: Array<Connection>;
-  connectionsConnection: ConnectionConnection;
-  project: Project;
-  projects: Array<Project>;
-  projectsConnection: ProjectConnection;
-  request: Request;
-  requests: Array<Request>;
-  requestsConnection: RequestConnection;
-  comment: Comment;
-  comments: Array<Comment>;
-  commentsConnection: CommentConnection;
 };
 
 
-export type QueryTriggerArgs = {
-  where: TriggerWhereUniqueInput;
+export type QueryLanguageArgs = {
+  where: LanguageWhereUniqueInput;
 };
 
 
-export type QueryTriggersArgs = {
-  where?: Maybe<TriggerWhereInput>;
+export type QueryLanguagesArgs = {
+  where?: Maybe<LanguageWhereInput>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<TriggerOrderInput>;
+  orderBy?: Maybe<LanguageOrderInput>;
 };
 
 
-export type QueryTriggersConnectionArgs = {
-  where?: Maybe<TriggerWhereInput>;
+export type QueryLanguagesConnectionArgs = {
+  where?: Maybe<LanguageWhereInput>;
+};
+
+
+export type QuerySchemaArgs = {
+  where: SchemaWhereUniqueInput;
+};
+
+
+export type QuerySchemataArgs = {
+  where?: Maybe<SchemaWhereInput>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  orderBy?: Maybe<SchemaOrderInput>;
+};
+
+
+export type QuerySchemataConnectionArgs = {
+  where?: Maybe<SchemaWhereInput>;
+};
+
+
+export type QueryApplicationArgs = {
+  where: ApplicationWhereUniqueInput;
+};
+
+
+export type QueryApplicationsArgs = {
+  where?: Maybe<ApplicationWhereInput>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  orderBy?: Maybe<ApplicationOrderInput>;
+};
+
+
+export type QueryApplicationsConnectionArgs = {
+  where?: Maybe<ApplicationWhereInput>;
+};
+
+
+export type QueryTranslationArgs = {
+  where: TranslationWhereUniqueInput;
+};
+
+
+export type QueryTranslationsArgs = {
+  where?: Maybe<TranslationWhereInput>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  orderBy?: Maybe<TranslationOrderInput>;
+};
+
+
+export type QueryTranslationsConnectionArgs = {
+  where?: Maybe<TranslationWhereInput>;
 };
 
 
@@ -3942,325 +2285,82 @@ export type QueryVideofilesConnectionArgs = {
   where?: Maybe<VideofileWhereInput>;
 };
 
-
-export type QueryRegistrationArgs = {
-  where: RegistrationWhereUniqueInput;
-};
-
-
-export type QueryRegistrationsArgs = {
-  where?: Maybe<RegistrationWhereInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<RegistrationOrderInput>;
-};
-
-
-export type QueryRegistrationsConnectionArgs = {
-  where?: Maybe<RegistrationWhereInput>;
-};
-
-
-export type QueryFaqArgs = {
-  where: FaqWhereUniqueInput;
-};
-
-
-export type QueryFaqsArgs = {
-  where?: Maybe<FaqWhereInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<FaqOrderInput>;
-};
-
-
-export type QueryFaqsConnectionArgs = {
-  where?: Maybe<FaqWhereInput>;
-};
-
-
-export type QueryAnswerArgs = {
-  where: AnswerWhereUniqueInput;
-};
-
-
-export type QueryAnswersArgs = {
-  where?: Maybe<AnswerWhereInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<AnswerOrderInput>;
-};
-
-
-export type QueryAnswersConnectionArgs = {
-  where?: Maybe<AnswerWhereInput>;
-};
-
-
-export type QueryCountryArgs = {
-  where: CountryWhereUniqueInput;
-};
-
-
-export type QueryCountriesArgs = {
-  where?: Maybe<CountryWhereInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<CountryOrderInput>;
-};
-
-
-export type QueryCountriesConnectionArgs = {
-  where?: Maybe<CountryWhereInput>;
-};
-
-
-export type QuerySkillArgs = {
-  where: SkillWhereUniqueInput;
-};
-
-
-export type QuerySkillsArgs = {
-  where?: Maybe<SkillWhereInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<SkillOrderInput>;
-};
-
-
-export type QuerySkillsConnectionArgs = {
-  where?: Maybe<SkillWhereInput>;
-};
-
-
-export type QueryInterestArgs = {
-  where: InterestWhereUniqueInput;
-};
-
-
-export type QueryInterestsArgs = {
-  where?: Maybe<InterestWhereInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<InterestOrderInput>;
-};
-
-
-export type QueryInterestsConnectionArgs = {
-  where?: Maybe<InterestWhereInput>;
-};
-
-
-export type QueryProfileArgs = {
-  where: ProfileWhereUniqueInput;
-};
-
-
-export type QueryProfilesArgs = {
-  where?: Maybe<ProfileWhereInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<ProfileOrderInput>;
-};
-
-
-export type QueryProfilesConnectionArgs = {
-  where?: Maybe<ProfileWhereInput>;
-};
-
-
-export type QueryChatArgs = {
-  where: ChatWhereUniqueInput;
-};
-
-
-export type QueryChatsArgs = {
-  where?: Maybe<ChatWhereInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<ChatOrderInput>;
-};
-
-
-export type QueryChatsConnectionArgs = {
-  where?: Maybe<ChatWhereInput>;
-};
-
-
-export type QueryMessageArgs = {
-  where: MessageWhereUniqueInput;
-};
-
-
-export type QueryMessagesArgs = {
-  where?: Maybe<MessageWhereInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<MessageOrderInput>;
-};
-
-
-export type QueryMessagesConnectionArgs = {
-  where?: Maybe<MessageWhereInput>;
-};
-
-
-export type QueryConnectionArgs = {
-  where: ConnectionWhereUniqueInput;
-};
-
-
-export type QueryConnectionsArgs = {
-  where?: Maybe<ConnectionWhereInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<ConnectionOrderInput>;
-};
-
-
-export type QueryConnectionsConnectionArgs = {
-  where?: Maybe<ConnectionWhereInput>;
-};
-
-
-export type QueryProjectArgs = {
-  where: ProjectWhereUniqueInput;
-};
-
-
-export type QueryProjectsArgs = {
-  where?: Maybe<ProjectWhereInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<ProjectOrderInput>;
-};
-
-
-export type QueryProjectsConnectionArgs = {
-  where?: Maybe<ProjectWhereInput>;
-};
-
-
-export type QueryRequestArgs = {
-  where: RequestWhereUniqueInput;
-};
-
-
-export type QueryRequestsArgs = {
-  where?: Maybe<RequestWhereInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<RequestOrderInput>;
-};
-
-
-export type QueryRequestsConnectionArgs = {
-  where?: Maybe<RequestWhereInput>;
-};
-
-
-export type QueryCommentArgs = {
-  where: CommentWhereUniqueInput;
-};
-
-
-export type QueryCommentsArgs = {
-  where?: Maybe<CommentWhereInput>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  before?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  orderBy?: Maybe<CommentOrderInput>;
-};
-
-
-export type QueryCommentsConnectionArgs = {
-  where?: Maybe<CommentWhereInput>;
-};
-
-export type Registration = {
-  __typename?: 'Registration';
+export type Schema = {
+  __typename?: 'Schema';
   id: Scalars['ID'];
   updatedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  name: Scalars['String'];
-  email?: Maybe<Scalars['Email']>;
-  linkedin?: Maybe<Scalars['String']>;
+  sectionName?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  sectionValues?: Maybe<Scalars['Json']>;
+  subsections?: Maybe<Array<Schema>>;
+  translations?: Maybe<Array<Translation>>;
 };
 
-export type RegistrationConnection = {
-  __typename?: 'RegistrationConnection';
+export type SchemaConnection = {
+  __typename?: 'SchemaConnection';
   totalCount: Scalars['Int'];
 };
 
-export type RegistrationCreateInput = {
+export type SchemaCreateInput = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['Email']>;
-  linkedin?: Maybe<Scalars['String']>;
+  sectionName?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  sectionValues?: Maybe<Scalars['Json']>;
+  subsections?: Maybe<SchemaCreateManyInput>;
+  translations?: Maybe<TranslationCreateManyInput>;
 };
 
-export type RegistrationCreateOneInput = {
-  create?: Maybe<RegistrationCreateInput>;
-  connect?: Maybe<RegistrationWhereUniqueInput>;
+export type SchemaCreateManyInput = {
+  create?: Maybe<Array<Maybe<SchemaCreateInput>>>;
+  connect?: Maybe<Array<Maybe<SchemaWhereUniqueInput>>>;
 };
 
-export type RegistrationOrderInput = {
+export type SchemaCreateOneInput = {
+  create?: Maybe<SchemaCreateInput>;
+  connect?: Maybe<SchemaWhereUniqueInput>;
+};
+
+export type SchemaOrderInput = {
   id?: Maybe<OrderByEnum>;
   updatedAt?: Maybe<OrderByEnum>;
   createdAt?: Maybe<OrderByEnum>;
-  name?: Maybe<OrderByEnum>;
-  email?: Maybe<OrderByEnum>;
-  linkedin?: Maybe<OrderByEnum>;
+  sectionName?: Maybe<OrderByEnum>;
+  description?: Maybe<OrderByEnum>;
+  sectionValues?: Maybe<OrderByEnum>;
 };
 
-export type RegistrationUpdateInput = {
+export type SchemaUpdateInput = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  name?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['Email']>;
-  linkedin?: Maybe<Scalars['String']>;
+  sectionName?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  sectionValues?: Maybe<Scalars['Json']>;
+  subsections?: Maybe<SchemaUpdateManyInput>;
+  translations?: Maybe<TranslationUpdateManyInput>;
 };
 
-export type RegistrationUpdateOneInput = {
-  create?: Maybe<RegistrationCreateInput>;
-  connect?: Maybe<RegistrationWhereUniqueInput>;
+export type SchemaUpdateManyInput = {
+  create?: Maybe<Array<Maybe<SchemaCreateInput>>>;
+  connect?: Maybe<Array<Maybe<SchemaWhereUniqueInput>>>;
+  disconnect?: Maybe<Array<Maybe<SchemaWhereUniqueInput>>>;
+  delete?: Maybe<Array<Maybe<SchemaWhereUniqueInput>>>;
+};
+
+export type SchemaUpdateOneInput = {
+  create?: Maybe<SchemaCreateInput>;
+  connect?: Maybe<SchemaWhereUniqueInput>;
   disconnect?: Maybe<Scalars['Boolean']>;
   delete?: Maybe<Scalars['Boolean']>;
 };
 
-export type RegistrationWhereInput = {
-  OR?: Maybe<Array<RegistrationWhereInput>>;
-  AND?: Maybe<Array<RegistrationWhereInput>>;
+export type SchemaWhereInput = {
+  OR?: Maybe<Array<SchemaWhereInput>>;
+  AND?: Maybe<Array<SchemaWhereInput>>;
   id?: Maybe<Scalars['ID']>;
   id_eq?: Maybe<Scalars['ID']>;
   id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   updatedAt_eq?: Maybe<Scalars['DateTime']>;
   updatedAt_neq?: Maybe<Scalars['DateTime']>;
@@ -4279,307 +2379,24 @@ export type RegistrationWhereInput = {
   createdAt_lte?: Maybe<Scalars['DateTime']>;
   createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
   createdAt_between?: Maybe<BetweenFilterDateTime>;
-  name?: Maybe<Scalars['String']>;
-  name_eq?: Maybe<Scalars['String']>;
-  name_neq?: Maybe<Scalars['String']>;
-  name_contains?: Maybe<Scalars['String']>;
-  name_notcontains?: Maybe<Scalars['String']>;
-  name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  email?: Maybe<Scalars['Email']>;
-  email_eq?: Maybe<Scalars['Email']>;
-  email_neq?: Maybe<Scalars['Email']>;
-  email_contains?: Maybe<Scalars['Email']>;
-  email_notcontains?: Maybe<Scalars['Email']>;
-  linkedin?: Maybe<Scalars['String']>;
-  linkedin_eq?: Maybe<Scalars['String']>;
-  linkedin_neq?: Maybe<Scalars['String']>;
-  linkedin_contains?: Maybe<Scalars['String']>;
-  linkedin_notcontains?: Maybe<Scalars['String']>;
-  linkedin_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type RegistrationWhereUniqueInput = {
-  id?: Maybe<Scalars['ID']>;
-};
-
-export type Request = {
-  __typename?: 'Request';
-  id: Scalars['ID'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  inviter?: Maybe<Profile>;
-  invitee?: Maybe<Profile>;
-  project?: Maybe<Project>;
-  status?: Maybe<Statusrequest>;
-};
-
-export type RequestConnection = {
-  __typename?: 'RequestConnection';
-  totalCount: Scalars['Int'];
-};
-
-export type RequestCreateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  inviter?: Maybe<ProfileCreateOneInput>;
-  invitee?: Maybe<ProfileCreateOneInput>;
-  project?: Maybe<ProjectCreateOneInput>;
-  status?: Maybe<Statusrequest>;
-};
-
-export type RequestCreateManyInput = {
-  create?: Maybe<Array<Maybe<RequestCreateInput>>>;
-  connect?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-};
-
-export type RequestCreateManyWithoutInviteeInput = {
-  create?: Maybe<Array<Maybe<RequestCreateWithoutInviteeInput>>>;
-  connect?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-};
-
-export type RequestCreateManyWithoutInviterInput = {
-  create?: Maybe<Array<Maybe<RequestCreateWithoutInviterInput>>>;
-  connect?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-};
-
-export type RequestCreateManyWithoutProjectInput = {
-  create?: Maybe<Array<Maybe<RequestCreateWithoutProjectInput>>>;
-  connect?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-};
-
-export type RequestCreateWithoutInviteeInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  inviter?: Maybe<ProfileCreateOneInput>;
-  project?: Maybe<ProjectCreateOneInput>;
-  status?: Maybe<Statusrequest>;
-};
-
-export type RequestCreateWithoutInviterInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  invitee?: Maybe<ProfileCreateOneInput>;
-  project?: Maybe<ProjectCreateOneInput>;
-  status?: Maybe<Statusrequest>;
-};
-
-export type RequestCreateWithoutProjectInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  inviter?: Maybe<ProfileCreateOneInput>;
-  invitee?: Maybe<ProfileCreateOneInput>;
-  status?: Maybe<Statusrequest>;
-};
-
-export type RequestOrderInput = {
-  id?: Maybe<OrderByEnum>;
-  updatedAt?: Maybe<OrderByEnum>;
-  createdAt?: Maybe<OrderByEnum>;
-  status?: Maybe<OrderByEnum>;
-};
-
-export type RequestUpdateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  inviter?: Maybe<ProfileUpdateOneInput>;
-  invitee?: Maybe<ProfileUpdateOneInput>;
-  project?: Maybe<ProjectUpdateOneInput>;
-  status?: Maybe<Statusrequest>;
-};
-
-export type RequestUpdateManyInput = {
-  create?: Maybe<Array<Maybe<RequestCreateInput>>>;
-  connect?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-};
-
-export type RequestUpdateManyWithoutInviteeInput = {
-  create?: Maybe<Array<Maybe<RequestUpdateWithoutInviteeInput>>>;
-  connect?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-};
-
-export type RequestUpdateManyWithoutInviterInput = {
-  create?: Maybe<Array<Maybe<RequestUpdateWithoutInviterInput>>>;
-  connect?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-};
-
-export type RequestUpdateManyWithoutProjectInput = {
-  create?: Maybe<Array<Maybe<RequestUpdateWithoutProjectInput>>>;
-  connect?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-  disconnect?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-  delete?: Maybe<Array<Maybe<RequestWhereUniqueInput>>>;
-};
-
-export type RequestUpdateWithoutInviteeInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  inviter?: Maybe<ProfileUpdateOneInput>;
-  project?: Maybe<ProjectUpdateOneInput>;
-  status?: Maybe<Statusrequest>;
-};
-
-export type RequestUpdateWithoutInviterInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  invitee?: Maybe<ProfileUpdateOneInput>;
-  project?: Maybe<ProjectUpdateOneInput>;
-  status?: Maybe<Statusrequest>;
-};
-
-export type RequestUpdateWithoutProjectInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  inviter?: Maybe<ProfileUpdateOneInput>;
-  invitee?: Maybe<ProfileUpdateOneInput>;
-  status?: Maybe<Statusrequest>;
-};
-
-export type RequestWhereInput = {
-  OR?: Maybe<Array<RequestWhereInput>>;
-  AND?: Maybe<Array<RequestWhereInput>>;
-  id?: Maybe<Scalars['ID']>;
-  id_eq?: Maybe<Scalars['ID']>;
-  id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  updatedAt_eq?: Maybe<Scalars['DateTime']>;
-  updatedAt_neq?: Maybe<Scalars['DateTime']>;
-  updatedAt_gt?: Maybe<Scalars['DateTime']>;
-  updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedAt_lt?: Maybe<Scalars['DateTime']>;
-  updatedAt_lte?: Maybe<Scalars['DateTime']>;
-  updatedAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  updatedAt_between?: Maybe<BetweenFilterDateTime>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  createdAt_eq?: Maybe<Scalars['DateTime']>;
-  createdAt_neq?: Maybe<Scalars['DateTime']>;
-  createdAt_gt?: Maybe<Scalars['DateTime']>;
-  createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdAt_lt?: Maybe<Scalars['DateTime']>;
-  createdAt_lte?: Maybe<Scalars['DateTime']>;
-  createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  createdAt_between?: Maybe<BetweenFilterDateTime>;
-  inviter?: Maybe<ProfileWhereInput>;
-  invitee?: Maybe<ProfileWhereInput>;
-  project?: Maybe<ProjectWhereInput>;
-  status?: Maybe<Statusrequest>;
-  status_eq?: Maybe<Statusrequest>;
-  status_neq?: Maybe<Statusrequest>;
-  status_contains?: Maybe<Scalars['String']>;
-  status_notcontains?: Maybe<Scalars['String']>;
-};
-
-export type RequestWhereUniqueInput = {
-  id?: Maybe<Scalars['ID']>;
-};
-
-export enum Rolescope {
-  UploadAssets = 'UPLOAD_ASSETS'
-}
-
-export type Skill = {
-  __typename?: 'Skill';
-  id: Scalars['ID'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  code: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  icon?: Maybe<Scalars['String']>;
-};
-
-export type SkillConnection = {
-  __typename?: 'SkillConnection';
-  totalCount: Scalars['Int'];
-};
-
-export type SkillCreateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  code?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  icon?: Maybe<Scalars['String']>;
-};
-
-export type SkillOrderInput = {
-  id?: Maybe<OrderByEnum>;
-  updatedAt?: Maybe<OrderByEnum>;
-  createdAt?: Maybe<OrderByEnum>;
-  code?: Maybe<OrderByEnum>;
-  name?: Maybe<OrderByEnum>;
-  description?: Maybe<OrderByEnum>;
-  icon?: Maybe<OrderByEnum>;
-};
-
-export type SkillUpdateInput = {
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  code?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  icon?: Maybe<Scalars['String']>;
-};
-
-export type SkillWhereInput = {
-  OR?: Maybe<Array<SkillWhereInput>>;
-  AND?: Maybe<Array<SkillWhereInput>>;
-  id?: Maybe<Scalars['ID']>;
-  id_eq?: Maybe<Scalars['ID']>;
-  id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-  updatedAt_eq?: Maybe<Scalars['DateTime']>;
-  updatedAt_neq?: Maybe<Scalars['DateTime']>;
-  updatedAt_gt?: Maybe<Scalars['DateTime']>;
-  updatedAt_gte?: Maybe<Scalars['DateTime']>;
-  updatedAt_lt?: Maybe<Scalars['DateTime']>;
-  updatedAt_lte?: Maybe<Scalars['DateTime']>;
-  updatedAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  updatedAt_between?: Maybe<BetweenFilterDateTime>;
-  createdAt?: Maybe<Scalars['DateTime']>;
-  createdAt_eq?: Maybe<Scalars['DateTime']>;
-  createdAt_neq?: Maybe<Scalars['DateTime']>;
-  createdAt_gt?: Maybe<Scalars['DateTime']>;
-  createdAt_gte?: Maybe<Scalars['DateTime']>;
-  createdAt_lt?: Maybe<Scalars['DateTime']>;
-  createdAt_lte?: Maybe<Scalars['DateTime']>;
-  createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
-  createdAt_between?: Maybe<BetweenFilterDateTime>;
-  code?: Maybe<Scalars['String']>;
-  code_eq?: Maybe<Scalars['String']>;
-  code_neq?: Maybe<Scalars['String']>;
-  code_contains?: Maybe<Scalars['String']>;
-  code_notcontains?: Maybe<Scalars['String']>;
-  code_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  name?: Maybe<Scalars['String']>;
-  name_eq?: Maybe<Scalars['String']>;
-  name_neq?: Maybe<Scalars['String']>;
-  name_contains?: Maybe<Scalars['String']>;
-  name_notcontains?: Maybe<Scalars['String']>;
-  name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  sectionName?: Maybe<Scalars['String']>;
+  sectionName_eq?: Maybe<Scalars['String']>;
+  sectionName_neq?: Maybe<Scalars['String']>;
+  sectionName_contains?: Maybe<Scalars['String']>;
+  sectionName_notcontains?: Maybe<Scalars['String']>;
+  sectionName_in?: Maybe<Array<Maybe<Scalars['String']>>>;
   description?: Maybe<Scalars['String']>;
   description_eq?: Maybe<Scalars['String']>;
   description_neq?: Maybe<Scalars['String']>;
   description_contains?: Maybe<Scalars['String']>;
   description_notcontains?: Maybe<Scalars['String']>;
   description_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  icon?: Maybe<Scalars['String']>;
-  icon_eq?: Maybe<Scalars['String']>;
-  icon_neq?: Maybe<Scalars['String']>;
-  icon_contains?: Maybe<Scalars['String']>;
-  icon_notcontains?: Maybe<Scalars['String']>;
-  icon_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  subsections?: Maybe<SchemaWhereInput>;
+  translations?: Maybe<TranslationWhereInput>;
 };
 
-export type SkillWhereUniqueInput = {
+export type SchemaWhereUniqueInput = {
   id?: Maybe<Scalars['ID']>;
-  code?: Maybe<Scalars['String']>;
 };
 
 export type Soundfile = {
@@ -4638,7 +2455,6 @@ export type SoundfileWhereInput = {
   id?: Maybe<Scalars['ID']>;
   id_eq?: Maybe<Scalars['ID']>;
   id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   updatedAt_eq?: Maybe<Scalars['DateTime']>;
   updatedAt_neq?: Maybe<Scalars['DateTime']>;
@@ -4664,7 +2480,6 @@ export type SoundfileWhereInput = {
   description_contains?: Maybe<Scalars['String']>;
   description_notcontains?: Maybe<Scalars['String']>;
   description_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  metainfo_object?: Maybe<Scalars['Json']>;
   mimeType?: Maybe<MimetypeWhereInput>;
   name?: Maybe<Scalars['String']>;
   name_eq?: Maybe<Scalars['String']>;
@@ -4683,92 +2498,66 @@ export type SoundfileWhereUniqueInput = {
   id?: Maybe<Scalars['ID']>;
 };
 
-export enum Statusconnection {
-  Pending = 'PENDING',
-  Accepted = 'ACCEPTED',
-  Rejected = 'REJECTED'
-}
-
-export enum Statusrequest {
-  Pending = 'PENDING',
-  Accepted = 'ACCEPTED'
-}
-
-export type Trigger = {
-  __typename?: 'Trigger';
+export type Translation = {
+  __typename?: 'Translation';
   id: Scalars['ID'];
   updatedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  entity: Scalars['String'];
-  resolvers?: Maybe<Array<Scalars['String']>>;
-  functions?: Maybe<Array<Scalars['Json']>>;
-  actions?: Maybe<Array<Notificationactiontype>>;
+  translationValues?: Maybe<Scalars['Json']>;
+  language?: Maybe<Language>;
+  istranslated?: Maybe<Scalars['Boolean']>;
+  schema?: Maybe<Schema>;
 };
 
-export type TriggerActionsCreateInput = {
-  set?: Maybe<Array<Maybe<Notificationactiontype>>>;
-};
-
-export type TriggerActionsUpdateInput = {
-  set?: Maybe<Array<Maybe<Notificationactiontype>>>;
-};
-
-export type TriggerConnection = {
-  __typename?: 'TriggerConnection';
+export type TranslationConnection = {
+  __typename?: 'TranslationConnection';
   totalCount: Scalars['Int'];
 };
 
-export type TriggerCreateInput = {
+export type TranslationCreateInput = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  entity?: Maybe<Scalars['String']>;
-  resolvers?: Maybe<TriggerResolversCreateInput>;
-  functions?: Maybe<TriggerFunctionsCreateInput>;
-  actions?: Maybe<TriggerActionsCreateInput>;
+  translationValues?: Maybe<Scalars['Json']>;
+  language?: Maybe<LanguageCreateOneInput>;
+  istranslated?: Maybe<Scalars['Boolean']>;
+  schema?: Maybe<SchemaCreateOneInput>;
 };
 
-export type TriggerFunctionsCreateInput = {
-  set?: Maybe<Array<Maybe<Scalars['Json']>>>;
+export type TranslationCreateManyInput = {
+  create?: Maybe<Array<Maybe<TranslationCreateInput>>>;
+  connect?: Maybe<Array<Maybe<TranslationWhereUniqueInput>>>;
 };
 
-export type TriggerFunctionsUpdateInput = {
-  set?: Maybe<Array<Maybe<Scalars['Json']>>>;
-};
-
-export type TriggerOrderInput = {
+export type TranslationOrderInput = {
   id?: Maybe<OrderByEnum>;
   updatedAt?: Maybe<OrderByEnum>;
   createdAt?: Maybe<OrderByEnum>;
-  entity?: Maybe<OrderByEnum>;
-  resolvers?: Maybe<OrderByEnum>;
-  functions?: Maybe<OrderByEnum>;
-  actions?: Maybe<OrderByEnum>;
+  translationValues?: Maybe<OrderByEnum>;
+  istranslated?: Maybe<OrderByEnum>;
 };
 
-export type TriggerResolversCreateInput = {
-  set?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type TriggerResolversUpdateInput = {
-  set?: Maybe<Array<Maybe<Scalars['String']>>>;
-};
-
-export type TriggerUpdateInput = {
+export type TranslationUpdateInput = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
-  entity?: Maybe<Scalars['String']>;
-  resolvers?: Maybe<TriggerResolversUpdateInput>;
-  functions?: Maybe<TriggerFunctionsUpdateInput>;
-  actions?: Maybe<TriggerActionsUpdateInput>;
+  translationValues?: Maybe<Scalars['Json']>;
+  language?: Maybe<LanguageUpdateOneInput>;
+  istranslated?: Maybe<Scalars['Boolean']>;
+  schema?: Maybe<SchemaUpdateOneInput>;
 };
 
-export type TriggerWhereInput = {
-  OR?: Maybe<Array<TriggerWhereInput>>;
-  AND?: Maybe<Array<TriggerWhereInput>>;
+export type TranslationUpdateManyInput = {
+  create?: Maybe<Array<Maybe<TranslationCreateInput>>>;
+  connect?: Maybe<Array<Maybe<TranslationWhereUniqueInput>>>;
+  disconnect?: Maybe<Array<Maybe<TranslationWhereUniqueInput>>>;
+  delete?: Maybe<Array<Maybe<TranslationWhereUniqueInput>>>;
+};
+
+export type TranslationWhereInput = {
+  OR?: Maybe<Array<TranslationWhereInput>>;
+  AND?: Maybe<Array<TranslationWhereInput>>;
   id?: Maybe<Scalars['ID']>;
   id_eq?: Maybe<Scalars['ID']>;
   id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   updatedAt_eq?: Maybe<Scalars['DateTime']>;
   updatedAt_neq?: Maybe<Scalars['DateTime']>;
@@ -4787,27 +2576,14 @@ export type TriggerWhereInput = {
   createdAt_lte?: Maybe<Scalars['DateTime']>;
   createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
   createdAt_between?: Maybe<BetweenFilterDateTime>;
-  entity?: Maybe<Scalars['String']>;
-  entity_eq?: Maybe<Scalars['String']>;
-  entity_neq?: Maybe<Scalars['String']>;
-  entity_contains?: Maybe<Scalars['String']>;
-  entity_notcontains?: Maybe<Scalars['String']>;
-  entity_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  resolvers?: Maybe<Scalars['String']>;
-  resolvers_eq?: Maybe<Scalars['String']>;
-  resolvers_neq?: Maybe<Scalars['String']>;
-  resolvers_contains?: Maybe<Scalars['String']>;
-  resolvers_notcontains?: Maybe<Scalars['String']>;
-  resolvers_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  functions_object?: Maybe<Scalars['Json']>;
-  actions?: Maybe<Notificationactiontype>;
-  actions_eq?: Maybe<Notificationactiontype>;
-  actions_neq?: Maybe<Notificationactiontype>;
-  actions_contains?: Maybe<Scalars['String']>;
-  actions_notcontains?: Maybe<Scalars['String']>;
+  language?: Maybe<LanguageWhereInput>;
+  istranslated?: Maybe<Scalars['Boolean']>;
+  istranslated_eq?: Maybe<Scalars['Boolean']>;
+  istranslated_neq?: Maybe<Scalars['Boolean']>;
+  schema?: Maybe<SchemaWhereInput>;
 };
 
-export type TriggerWhereUniqueInput = {
+export type TranslationWhereUniqueInput = {
   id?: Maybe<Scalars['ID']>;
 };
 
@@ -4842,11 +2618,6 @@ export type VideofileCreateInput = {
   url?: Maybe<Scalars['Url']>;
 };
 
-export type VideofileCreateOneInput = {
-  create?: Maybe<VideofileCreateInput>;
-  connect?: Maybe<VideofileWhereUniqueInput>;
-};
-
 export type VideofileOrderInput = {
   id?: Maybe<OrderByEnum>;
   updatedAt?: Maybe<OrderByEnum>;
@@ -4868,20 +2639,12 @@ export type VideofileUpdateInput = {
   url?: Maybe<Scalars['Url']>;
 };
 
-export type VideofileUpdateOneInput = {
-  create?: Maybe<VideofileCreateInput>;
-  connect?: Maybe<VideofileWhereUniqueInput>;
-  disconnect?: Maybe<Scalars['Boolean']>;
-  delete?: Maybe<Scalars['Boolean']>;
-};
-
 export type VideofileWhereInput = {
   OR?: Maybe<Array<VideofileWhereInput>>;
   AND?: Maybe<Array<VideofileWhereInput>>;
   id?: Maybe<Scalars['ID']>;
   id_eq?: Maybe<Scalars['ID']>;
   id_neq?: Maybe<Scalars['ID']>;
-  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   updatedAt_eq?: Maybe<Scalars['DateTime']>;
   updatedAt_neq?: Maybe<Scalars['DateTime']>;
@@ -4907,7 +2670,6 @@ export type VideofileWhereInput = {
   description_contains?: Maybe<Scalars['String']>;
   description_notcontains?: Maybe<Scalars['String']>;
   description_in?: Maybe<Array<Maybe<Scalars['String']>>>;
-  metainfo_object?: Maybe<Scalars['Json']>;
   mimeType?: Maybe<MimetypeWhereInput>;
   name?: Maybe<Scalars['String']>;
   name_eq?: Maybe<Scalars['String']>;
@@ -4950,5 +2712,48 @@ export type CreateAuthuserMutation = (
   & { createAuthuser: (
     { __typename?: 'Authuser' }
     & Pick<Authuser, 'id'>
+  ) }
+);
+
+export type ApplicationsQueryVariables = Exact<{
+  where?: Maybe<ApplicationWhereInput>;
+}>;
+
+
+export type ApplicationsQuery = (
+  { __typename?: 'Query' }
+  & { applications: Array<(
+    { __typename?: 'Application' }
+    & Pick<Application, 'id' | 'name'>
+    & { defaultLanguage?: Maybe<(
+      { __typename?: 'Language' }
+      & Pick<Language, 'id' | 'namelanguage' | 'isolanguage' | 'flag'>
+    )>, languages?: Maybe<Array<(
+      { __typename?: 'Language' }
+      & Pick<Language, 'id' | 'namelanguage' | 'isolanguage' | 'flag'>
+    )>> }
+  )> }
+);
+
+export type ApplicationQueryVariables = Exact<{
+  where: ApplicationWhereUniqueInput;
+}>;
+
+
+export type ApplicationQuery = (
+  { __typename?: 'Query' }
+  & { application: (
+    { __typename?: 'Application' }
+    & Pick<Application, 'id' | 'name'>
+    & { root?: Maybe<(
+      { __typename?: 'Schema' }
+      & Pick<Schema, 'id'>
+    )>, defaultLanguage?: Maybe<(
+      { __typename?: 'Language' }
+      & Pick<Language, 'id' | 'namelanguage' | 'isolanguage' | 'nativename' | 'flag'>
+    )>, languages?: Maybe<Array<(
+      { __typename?: 'Language' }
+      & Pick<Language, 'id' | 'namelanguage' | 'isolanguage' | 'nativename' | 'flag'>
+    )>> }
   ) }
 );
