@@ -48,11 +48,11 @@ export default class ApplicationCard extends Vue {
     @Prop( { default () { return {}; } } ) application: Application;
 
     selectApplication () {
-        this.$emit( 'selectApplication' );
+        this.$emit( 'selectApplication', this.application );
     }
 
     deleteApplication () {
-        this.$emit( 'deleteApplication' );
+        this.$emit( 'deleteApplication', this.application );
     }
 }
 </script>

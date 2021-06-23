@@ -10,17 +10,18 @@
             </div>
             <v-list>
                 <v-list-item
-                    v-for="(item, i) in items"
-                    :key="i"
-                    :to="item.to"
+                    v-for="page in pages"
+                    :key="page.name"
+                    :to="page.to"
+                    link
                     router
                     exact
                 >
-                    <v-list-item-action>
-                        <v-icon>{{ item.icon }}</v-icon>
-                    </v-list-item-action>
+                    <v-list-item-icon>
+                        <v-icon>{{ page.icon }}</v-icon>
+                    </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title v-text="item.title" />
+                        <v-list-item-title v-text="page.title" />
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -61,12 +62,12 @@ import GeneralButton from '@/components/general/GeneralButton.vue';
 @Component( {
     components: { GeneralButton }
 } )
-class Layout extends Vue {
+export default class Layout extends Vue {
     url: string = `${process.env.APPLICATION_API}/api/auth/user`;
     logoutUrl: string = '';
     drawer: boolean = false;
 
-    items: Array<object> = [
+    pages: Array<object> = [
         {
             icon: 'mdi-apps',
             title: 'Projects',
@@ -83,9 +84,8 @@ class Layout extends Vue {
         try {
             this.logoutUrl = `${process.env.SCALARS_API}/logout?redirect_uri=${window.location.href}`;
             const user = await this.getUser();
-            console.log( user );
             if ( user ) {
-                this.$store.commit( 'sessionStorage/user', user );
+                this.$store.commit( 'sessionStorage/setUser', user );
             } else {
                 await this.$router.push( { name: 'login' } );
             }
@@ -105,14 +105,13 @@ class Layout extends Vue {
         window.location.href = this.logoutUrl;
     }
 }
-export default Layout;
 </script>
 <style lang="scss" scoped>
 .logo{
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 10px 15px;
+    padding: 15px;
 }
 .logout-button {
     display: flex;

@@ -1,13 +1,29 @@
+import { Application, Authuser } from '~/client/types';
+
+declare interface LocalState {
+    user?: Authuser | null
+    application?: Application | null
+}
+
 export const state = () => ( {
     user: null,
     application: null
 } );
 
 export const mutations = {
-    user ( state: any, value: any ) {
+    setUser ( state: LocalState, value: Authuser ) {
         state.user = value;
     },
-    application ( state: any, value: any ) {
+    setApplication ( state: LocalState, value: Application ) {
         state.application = value;
+    }
+};
+
+export const getters = {
+    getUser ( state: LocalState ) {
+        return state.user || null;
+    },
+    getApplication ( state: LocalState ) {
+        return state.application || null;
     }
 };

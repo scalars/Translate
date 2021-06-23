@@ -22,7 +22,7 @@ export default class ApplicationsList extends Vue {
     @Prop( { default () { return []; } } ) applications: Application[];
 
     selectApplication ( application: Application ) {
-        this.$store.commit( 'sessionStorage/application', application );
+        this.$store.commit( 'sessionStorage/setApplication', application );
         this.$router.push( { name: 'translations' } );
     }
 }

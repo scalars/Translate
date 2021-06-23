@@ -8,7 +8,6 @@
 import { Component, Vue } from 'nuxt-property-decorator';
 import ApplicationsList from '@/components/ApplicationsList.vue';
 import { Application } from '@/client/types';
-import { ClientType } from '@/client/apollo/interface';
 
 @Component( {
     components: { ApplicationsList },

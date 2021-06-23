@@ -33,7 +33,7 @@ import Authenticator from '@/components/auth/Authenticator.vue';
         Authenticator
     }
 } )
-class Login extends Vue {
+export default class Login extends Vue {
     url: string = `${process.env.SCALARS_API}`;
     clientId: string|undefined = process.env.SCALARS_CLIENT_ID;
     amplifyConfig: any = {
@@ -42,8 +42,6 @@ class Login extends Vue {
         userPoolWebClientId: process.env.USERPOOL_WEB_CLIENT_ID
     };
 }
-
-export default Login;
 </script>
 
 <style scoped lang="scss">
