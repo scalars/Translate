@@ -25,11 +25,22 @@
                 </v-list-item>
             </v-list>
             <template #append>
-                <div class="pa-2 mb-5">
-                    <v-btn block :href="logoutUrl">
-                        Logout
-                    </v-btn>
+                <div class="logout-button">
+                    <GeneralButton :text="'Logout'" width="100%" @click="logout" />
                 </div>
+                <!--    TODO Evaluate if this alternative looks better            -->
+                <!--                <v-list-item-->
+                <!--                    :to="logoutUrl"-->
+                <!--                    router-->
+                <!--                    exact-->
+                <!--                >-->
+                <!--                    <v-list-item-action>-->
+                <!--                        <v-icon>{{ 'mdi-logout' }}</v-icon>-->
+                <!--                    </v-list-item-action>-->
+                <!--                    <v-list-item-content>-->
+                <!--                        <v-list-item-title v-text="'LogOut'" />-->
+                <!--                    </v-list-item-content>-->
+                <!--                </v-list-item>-->
             </template>
         </v-navigation-drawer>
         <v-app-bar v-if="$vuetify.breakpoint.smAndDown" fixed app>
@@ -45,10 +56,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import { ClientType } from '@/client/apollo/interface';
+import GeneralButton from '@/components/general/GeneralButton.vue';
 
 @Component( {
-    components: {}
+    components: { GeneralButton }
 } )
 class Layout extends Vue {
     url: string = `${process.env.APPLICATION_API}/api/auth/user`;
@@ -89,6 +100,10 @@ class Layout extends Vue {
             credentials: 'include'
         } ).then( resp => resp.json() ).catch( ( ) => { return undefined; } );
     }
+
+    logout () {
+        window.location.href = this.logoutUrl;
+    }
 }
 export default Layout;
 </script>
@@ -98,5 +113,11 @@ export default Layout;
     align-items: center;
     justify-content: flex-start;
     padding: 10px 15px;
+}
+.logout-button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    padding: 0 15px;
 }
 </style>
