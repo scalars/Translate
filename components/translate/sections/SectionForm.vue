@@ -37,7 +37,6 @@
                             required
                         />
                     </v-col>
-                    <!-- SUGGESTION -->
                     <v-col class="pb-0 pt-2">
                         <v-text-field
                             v-model="item.suggestion"
@@ -46,7 +45,6 @@
                             label="suggestion"
                         />
                     </v-col>
-                    <!-- DELETE BUTTON -->
                     <v-col class="pb-0 pt-2">
                         <v-btn
                             dark
@@ -60,7 +58,9 @@
                 </v-row>
             </div>
         </v-form>
+        <v-divider />
         <GeneralButton
+            class="mt-5"
             :loading="loading"
             :disabled="!isValid"
             text="Save"
@@ -81,6 +81,7 @@ export default class SectionForm extends Vue {
     isValid: boolean = true;
     loading: boolean = false;
     sectionData: Schema = {
+        id: '',
         sectionName: '',
         description: '',
         sectionValues: []
@@ -118,18 +119,27 @@ export default class SectionForm extends Vue {
 
     setDefaultValues () {
         if ( this.editSection ) {
-            Object.keys( this.sectionData ).forEach( ( key:string ) => {
+            const sectionKeys = Object.keys( this.sectionData );
+            sectionKeys.forEach( ( key: string ) => {
+                // @ts-ignore
                 if ( this.section[key] ) { this.sectionData[key] = JSON.parse( JSON.stringify( this.section[key] ) ); }
             } );
         }
     }
 
     saveSection () {
-        if ( this.editSection ) {
-            console.log( 'editing section' );
-            console.log( this.section );
-        } else {
-            console.log( 'creating section' );
+        try {
+            this.loading = true;
+            if ( this.editSection ) {
+                console.log( 'editing section' );
+                console.log( this.section );
+            } else {
+                console.log( 'creating section' );
+            }
+        } catch ( error ) {
+            console.error( error );
+        } finally {
+            this.loading = false;
         }
     }
 }
@@ -144,6 +154,9 @@ export default class SectionForm extends Vue {
     .section-form {
         width: 100%;
         margin-bottom: 15px;
+    }
+    @include mobile {
+        padding: 5px 0;
     }
 }
 </style>

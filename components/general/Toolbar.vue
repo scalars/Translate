@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar :elevation="elevation" :class="`${color} ${fontColor}--text`">
+    <v-toolbar dense :elevation="elevation" :class="`${color} ${fontColor}--text`">
         <slot name="start">
             <v-toolbar-title v-if="title">
                 {{ title }}
