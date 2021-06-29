@@ -2824,6 +2824,44 @@ export type SchemaQuery = (
   ) }
 );
 
+export type UpdateSchemaMutationVariables = Exact<{
+  where: SchemaWhereUniqueInput;
+  data: SchemaUpdateInput;
+}>;
+
+
+export type UpdateSchemaMutation = (
+  { __typename?: 'Mutation' }
+  & { updateSchema: (
+    { __typename?: 'Schema' }
+    & Pick<Schema, 'id' | 'sectionName' | 'description' | 'sectionValues'>
+    & { translations?: Maybe<Array<(
+      { __typename?: 'Translation' }
+      & Pick<Translation, 'id' | 'istranslated'>
+      & { language?: Maybe<(
+        { __typename?: 'Language' }
+        & Pick<Language, 'isolanguage'>
+      )> }
+    )>>, subsections?: Maybe<Array<(
+      { __typename?: 'Schema' }
+      & Pick<Schema, 'id'>
+    )>> }
+  ) }
+);
+
+export type DeleteSchemaMutationVariables = Exact<{
+  where: SchemaWhereUniqueInput;
+}>;
+
+
+export type DeleteSchemaMutation = (
+  { __typename?: 'Mutation' }
+  & { deleteSchema: (
+    { __typename?: 'Schema' }
+    & Pick<Schema, 'id'>
+  ) }
+);
+
 export type LanguagesQueryVariables = Exact<{
   where?: Maybe<LanguageWhereInput>;
 }>;
@@ -2834,9 +2872,5 @@ export type LanguagesQuery = (
   & { languages: Array<(
     { __typename?: 'Language' }
     & Pick<Language, 'id' | 'namelanguage' | 'isolanguage' | 'nativename' | 'flag'>
-    & { applications?: Maybe<Array<(
-      { __typename?: 'Application' }
-      & Pick<Application, 'id'>
-    )>> }
   )> }
 );

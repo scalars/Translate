@@ -5,6 +5,8 @@ import {
     application,
     updateApplication,
     schema,
+    updateSchema,
+    deleteSchema,
     languages
 } from '@/client/queries/queries';
 import {
@@ -15,6 +17,10 @@ import {
     UpdateApplicationMutationVariables,
     SchemaQuery,
     SchemaQueryVariables,
+    UpdateSchemaMutation,
+    UpdateSchemaMutationVariables,
+    DeleteSchemaMutation,
+    DeleteSchemaMutationVariables,
     LanguagesQuery,
     LanguagesQueryVariables
 } from '../types';
@@ -34,6 +40,14 @@ export class BaseService extends ApolloClientService {
 
     schema ( variables?: SchemaQueryVariables, clientOptions?: ClientOptions ): Promise<SchemaQuery> {
         return this.doQuery<SchemaQuery, SchemaQueryVariables>( schema, variables, clientOptions );
+    }
+
+    updateSchema ( variables?: UpdateSchemaMutationVariables, clientOptions?: MutationClientOptions ): Promise<UpdateSchemaMutation> {
+        return this.doMutation<UpdateSchemaMutation, UpdateSchemaMutationVariables>( updateSchema, variables, clientOptions );
+    }
+
+    deleteSchema ( variables?: DeleteSchemaMutationVariables, clientOptions?: MutationClientOptions ): Promise<DeleteSchemaMutation> {
+        return this.doMutation<DeleteSchemaMutation, DeleteSchemaMutationVariables>( deleteSchema, variables, clientOptions );
     }
 
     languages ( variables?: LanguagesQueryVariables, clientOptions?: ClientOptions ): Promise<LanguagesQuery> {

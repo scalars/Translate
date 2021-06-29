@@ -83,6 +83,35 @@ const schema = gql`
     }
 `;
 
+const updateSchema = gql`
+    mutation updateSchema( $where: SchemaWhereUniqueInput! $data: SchemaUpdateInput! ) {
+        updateSchema ( where: $where data: $data ) {
+            id
+            sectionName
+            description
+            sectionValues
+            translations {
+                id
+                istranslated
+                language {
+                    isolanguage
+                }
+            }
+            subsections {
+                id
+            }
+        }
+    }
+`;
+
+const deleteSchema = gql`
+    mutation deleteSchema( $where: SchemaWhereUniqueInput! ) {
+        deleteSchema ( where: $where ) {
+            id
+        }
+    }
+`;
+
 const languages = gql`
     query languages( $where: LanguageWhereInput ) {
         languages( where: $where ){
@@ -100,5 +129,7 @@ export {
     application,
     updateApplication,
     schema,
+    updateSchema,
+    deleteSchema,
     languages
 };
