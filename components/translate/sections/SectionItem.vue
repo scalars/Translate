@@ -1,9 +1,9 @@
 <template>
-    <div class="schema-item-container">
+    <div class="section-item-container">
         <h2 @click="selectSection()">
-            {{ schema.sectionName }}
+            {{ section.sectionName }}
         </h2>
-        <div class="schema-item-actions">
+        <div class="section-item-actions">
             <GeneralButton
                 icon-mode
                 icon="mdi-book-open-page-variant"
@@ -21,8 +21,8 @@
             />
         </div>
         <Modal v-model="show">
-            <SchemaForm
-                :section="schema"
+            <SectionForm
+                :section="section"
             />
         </Modal>
     </div>
@@ -32,7 +32,7 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import { Schema } from '@/client/types';
 import GeneralButton from '@/components/general/GeneralButton.vue';
-import SchemaForm from '@/components/translate/sections/SchemaForm.vue';
+import SectionForm from '@/components/translate/sections/SectionForm.vue';
 import Modal from '@/components/general/Modal.vue';
 
 @Component(
@@ -40,38 +40,36 @@ import Modal from '@/components/general/Modal.vue';
         layout: 'application',
         components: {
             GeneralButton,
-            SchemaForm,
+            SectionForm,
             Modal
         }
     }
 )
-export default class SchemaItem extends Vue {
-    @Prop( { required: true } ) schema: Schema;
+export default class SectionItem extends Vue {
+    @Prop( { required: true } ) section: Schema;
     show:boolean = false;
 
     selectSection () {
-        console.log( 'selecting' );
-        console.log( this.schema );
-        this.show = true;
+        this.$emit( 'selectSection', this.section );
     }
 
     editSection () {
         console.log( 'editing' );
-        console.log( this.schema );
+        console.log( this.section );
     }
 
     deleteSection () {
         console.log( 'deleting' );
-        console.log( this.schema );
+        console.log( this.section );
     }
 }
 </script>
 
 <style lang="scss" scoped>
-.schema-item-container {
+.section-item-container {
     display: flex;
     justify-content: space-between;
-    .schema-item-actions {
+    .section-item-actions {
         margin-left: 15px;
         display: flex;
     }

@@ -5,10 +5,11 @@
                 <v-col>
                     <div>
                         <v-subheader>Sections</v-subheader>
-                        <SchemaIterator
+                        <SectionIterator
                             v-for="subsection in rootSubsections"
                             :key="subsection.id"
-                            :schema-id="subsection.id"
+                            :section-id="subsection.id"
+                            @selectSection="setSectionToTranslate"
                         />
                     </div>
                 </v-col>
@@ -24,12 +25,12 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import { Schema } from '@/client/types';
-import SchemaIterator from '@/components/translate/sections/SchemaIterator.vue';
+import SectionIterator from '@/components/translate/sections/SectionIterator.vue';
 
 @Component(
     {
         layout: 'application',
-        components: { SchemaIterator }
+        components: { SectionIterator }
     }
 )
 export default class Translate extends Vue {
@@ -43,6 +44,11 @@ export default class Translate extends Vue {
 
     beforeMount () {
         this.$store.commit( 'sessionStorage/setSections', this.rootSubsections );
+    }
+
+    setSectionToTranslate ( section: Schema ) {
+        console.log( 'selecting outside' );
+        console.log( section );
     }
 }
 </script>

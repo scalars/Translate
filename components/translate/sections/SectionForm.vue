@@ -11,7 +11,7 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import { Schema } from '@/client/types';
 
 @Component( {} )
-export default class SchemaForm extends Vue {
+export default class SectionForm extends Vue {
     @Prop() section: Schema;
 }
 </script>
