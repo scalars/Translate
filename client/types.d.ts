@@ -2776,6 +2776,30 @@ export type ApplicationQuery = (
   ) }
 );
 
+export type UpdateApplicationMutationVariables = Exact<{
+  where: ApplicationWhereUniqueInput;
+  data: ApplicationUpdateInput;
+}>;
+
+
+export type UpdateApplicationMutation = (
+  { __typename?: 'Mutation' }
+  & { updateApplication: (
+    { __typename?: 'Application' }
+    & Pick<Application, 'id' | 'name'>
+    & { root?: Maybe<(
+      { __typename?: 'Schema' }
+      & Pick<Schema, 'id'>
+    )>, defaultLanguage?: Maybe<(
+      { __typename?: 'Language' }
+      & Pick<Language, 'id' | 'namelanguage' | 'isolanguage' | 'nativename' | 'flag'>
+    )>, languages?: Maybe<Array<(
+      { __typename?: 'Language' }
+      & Pick<Language, 'id' | 'namelanguage' | 'isolanguage' | 'nativename' | 'flag'>
+    )>> }
+  ) }
+);
+
 export type SchemaQueryVariables = Exact<{
   where: SchemaWhereUniqueInput;
 }>;
@@ -2810,5 +2834,9 @@ export type LanguagesQuery = (
   & { languages: Array<(
     { __typename?: 'Language' }
     & Pick<Language, 'id' | 'namelanguage' | 'isolanguage' | 'nativename' | 'flag'>
+    & { applications?: Maybe<Array<(
+      { __typename?: 'Application' }
+      & Pick<Application, 'id'>
+    )>> }
   )> }
 );

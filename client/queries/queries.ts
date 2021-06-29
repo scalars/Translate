@@ -47,6 +47,21 @@ const application = gql`
     }
 `;
 
+const updateApplication = gql`
+    mutation updateApplication( $where: ApplicationWhereUniqueInput! $data: ApplicationUpdateInput! ){
+        updateApplication ( where: $where data: $data ) {
+            id name
+            root{ id }
+            defaultLanguage {
+                id namelanguage isolanguage nativename flag
+            }
+            languages {
+                id namelanguage isolanguage nativename flag
+            }
+        }
+    }
+`;
+
 const schema = gql`
     query schema( $where: SchemaWhereUniqueInput! ) {
         schema ( where: $where ) {
@@ -78,12 +93,12 @@ const languages = gql`
             flag
         }
     }
-
 `;
 
 export {
     applications,
     application,
+    updateApplication,
     schema,
     languages
 };

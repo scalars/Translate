@@ -3,6 +3,7 @@ import { ClientOptions, MutationClientOptions } from '@/client/apollo/interface'
 import {
     applications,
     application,
+    updateApplication,
     schema,
     languages
 } from '@/client/queries/queries';
@@ -10,6 +11,8 @@ import {
     ApplicationsQuery,
     ApplicationQuery,
     ApplicationsQueryVariables,
+    UpdateApplicationMutation,
+    UpdateApplicationMutationVariables,
     SchemaQuery,
     SchemaQueryVariables,
     LanguagesQuery,
@@ -23,6 +26,10 @@ export class BaseService extends ApolloClientService {
 
     application ( variables?: ApplicationsQueryVariables, clientOptions?: ClientOptions ): Promise<ApplicationQuery> {
         return this.doQuery<ApplicationQuery, ApplicationsQueryVariables>( application, variables, clientOptions );
+    }
+
+    updateApplication ( variables?: UpdateApplicationMutationVariables, clientOptions?: MutationClientOptions ): Promise<UpdateApplicationMutation> {
+        return this.doMutation<UpdateApplicationMutation, UpdateApplicationMutationVariables>( updateApplication, variables, clientOptions );
     }
 
     schema ( variables?: SchemaQueryVariables, clientOptions?: ClientOptions ): Promise<SchemaQuery> {
