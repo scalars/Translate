@@ -24,6 +24,12 @@ export const mutations = {
     },
     addSections ( state: LocalState, value: Schema[] ) {
         state.sections?.push( ...value );
+    },
+    updateSection ( state: LocalState, value: Schema ) {
+        const sectionIndex = state.sections?.findIndex( ( section: Schema ) => section.id === value.id );
+        if ( sectionIndex !== undefined && state.sections ) {
+            state.sections[sectionIndex] = value;
+        }
     }
 };
 

@@ -28,8 +28,9 @@
         >
             <ConfirmDelete
                 v-if="formAction === actionType.Delete"
-                confirm-text="Are you sure to delete this section?"
+                confirm-text="All subsections and translations under it will be lost. Are you sure to delete this section?"
                 :item-name="section.sectionName"
+                :loading="loading"
                 @confirm="deleteSectionHandler"
             />
             <SectionForm
@@ -86,18 +87,25 @@ export default class SectionItem extends Vue {
         }
     }
 
-    updateSectionsHandler () {
-        console.log( 'handle sections update' );
+    updateSectionsHandler ( section: Schema ) {
+        // TODO Find a way to use the data returned in the mutation to avoid a new request for a new section when created
+        if ( this.formAction === ActionType.Update ) {
+            this.$store.commit( 'sessionStorage/updateSection', section );
+        }
+        this.$emit( 'updateSection', section );
+        this.showModal = false;
     }
 
     async deleteSectionHandler () {
         try {
             this.loading = true;
-            await console.log( 'handle sections delete' );
+            await this.$apiClient.queries.deleteSchema( { where: { id: this.section.id } } );
+            this.$emit( 'deleteSection' );
         } catch ( error ) {
             console.error( error );
         } finally {
             this.loading = false;
+            this.showModal = false;
         }
     }
 

@@ -9,6 +9,8 @@
         <SectionItem
             :section="section"
             @selectSection="selectSection"
+            @updateSection="updateSection"
+            @deleteSection="deleteSection"
         />
         <div class="section-subsections">
             <SectionIterator
@@ -42,7 +44,8 @@ export default class SectionIterator extends Vue {
     }
 
     async getSection () {
-        this.section = this.$store.getters['sessionStorage/getSection']( this.sectionId );
+        // TODO Find a way to reduce de amount of request that have to be done
+        // this.section = this.$store.getters['sessionStorage/getSection']( this.sectionId );
         if ( !this.section || !this.section.sectionName ) {
             try {
                 this.loading = true;
@@ -58,6 +61,14 @@ export default class SectionIterator extends Vue {
 
     selectSection ( section: Schema ) {
         this.$emit( 'selectSection', section );
+    }
+
+    updateSection ( section: Schema ) {
+        this.section = section;
+    }
+
+    deleteSection () {
+        this.section = null;
     }
 }
 </script>

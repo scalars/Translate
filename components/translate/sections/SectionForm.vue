@@ -58,7 +58,6 @@
                 </v-row>
             </div>
         </v-form>
-        <v-divider />
         <GeneralButton
             class="mt-5"
             :loading="loading"
@@ -127,15 +126,29 @@ export default class SectionForm extends Vue {
         }
     }
 
-    saveSection () {
+    async saveSection () {
         try {
             this.loading = true;
+            let data;
             if ( this.editSection ) {
-                console.log( 'editing section' );
-                console.log( this.section );
+                data = {
+                    sectionName: this.sectionData.sectionName,
+                    description: this.sectionData.description
+                };
             } else {
-                console.log( 'creating section' );
+                data = {
+                    subsections: {
+                        create: [
+                            {
+                                sectionName: this.sectionData.sectionName,
+                                description: this.sectionData.description
+                            }
+                        ]
+                    }
+                };
             }
+            const { updateSchema } = await this.$apiClient.queries.updateSchema( { where: { id: this.section.id }, data } );
+            this.$emit( 'updateSections', updateSchema );
         } catch ( error ) {
             console.error( error );
         } finally {
