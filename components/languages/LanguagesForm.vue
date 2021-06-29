@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator';
+import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 import { Language } from '@/client/types';
 
@@ -47,11 +47,6 @@ export default class LanguagesForm extends Vue {
     @Prop( {} ) addedLanguages: Language[];
     @Prop( { default: false } ) loading: boolean;
     selectedLanguages: Language[] = [];
-
-    @Watch( 'addedLanguages' )
-    onAddedLanguagesChanged () {
-        this.selectedLanguages = this.addedLanguages || [];
-    }
 
     beforeMount () {
         this.selectedLanguages = this.addedLanguages || [];

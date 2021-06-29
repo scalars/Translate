@@ -1,6 +1,7 @@
 <template>
-    <div>
+    <div class="languages-page-container">
         <Modal
+            :key="modalKey"
             v-model="showAddLanguage"
             :title="'Updating Languages'"
         >
@@ -41,6 +42,7 @@ import LanguagesForm from '@/components/languages/LanguagesForm.vue';
 import Modal from '@/components/general/Modal.vue';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 import { Language } from '@/client/types';
+import { uuid } from 'vue-uuid';
 
 @Component( {
     components: { LanguagesTable, LanguagesForm, GeneralButton, Modal },
@@ -51,6 +53,7 @@ export default class LanguagesPage extends Vue {
     addedLanguages: Language[] = [];
     loading: boolean = false;
     showAddLanguage: boolean = false;
+    modalKey: string = uuid.v1();
 
     get application () {
         return this.$store.getters['sessionStorage/getApplication'];
@@ -108,8 +111,8 @@ export default class LanguagesPage extends Vue {
     }
 
     addLanguage () {
-        console.log( 'adding' );
         this.showAddLanguage = true;
+        this.modalKey = uuid.v1();
     }
 
     async deleteLanguage ( language: Language ) {
@@ -153,4 +156,7 @@ export default class LanguagesPage extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.languages-page-container {
+    padding: 30px;
+}
 </style>
