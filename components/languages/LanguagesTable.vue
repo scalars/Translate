@@ -42,7 +42,7 @@ export default class LanguagesTable extends Vue {
     @Prop( { required: true } ) languages: Language[];
     @Prop( { default: false } ) loading: boolean;
     search: string = '';
-    rowsPerPage: number = 5;
+    rowsPerPage: number = 10;
 
     headers: any[] = [
         {

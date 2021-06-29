@@ -1,12 +1,12 @@
 <template>
     <div class="languages-form-container">
-        <Loading v-if="loading" />
-        <v-form v-else class="languages-form">
+        <v-form class="languages-form">
             <v-select
                 v-model="selectedLanguages"
                 :items="languages"
                 return-object
                 multiple
+                :readonly="loading"
                 chips
                 deletable-chips
                 :item-text="getLanguageLabel"
@@ -36,12 +36,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator';
-import Loading from '@/components/general/Loader.vue';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 import { Language } from '@/client/types';
 
 @Component( {
-    components: { Loading, GeneralButton }
+    components: { GeneralButton }
 } )
 export default class LanguagesForm extends Vue {
     @Prop( { required: true } ) languages: Language[];
