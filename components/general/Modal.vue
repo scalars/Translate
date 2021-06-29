@@ -6,7 +6,6 @@
         :width="width"
         :max-width="maxWidth"
         :persistent="persistent"
-        @input="hidding"
     >
         <v-card>
             <Toolbar
@@ -24,7 +23,7 @@
                         icon-mode
                         icon="mdi-close"
                         :text="'Close'"
-                        @click="$emit('hide')"
+                        @click="active = false"
                     />
                 </template>
             </Toolbar>
@@ -37,28 +36,32 @@
 
 <script lang="ts">
 
-import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator';
+import { Component, Model, Prop, Vue, Watch } from 'nuxt-property-decorator';
 import Toolbar from '@/components/general/Toolbar.vue';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 @Component( { components: { GeneralButton, Toolbar } } )
 class Modal extends Vue {
+    @Model( 'updateValue', { required: true } ) model: boolean;
     @Prop( { type: String, default: 'modal' } ) modalId: string;
     @Prop( { type: String, default: '' } ) color: string;
     @Prop( { type: String, default: '' } ) fontColor: string;
     @Prop( { type: String, default: 'Modal' } ) title: string;
     @Prop( { type: String, default: '800' } ) width: string;
     @Prop( { type: String, default: '800' } ) maxWidth: string;
-
-    @Prop( { type: Boolean, default: true } ) showModal: boolean;
     @Prop( { type: Boolean, default: false } ) persistent: boolean;
     @Prop( { type: Boolean, default: true } ) withHeader: boolean;
     active: boolean = false;
     mounted () {
-        this.active = this.showModal;
+        this.active = this.model;
     }
 
-    @Watch( 'showModal' )
-    onShowModalChanged ( value: any ) {
+    @Watch( 'active' )
+    onActiveChanged () {
+        this.$emit( 'updateValue', this.active );
+    }
+
+    @Watch( 'model' )
+    onShowModalChanged ( value: boolean ) {
         this.active = value;
     }
 
@@ -66,11 +69,11 @@ class Modal extends Vue {
         return this.$store.state.theme.icons;
     }
 
-    hidding ( value: boolean ) {
-        if ( !value ) {
-            this.$emit( 'hide' );
-        }
-    }
+    // hidding ( value: boolean ) {
+    //     if ( !value ) {
+    //         this.$emit( 'hide' );
+    //     }
+    // }
 }
 
 export default Modal;
