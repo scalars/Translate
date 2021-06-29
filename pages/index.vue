@@ -1,17 +1,26 @@
 <template>
-    <ApplicationsList
-        :applications="applications"
-        @selectApplication="goToApplication"
-    />
+    <div class="applications-page-container">
+        <GeneralButton
+            text="Create Application"
+            icon="mdi-plus"
+            @click="createApplication"
+        />
+        <ApplicationsList
+            :applications="applications"
+            :loading="loading"
+            @selectApplication="goToApplication"
+        />
+    </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import ApplicationsList from '@/components/ApplicationsList.vue';
+import GeneralButton from '@/components/general/GeneralButton.vue';
 import { Application } from '@/client/types';
 
 @Component( {
-    components: { ApplicationsList },
+    components: { ApplicationsList, GeneralButton },
     head: {
         title: 'Translate',
         meta: [
@@ -37,14 +46,26 @@ import { Application } from '@/client/types';
 } )
 export default class Index extends Vue {
     applications: Application[] = [];
+    loading: boolean = false;
 
     beforeMount () {
         this.getApplications();
     }
 
     async getApplications () {
-        const { applications } = await this.$apiClient.queries.applications( {} );
-        this.applications = applications;
+        try {
+            this.loading = true;
+            const { applications } = await this.$apiClient.queries.applications( {} );
+            this.applications = applications;
+        } catch ( error ) {
+            console.error( error );
+        } finally {
+            this.loading = false;
+        }
+    }
+
+    createApplication () {
+        console.log( 'creating app' );
     }
 
     goToApplication ( application: Application ) {
@@ -53,3 +74,11 @@ export default class Index extends Vue {
     }
 }
 </script>
+<style lang="scss" scoped>
+.applications-page-container {
+    padding: 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+}
+</style>

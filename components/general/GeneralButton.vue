@@ -14,7 +14,7 @@
                 <v-icon
                     v-if="icon"
                     :color="showAsIcon ? color : ''"
-                    :style="{ paddingRight: !iconMode ? '5px' : '' }"
+                    :style="{ paddingRight: !showAsIcon ? '5px' : '' }"
                 >
                     {{ icon }}
                 </v-icon>

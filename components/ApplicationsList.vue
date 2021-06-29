@@ -1,7 +1,11 @@
 <template>
     <div class="applications-list-container">
+        <Loading
+            v-if="loading"
+        />
         <ApplicationCard
             v-for="application in applications"
+            v-else
             :key="application.id"
             :application="application"
             @selectApplication="selectApplication"
@@ -13,13 +17,15 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import ApplicationCard from '@/components/ApplicationCard.vue';
+import Loading from '@/components/general/Loader.vue';
 import { Application } from '@/client/types';
 
 @Component( {
-    components: { ApplicationCard }
+    components: { ApplicationCard, Loading }
 } )
 export default class ApplicationsList extends Vue {
     @Prop( { default () { return []; } } ) applications: Application[];
+    @Prop( { type: Boolean, default: false } ) loading: boolean;
 
     selectApplication ( application: Application ) {
         this.$emit( 'selectApplication', application );
@@ -29,6 +35,7 @@ export default class ApplicationsList extends Vue {
 
 <style lang="scss" scoped>
 .applications-list-container {
+    width: 100%;
     padding: 30px 0;
     display: grid;
     grid-template-columns: auto auto auto;
