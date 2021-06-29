@@ -1,6 +1,7 @@
 <template>
     <ApplicationsList
         :applications="applications"
+        @selectApplication="goToApplication"
     />
 </template>
 
@@ -44,6 +45,11 @@ export default class Index extends Vue {
     async getApplications () {
         const { applications } = await this.$apiClient.queries.applications( {} );
         this.applications = applications;
+    }
+
+    goToApplication ( application: Application ) {
+        this.$store.commit( 'sessionStorage/setApplication', application );
+        this.$router.push( { name: 'translate' } );
     }
 }
 </script>

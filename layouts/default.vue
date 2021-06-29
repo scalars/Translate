@@ -11,7 +11,7 @@
             <v-list>
                 <v-list-item
                     v-for="page in pages"
-                    :key="page.name"
+                    :key="page.title"
                     :to="page.to"
                     link
                     router

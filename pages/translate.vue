@@ -1,5 +1,5 @@
 <template>
-    <div v-if="application" class="language">
+    <div v-if="application">
         <v-container fluid>
             <v-row>
                 <v-col>

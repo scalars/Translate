@@ -20,7 +20,7 @@
                 @click="deleteSection()"
             />
         </div>
-        <Modal :show-modal="show" @hide="show=false">
+        <Modal v-model="show">
             <SchemaForm
                 :section="schema"
             />
@@ -38,7 +38,6 @@ import Modal from '@/components/general/Modal.vue';
 @Component(
     {
         layout: 'application',
-        name: 'SchemaDisplay',
         components: {
             GeneralButton,
             SchemaForm,
@@ -71,7 +70,9 @@ export default class SchemaItem extends Vue {
 <style lang="scss" scoped>
 .schema-item-container {
     display: flex;
+    justify-content: space-between;
     .schema-item-actions {
+        margin-left: 15px;
         display: flex;
     }
 }
