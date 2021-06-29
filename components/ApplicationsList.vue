@@ -42,6 +42,7 @@ export default class ApplicationsList extends Vue {
     gap: 15px;
     @include mobile {
         grid-template-columns: auto;
+        padding: 15px 0;
     }
 }
 </style>

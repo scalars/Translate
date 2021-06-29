@@ -7,7 +7,7 @@
                 :disabled="disabled"
                 :plain="plain"
                 :icon="showAsIcon"
-                :width="width"
+                :width="showAsIcon ? '' : $vuetify.breakpoint.smAndDown ? mobileWidth : desktopWidth"
                 v-on="on"
                 @click="$emit('click')"
             >
@@ -31,11 +31,12 @@ export default class GeneralButton extends Vue {
     @Prop( { type: String, default: '' } ) text: string;
     @Prop( { type: String, default: '' } ) color: string;
     @Prop( { type: String, default: '' } ) icon: string;
-    @Prop( { type: String, default: '' } ) width: string;
+    @Prop( { type: String, default: '200px' } ) desktopWidth: string;
+    @Prop( { type: String, default: '100%' } ) mobileWidth: string;
     @Prop( { type: Boolean, default: false } ) disabled: boolean;
     @Prop( { type: Boolean, default: false } ) plain: boolean;
     @Prop( { type: Boolean, default: false } ) loading: boolean;
-    @Prop( { type: Boolean, default: true } ) responsive: boolean;
+    @Prop( { type: Boolean, default: false } ) responsive: boolean;
     @Prop( { type: Boolean, default: false } ) iconMode: boolean;
     @Prop( { type: Boolean, default: false } ) leftTooltip: boolean;
     @Prop( { type: Boolean, default: false } ) rightTooltip: boolean;

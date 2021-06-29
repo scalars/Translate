@@ -18,6 +18,7 @@
         >
             <template #general-options>
                 <GeneralButton
+                    responsive
                     icon="mdi-plus"
                     text="Add Language"
                     @click="addLanguage"
@@ -158,5 +159,8 @@ export default class LanguagesPage extends Vue {
 <style lang="scss" scoped>
 .languages-page-container {
     padding: 30px;
+    @include mobile {
+        padding: 15px;
+    }
 }
 </style>

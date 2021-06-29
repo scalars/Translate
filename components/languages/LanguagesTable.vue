@@ -64,7 +64,8 @@ export default class LanguagesTable extends Vue {
     padding: 10px 15px;
     .search-input {
         margin: 0;
-        max-width: 250px;
+        padding: 0;
+        max-width: 220px;
     }
 }
 </style>

@@ -42,9 +42,7 @@ export default class SectionIterator extends Vue {
     }
 
     async getSection () {
-        console.log( this.$store.getters );
         this.section = this.$store.getters['sessionStorage/getSection']( this.sectionId );
-        console.log( this.section );
         if ( !this.section || !this.section.sectionName ) {
             try {
                 this.loading = true;

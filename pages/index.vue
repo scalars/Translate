@@ -3,6 +3,7 @@
         <GeneralButton
             text="Create Application"
             icon="mdi-plus"
+            desktop-width="220px"
             @click="createApplication"
         />
         <ApplicationsList

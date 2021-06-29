@@ -1,7 +1,7 @@
 <template>
     <v-card
         hover
-        width="300px"
+        :width="$vuetify.breakpoint.smAndDown ? '100%' : '300px'"
         style="margin: auto; display: flex; justify-content: center; align-items: center; flex-flow: column;"
     >
         <v-card-title class="text-h5" @click="selectApplication">
