@@ -68,8 +68,22 @@ const schema = gql`
     }
 `;
 
+const languages = gql`
+    query languages( $where: LanguageWhereInput ) {
+        languages( where: $where ){
+            id
+            namelanguage
+            isolanguage
+            nativename
+            flag
+        }
+    }
+
+`;
+
 export {
     applications,
     application,
-    schema
+    schema,
+    languages
 };

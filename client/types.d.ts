@@ -2730,7 +2730,18 @@ export type ApplicationsQuery = (
       & Pick<Schema, 'id'>
       & { subsections?: Maybe<Array<(
         { __typename?: 'Schema' }
-        & Pick<Schema, 'id'>
+        & Pick<Schema, 'id' | 'sectionName' | 'description' | 'sectionValues'>
+        & { translations?: Maybe<Array<(
+          { __typename?: 'Translation' }
+          & Pick<Translation, 'id' | 'istranslated'>
+          & { language?: Maybe<(
+            { __typename?: 'Language' }
+            & Pick<Language, 'isolanguage'>
+          )> }
+        )>>, subsections?: Maybe<Array<(
+          { __typename?: 'Schema' }
+          & Pick<Schema, 'id'>
+        )>> }
       )>> }
     )>, defaultLanguage?: Maybe<(
       { __typename?: 'Language' }
@@ -2784,15 +2795,20 @@ export type SchemaQuery = (
       )> }
     )>>, subsections?: Maybe<Array<(
       { __typename?: 'Schema' }
-      & Pick<Schema, 'id' | 'sectionName' | 'description' | 'sectionValues'>
-      & { translations?: Maybe<Array<(
-        { __typename?: 'Translation' }
-        & Pick<Translation, 'id' | 'istranslated'>
-        & { language?: Maybe<(
-          { __typename?: 'Language' }
-          & Pick<Language, 'isolanguage'>
-        )> }
-      )>> }
+      & Pick<Schema, 'id'>
     )>> }
   ) }
+);
+
+export type LanguagesQueryVariables = Exact<{
+  where?: Maybe<LanguageWhereInput>;
+}>;
+
+
+export type LanguagesQuery = (
+  { __typename?: 'Query' }
+  & { languages: Array<(
+    { __typename?: 'Language' }
+    & Pick<Language, 'id' | 'namelanguage' | 'isolanguage' | 'nativename' | 'flag'>
+  )> }
 );
