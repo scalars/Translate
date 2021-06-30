@@ -10,6 +10,7 @@
                             :key="subsection.id"
                             :section-id="subsection.id"
                             @selectSection="setSectionToTranslate"
+                            @updateSection="updateSection"
                         />
                     </div>
                 </v-col>
@@ -20,6 +21,7 @@
                         <Translator
                             :section="currentSection"
                             :languages="application.languages"
+                            @updateSection="updateSection"
                         />
                     </div>
                 </v-col>
@@ -58,6 +60,12 @@ export default class Translate extends Vue {
 
     setSectionToTranslate ( section: Schema ) {
         this.currentSection = section;
+    }
+
+    updateSection ( section: Schema ) {
+        if ( section.id === this.currentSection?.id ) {
+            this.currentSection = section;
+        }
     }
 }
 </script>

@@ -131,6 +131,19 @@ const languages = gql`
     }
 `;
 
+const updateTranslation = gql`
+    mutation updateTranslation( $where: TranslationWhereUniqueInput! $data: TranslationUpdateInput! ) {
+        updateTranslation( where: $where data: $data ){
+            id
+            istranslated
+            language {
+                isolanguage
+            }
+            translationValues
+        }
+    }
+`;
+
 export {
     applications,
     application,
@@ -138,5 +151,6 @@ export {
     schema,
     updateSchema,
     deleteSchema,
-    languages
+    languages,
+    updateTranslation
 };

@@ -2748,7 +2748,7 @@ export type ApplicationsQuery = (
       & Pick<Language, 'id' | 'namelanguage' | 'isolanguage'>
     )>, languages?: Maybe<Array<(
       { __typename?: 'Language' }
-      & Pick<Language, 'id' | 'namelanguage' | 'isolanguage'>
+      & Pick<Language, 'id' | 'namelanguage' | 'isolanguage' | 'nativename' | 'flag'>
     )>> }
   )> }
 );
@@ -2873,4 +2873,22 @@ export type LanguagesQuery = (
     { __typename?: 'Language' }
     & Pick<Language, 'id' | 'namelanguage' | 'isolanguage' | 'nativename' | 'flag'>
   )> }
+);
+
+export type UpdateTranslationMutationVariables = Exact<{
+  where: TranslationWhereUniqueInput;
+  data: TranslationUpdateInput;
+}>;
+
+
+export type UpdateTranslationMutation = (
+  { __typename?: 'Mutation' }
+  & { updateTranslation: (
+    { __typename?: 'Translation' }
+    & Pick<Translation, 'id' | 'istranslated' | 'translationValues'>
+    & { language?: Maybe<(
+      { __typename?: 'Language' }
+      & Pick<Language, 'isolanguage'>
+    )> }
+  ) }
 );

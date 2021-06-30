@@ -17,6 +17,8 @@
                 v-for="subsection in section.subsections"
                 :key="subsection.id"
                 :section-id="subsection.id"
+                @selectSection="selectSection"
+                @updateSection="updateSection"
             />
         </div>
     </div>
@@ -64,7 +66,10 @@ export default class SectionIterator extends Vue {
     }
 
     updateSection ( section: Schema ) {
-        this.section = section;
+        if ( section.id === this.section?.id ) {
+            this.section = section;
+        }
+        this.$emit( 'updateSection', section );
     }
 
     deleteSection () {

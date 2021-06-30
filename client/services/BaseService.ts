@@ -7,7 +7,8 @@ import {
     schema,
     updateSchema,
     deleteSchema,
-    languages
+    languages,
+    updateTranslation
 } from '@/client/queries/queries';
 import {
     ApplicationsQuery,
@@ -22,7 +23,9 @@ import {
     DeleteSchemaMutation,
     DeleteSchemaMutationVariables,
     LanguagesQuery,
-    LanguagesQueryVariables
+    LanguagesQueryVariables,
+    UpdateTranslationMutation,
+    UpdateTranslationMutationVariables
 } from '../types';
 
 export class BaseService extends ApolloClientService {
@@ -52,5 +55,9 @@ export class BaseService extends ApolloClientService {
 
     languages ( variables?: LanguagesQueryVariables, clientOptions?: ClientOptions ): Promise<LanguagesQuery> {
         return this.doQuery<LanguagesQuery, LanguagesQueryVariables>( languages, variables, clientOptions );
+    }
+
+    updateTranslation ( variables?: UpdateTranslationMutationVariables, clientOptions?: MutationClientOptions ): Promise<UpdateTranslationMutation> {
+        return this.doMutation<UpdateTranslationMutation, UpdateTranslationMutationVariables>( updateTranslation, variables, clientOptions );
     }
 }

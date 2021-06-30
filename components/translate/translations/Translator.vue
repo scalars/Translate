@@ -48,6 +48,9 @@
         </div>
         <GeneralButton
             text="Save"
+            :loading="loading"
+            :disabled="!valuesHaveChanged"
+            @click="saveTranslations"
         />
     </div>
 </template>
@@ -70,6 +73,30 @@ export default class Translator extends Vue {
     selectedLanguage: Language | null = null;
     translationData: any = {};
 
+    get translationDefaultValues () {
+        if ( this.section && this.selectedLanguage ) {
+            return this.section.translations?.find( ( translation: Translation ) =>
+                translation?.language?.isolanguage === this.selectedLanguage?.isolanguage );
+        }
+        return null;
+    }
+
+    get valuesHaveChanged () {
+        // TODO Fix Validation flow
+        return true;
+        // if ( !this.section || !this.selectedLanguage ) {
+        //     return false;
+        // } else if ( this.translationDefaultValues?.translationValues ) {
+        //     return this.section.sectionValues.some( ( sectionValue: any ) =>
+        //         !( this.translationData[sectionValue.key] === this.translationDefaultValues?.translationValues[sectionValue.key] )
+        //     );
+        // } else {
+        //     return this.section.sectionValues.some( ( sectionValue: any ) =>
+        //         !!this.translationData[sectionValue.key]
+        //     );
+        // }
+    }
+
     @Watch( 'selectedLanguage' )
     onLanguageChanged () {
         this.setTranslationData();
@@ -86,20 +113,57 @@ export default class Translator extends Vue {
         }
     }
 
+    async saveTranslations () {
+        if ( this.valuesHaveChanged ) {
+            try {
+                this.loading = true;
+                let updatedSection;
+                if ( this.translationDefaultValues ) {
+                    // TODO Evaluate if is possible to do this inside a UpdateSchema mutation
+                    const { updateTranslation } = await this.$apiClient.queries.updateTranslation( {
+                        where: { id: this.translationDefaultValues.id },
+                        data: { translationValues: this.translationData }
+                    } );
+                    const translations = this.section.translations?.filter( ( translation: Translation ) => translation.id !== updateTranslation.id ) || [];
+                    translations.push( updateTranslation as Translation );
+                    updatedSection = { ...this.section, translations };
+                    // TODO When updating and changing to other item and then returning, the data gets reversed only in front. Refreshing page solves it
+                } else {
+                    // TODO Validate if updating a translate api the language gets connected
+                    const { updateSchema } = await this.$apiClient.queries.updateSchema( {
+                        where: { id: this.section.id },
+                        data: {
+                            translations: {
+                                create: [
+                                    {
+                                        language: { connect: { id: this.selectedLanguage?.id } },
+                                        istranslated: false,
+                                        translationValues: this.translationData
+                                    }
+                                ]
+                            }
+                        }
+                    } );
+                    updatedSection = updateSchema;
+                }
+                this.$emit( 'updateSection', updatedSection );
+            } catch ( error ) {
+                console.error( error );
+            } finally {
+                this.loading = false;
+            }
+        }
+    }
+
     getLanguageLabel ( language: Language ) {
         return `${language.isolanguage} | ${language.namelanguage} | ${language.nativename}`;
     }
 
     setTranslationData () {
-        if ( this.section && this.selectedLanguage ) {
-            const selectedTranslation = this.section.translations?.find( ( translation: Translation ) =>
-                translation.language.isolanguage === this.selectedLanguage.isolanguage );
-            if ( selectedTranslation?.translationValues ) {
-                this.section.sectionValues.forEach( ( sectionValue:any ) => {
-                    this.translationData[sectionValue.key] = selectedTranslation.translationValues[sectionValue.key];
-                } );
-                this.translationData.id = selectedTranslation.id;
-            }
+        if ( this.translationDefaultValues?.translationValues ) {
+            this.section.sectionValues.forEach( ( sectionValue:any ) => {
+                this.translationData[sectionValue.key] = this.translationDefaultValues?.translationValues[sectionValue.key];
+            } );
         }
     }
 }
