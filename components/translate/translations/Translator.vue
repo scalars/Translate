@@ -26,24 +26,31 @@
             <div v-if="!section">
                 {{ 'Select a Section to Translate' }}
             </div>
-            <div v-else-if="!selectedLanguage">
-                {{ 'Select a Language to Translate' }}
-            </div>
-            <div v-else-if="!section.sectionValues || section.sectionValues.length === 0">
-                {{ 'This section doesnt have labels to translate' }}
-            </div>
-            <div v-else>
-                <div v-for="sectionValue in section.sectionValues" :key="sectionValue.id">
-                    <span>
-                        {{ sectionValue.key }}:
-                    </span>
-                    <v-text-field
-                        v-model="translationData[sectionValue.key]"
-                        filled
-                        :hint="sectionValue.suggestion"
-                    />
+            <template v-else>
+                <span>
+                    <strong>
+                        {{ `${section.sectionName}`.toUpperCase() }}
+                    </strong>
+                </span>
+                <div v-if="!selectedLanguage">
+                    {{ 'Select a Language to Translate' }}
                 </div>
-            </div>
+                <div v-else-if="!section.sectionValues || section.sectionValues.length === 0">
+                    {{ 'This section doesnt have labels to translate' }}
+                </div>
+                <div v-else>
+                    <div v-for="sectionValue in section.sectionValues" :key="sectionValue.id">
+                        <span>
+                            {{ sectionValue.key }}:
+                        </span>
+                        <v-text-field
+                            v-model="translationData[sectionValue.key]"
+                            filled
+                            :hint="sectionValue.suggestion"
+                        />
+                    </div>
+                </div>
+            </template>
             <v-divider />
         </div>
         <GeneralButton
