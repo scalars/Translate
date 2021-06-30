@@ -23,9 +23,7 @@ const applications = gql`
                     }
                 }
             }
-            defaultLanguage {
-                id namelanguage isolanguage
-            }
+#            defaultLanguage
             languages {
                 id
                 namelanguage
@@ -42,9 +40,20 @@ const application = gql`
         application ( where: $where ) {
             id name
             root{ id }
-            defaultLanguage {
+#            defaultLanguage
+            languages {
                 id namelanguage isolanguage nativename flag
             }
+        }
+    }
+`;
+
+const createApplication = gql`
+    mutation createApplication( $data: ApplicationUpdateInput! ){
+        createApplication ( data: $data ) {
+            id name
+            root{ id }
+#            defaultLanguage
             languages {
                 id namelanguage isolanguage nativename flag
             }
@@ -57,9 +66,7 @@ const updateApplication = gql`
         updateApplication ( where: $where data: $data ) {
             id name
             root{ id }
-            defaultLanguage {
-                id namelanguage isolanguage nativename flag
-            }
+#            defaultLanguage
             languages {
                 id namelanguage isolanguage nativename flag
             }
@@ -147,6 +154,7 @@ const updateTranslation = gql`
 export {
     applications,
     application,
+    createApplication,
     updateApplication,
     schema,
     updateSchema,

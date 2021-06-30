@@ -12,7 +12,7 @@
             <v-chip
                 v-for="(lang, index) in application.languages"
                 :key="index"
-                :class="{ 'mx-1': true, 'primary': lang.isolanguage === application.defaultLanguage.isolanguage }"
+                :class="{ 'mx-1': true, 'primary': lang.isolanguage === application.defaultLanguage }"
             >
                 {{ lang.isolanguage }}
             </v-chip>
