@@ -16,6 +16,7 @@ const applications = gql`
                         language {
                             isolanguage
                         }
+                        translationValues
                     }
                     subsections {
                         id
@@ -26,7 +27,11 @@ const applications = gql`
                 id namelanguage isolanguage
             }
             languages {
-                id namelanguage isolanguage
+                id
+                namelanguage
+                isolanguage
+                nativename
+                flag
             }
         }
     }
@@ -75,6 +80,7 @@ const schema = gql`
                 language {
                     isolanguage
                 }
+                translationValues
             }
             subsections {
                 id
@@ -96,6 +102,7 @@ const updateSchema = gql`
                 language {
                     isolanguage
                 }
+                translationValues
             }
             subsections {
                 id

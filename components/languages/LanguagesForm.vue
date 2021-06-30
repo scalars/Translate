@@ -9,6 +9,7 @@
                 :readonly="loading"
                 chips
                 deletable-chips
+                filled
                 :item-text="getLanguageLabel"
                 label="Languages"
             >

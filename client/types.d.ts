@@ -2733,7 +2733,7 @@ export type ApplicationsQuery = (
         & Pick<Schema, 'id' | 'sectionName' | 'description' | 'sectionValues'>
         & { translations?: Maybe<Array<(
           { __typename?: 'Translation' }
-          & Pick<Translation, 'id' | 'istranslated'>
+          & Pick<Translation, 'id' | 'istranslated' | 'translationValues'>
           & { language?: Maybe<(
             { __typename?: 'Language' }
             & Pick<Language, 'isolanguage'>
@@ -2812,7 +2812,7 @@ export type SchemaQuery = (
     & Pick<Schema, 'id' | 'sectionName' | 'description' | 'sectionValues'>
     & { translations?: Maybe<Array<(
       { __typename?: 'Translation' }
-      & Pick<Translation, 'id' | 'istranslated'>
+      & Pick<Translation, 'id' | 'istranslated' | 'translationValues'>
       & { language?: Maybe<(
         { __typename?: 'Language' }
         & Pick<Language, 'isolanguage'>
@@ -2837,7 +2837,7 @@ export type UpdateSchemaMutation = (
     & Pick<Schema, 'id' | 'sectionName' | 'description' | 'sectionValues'>
     & { translations?: Maybe<Array<(
       { __typename?: 'Translation' }
-      & Pick<Translation, 'id' | 'istranslated'>
+      & Pick<Translation, 'id' | 'istranslated' | 'translationValues'>
       & { language?: Maybe<(
         { __typename?: 'Language' }
         & Pick<Language, 'isolanguage'>

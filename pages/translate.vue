@@ -15,7 +15,13 @@
                 </v-col>
                 <v-divider vertical />
                 <v-col>
-                    <v-subheader>Translations</v-subheader>
+                    <div>
+                        <v-subheader>Translations</v-subheader>
+                        <Translator
+                            :section="currentSection"
+                            :languages="application.languages"
+                        />
+                    </div>
                 </v-col>
             </v-row>
         </v-container>
@@ -24,16 +30,20 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import { Schema } from '@/client/types';
+import { Language, Schema } from '@/client/types';
 import SectionIterator from '@/components/translate/sections/SectionIterator.vue';
+import Translator from '@/components/translate/translations/Translator.vue';
 
 @Component(
     {
         layout: 'application',
-        components: { SectionIterator }
+        components: { SectionIterator, Translator }
     }
 )
 export default class Translate extends Vue {
+    currentSection: Schema | null = null;
+    languages: Language[] = [];
+
     get application () {
         return this.$store.getters['sessionStorage/getApplication'];
     }
@@ -47,8 +57,7 @@ export default class Translate extends Vue {
     }
 
     setSectionToTranslate ( section: Schema ) {
-        console.log( 'selecting outside' );
-        console.log( section );
+        this.currentSection = section;
     }
 }
 </script>
