@@ -10,11 +10,21 @@
 
         <div style="display: flex">
             <v-chip
-                v-for="(lang, index) in application.languages"
+                v-if="!application.languages || application.languages.length === 0"
+            >
+                NONE
+            </v-chip>
+            <v-chip
+                v-for="(lang, index) in application.languages.slice(0,4)"
                 :key="index"
                 :class="{ 'mx-1': true, 'primary': lang.isolanguage === application.defaultLanguage }"
             >
                 {{ lang.isolanguage }}
+            </v-chip>
+            <v-chip
+                v-if="application.languages.length > 4"
+            >
+                ...
             </v-chip>
         </div>
 
