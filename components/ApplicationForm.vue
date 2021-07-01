@@ -34,7 +34,7 @@ import LanguagesSelect from '@/components/languages/LanguagesSelect.vue';
 @Component( { components: { GeneralButton, LanguagesSelect } } )
 export default class ApplicationForm extends Vue {
     @Prop( { required: true } ) application: Application;
-    @Prop( { required: true } ) languages: Languages[];
+    @Prop( { required: true } ) languages: Language[];
     @Prop( { type: Boolean, default: false } ) editApplication: boolean;
     isValid: boolean = true;
     loading: boolean = false;

@@ -38,14 +38,19 @@ import { Schema } from '@/client/types';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 import SectionValuesInput from '@/components/translate/sections/SectionValuesInput.vue';
 
+interface SchemaData {
+    sectionName: string,
+    description: string,
+    sectionValues: any[]
+}
+
 @Component( { components: { GeneralButton, SectionValuesInput } } )
 export default class SectionForm extends Vue {
     @Prop( { required: true } ) section: Schema;
     @Prop( { type: Boolean, default: false } ) editSection: boolean;
     isValid: boolean = true;
     loading: boolean = false;
-    sectionData: Schema = {
-        id: '',
+    sectionData: SchemaData = {
         sectionName: '',
         description: '',
         sectionValues: []

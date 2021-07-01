@@ -71,8 +71,8 @@ export default class LanguagesPage extends Vue {
         try {
             this.loading = true;
             const { languages } = await this.$apiClient.queries.languages( {} );
-            this.allLanguages = languages;
-            this.addedLanguages = languages.filter( ( language: Language ) =>
+            this.allLanguages = languages as Language[];
+            this.addedLanguages = this.allLanguages.filter( ( language: Language ) =>
                 this.application.languages.some( ( lang: Language ) =>
                     lang.id === language.id ) );
         } catch ( error ) {

@@ -66,7 +66,7 @@ export default class SectionIterator extends Vue {
             try {
                 this.loading = true;
                 const { schema } = await this.$apiClient.queries.schema( { where: { id: this.sectionId } } );
-                this.section = schema;
+                this.section = schema as Schema;
             } catch ( error ) {
                 console.error( error );
             } finally {

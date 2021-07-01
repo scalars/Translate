@@ -49,7 +49,7 @@ import ApplicationForm from '@/components/ApplicationForm.vue';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 import Modal from '@/components/general/Modal.vue';
 import ConfirmDelete from '@/components/general/ConfirmDelete.vue';
-import { Application } from '@/client/types';
+import { Application, Language } from '@/client/types';
 import { uuid } from 'vue-uuid';
 import { ActionType } from '@/utils/interfaces';
 
@@ -80,7 +80,7 @@ import { ActionType } from '@/utils/interfaces';
 } )
 export default class Index extends Vue {
     applications: Application[] = [];
-    languages: Languages[] = [];
+    languages: Language[] = [];
     loading: boolean = false;
     deletingApp: boolean = false;
     selectedApplication: Application | null = null;
@@ -108,8 +108,8 @@ export default class Index extends Vue {
             this.loading = true;
             const { applications } = await this.$apiClient.queries.applications( {} );
             const { languages } = await this.$apiClient.queries.languages( {} );
-            this.applications = [...applications];
-            this.languages = [...languages];
+            this.applications = [...applications as Application[]];
+            this.languages = [...languages as Language[]];
         } catch ( error ) {
             console.error( error );
         } finally {
@@ -120,9 +120,9 @@ export default class Index extends Vue {
     async deleteApplicationHandler () {
         try {
             this.deletingApp = true;
-            await this.$apiClient.queries.deleteApplication( { where: { id: this.selectedApplication.id } } );
+            await this.$apiClient.queries.deleteApplication( { where: { id: this.selectedApplication?.id } } );
             this.applications = this.applications.filter( ( application: Application ) =>
-                application.id !== this.selectedApplication.id );
+                application.id !== this.selectedApplication?.id );
         } catch ( error ) {
             console.error( error );
         } finally {
