@@ -1,31 +1,22 @@
 <template>
-    <div v-if="application">
-        <v-container fluid>
-            <v-row>
-                <v-col>
-                    <div class="translate-page-container">
-                        <v-subheader>Sections</v-subheader>
-                        <SectionIterator
-                            :section-id="application.root.id"
-                            is-root
-                            @selectSection="setSectionToTranslate"
-                            @updateSection="updateSection"
-                        />
-                    </div>
-                </v-col>
-                <v-divider vertical />
-                <v-col>
-                    <div class="translate-page-container">
-                        <v-subheader>Translations</v-subheader>
-                        <Translator
-                            :section="currentSection"
-                            :languages="application.languages"
-                            @updateSection="updateSection"
-                        />
-                    </div>
-                </v-col>
-            </v-row>
-        </v-container>
+    <div v-if="application" class="translate-page-container">
+        <div class="translate-page-column">
+            <v-subheader>Sections</v-subheader>
+            <SectionIterator
+                :section-id="application.root.id"
+                is-root
+                @selectSection="setSectionToTranslate"
+                @updateSection="updateSection"
+            />
+        </div>
+        <div class="translate-page-column">
+            <v-subheader>Translations</v-subheader>
+            <Translator
+                :section="currentSection"
+                :languages="application.languages"
+                @updateSection="updateSection"
+            />
+        </div>
     </div>
 </template>
 
@@ -63,11 +54,24 @@ export default class Translate extends Vue {
 
 <style lang="scss" scoped>
 .translate-page-container {
-    height: calc(100vh - 150px);
-    overflow: auto;
-    padding-bottom: 15px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 60% 35%;
+    gap: 30px;
     @include mobile {
-        height: 40vh;
+        grid-template-columns: 100%;
+    }
+    .translate-page-column {
+        height: calc(100vh - 150px);
+        overflow: auto;
+        padding: 15px;
+        display: flex;
+        flex-flow: column;
+        width: 100%;
+        @include mobile {
+            height: 40vh;
+        }
     }
 }
+
 </style>
