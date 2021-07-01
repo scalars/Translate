@@ -6,4 +6,4 @@ USERPOOL_WEB_CLIENT_ID=31mkehdnno6mdg5cgsmt5ra774
 USERPOOL_REGION=us-east-1
 
 TRANSLATIONS_BUCKET_URL=translate.madrov.com
-LAMBDA_JSON_UPLOADER=
+LAMBDA_JSON_UPLOADER=https://jwg6a1rx07.execute-api.us-east-1.amazonaws.com/prod/
