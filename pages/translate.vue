@@ -3,7 +3,7 @@
         <v-container fluid>
             <v-row>
                 <v-col>
-                    <div>
+                    <div class="translate-page-container">
                         <v-subheader>Sections</v-subheader>
                         <SectionIterator
                             :section-id="application.root.id"
@@ -15,7 +15,7 @@
                 </v-col>
                 <v-divider vertical />
                 <v-col>
-                    <div>
+                    <div class="translate-page-container">
                         <v-subheader>Translations</v-subheader>
                         <Translator
                             :section="currentSection"
@@ -62,4 +62,12 @@ export default class Translate extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.translate-page-container {
+    height: calc(100vh - 150px);
+    overflow: auto;
+    padding-bottom: 15px;
+    @include mobile {
+        height: 40vh;
+    }
+}
 </style>
