@@ -1,6 +1,7 @@
 <template>
     <div class="section-item-container">
         <div class="section-item-title">
+            <slot />
             <h3 v-if="!isRoot" class="item-title" @click="selectSection">
                 {{ `${section.sectionName}`.toUpperCase() }}
             </h3>
@@ -155,7 +156,7 @@ export default class SectionItem extends Vue {
         display: flex;
         align-items: center;
         .item-title {
-            margin-right: 10px;
+            margin: 0 10px;
             cursor: pointer;
         }
     }

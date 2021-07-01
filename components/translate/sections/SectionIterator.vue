@@ -12,9 +12,19 @@
             @selectSection="selectSection"
             @updateSection="updateSection"
             @deleteSection="deleteSection"
-        />
+        >
+            <GeneralButton
+                v-if="!isRoot"
+                icon-mode
+                :icon="showSubsections ? 'mdi-menu-up' : 'mdi-menu-down'"
+                :text="showSubsections ? 'Hide Subsections' : 'Show Subsections'"
+                left-tooltip
+                :disabled="!section.subsections || section.subsections.length === 0"
+                @click="showSubsections = !showSubsections"
+            />
+        </SectionItem>
         <v-divider v-if="!isRoot" />
-        <div :class="{'section-subsections': !isRoot}">
+        <div v-if="showSubsections || isRoot" :class="{'section-subsections': !isRoot}">
             <SectionIterator
                 v-for="subsection in section.subsections"
                 :key="subsection.id"
@@ -30,12 +40,13 @@
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import { Schema } from '@/client/types';
 import SectionItem from '@/components/translate/sections/SectionItem.vue';
+import GeneralButton from '@/components/general/GeneralButton.vue';
 
 @Component(
     {
         layout: 'application',
         name: 'SectionIterator',
-        components: { SectionItem }
+        components: { SectionItem, GeneralButton }
     }
 )
 export default class SectionIterator extends Vue {
@@ -43,6 +54,7 @@ export default class SectionIterator extends Vue {
     @Prop( { type: Boolean, default: false } ) isRoot: boolean;
     section: Schema | null = null;
     loading: boolean = false;
+    showSubsections: boolean = false;
 
     beforeMount () {
         this.getSection();
