@@ -56,6 +56,14 @@
                         </v-list-item-content>
                     </v-list-item>
                 </v-toolbar-title>
+                <v-spacer />
+                <GeneralButton
+                    text="Publish"
+                    icon="mdi-publish"
+                    responsive
+                    :loading="loading"
+                    @click="publishTranslations"
+                />
             </v-app-bar>
             <v-main>
                 <v-container>
@@ -68,10 +76,12 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-@Component( {} )
+import GeneralButton from '@/components/general/GeneralButton.vue';
+@Component( { components: { GeneralButton } } )
 
 export default class ApplicationLayout extends Vue {
     drawer: boolean = false;
+    loading: boolean = false;
     pages: Array<object> =[
         {
             icon: 'mdi-translate',
@@ -92,6 +102,26 @@ export default class ApplicationLayout extends Vue {
     beforeMount ( ) {
         if ( !this.application ) {
             this.$router.push( '/' );
+        }
+    }
+
+    async publishTranslations () {
+        const lambdaUrl = process.env.LAMBDA_JSON_UPLOADER as string;
+        try {
+            this.loading = true;
+            await fetch( lambdaUrl,
+                {
+                    method: 'post',
+                    headers: { },
+                    body: JSON.stringify( {
+                        applicationId: this.application.id
+                    } )
+                }
+            );
+        } catch ( error ) {
+            console.error( error );
+        } finally {
+            this.loading = false;
         }
     }
 }
