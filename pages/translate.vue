@@ -56,8 +56,7 @@ export default class Translate extends Vue {
 .translate-page-container {
     display: grid;
     width: 100%;
-    grid-template-columns: 60% 35%;
-    gap: 30px;
+    grid-template-columns: 70% 30%;
     @include mobile {
         grid-template-columns: 100%;
     }
