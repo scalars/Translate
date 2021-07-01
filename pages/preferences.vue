@@ -17,7 +17,7 @@ import { Component, Vue, Watch } from 'nuxt-property-decorator';
 @Component( { components: {} } )
 export default class Preferences extends Vue {
     themes: string[] = ['Dark', 'Light'];
-    theme: string = 'Light';
+    theme: string = 'Dark';
 
     @Watch( 'theme' )
     onThemeChanged () {
