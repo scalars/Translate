@@ -242,6 +242,7 @@ export type Application = {
   name?: Maybe<Scalars['String']>;
   root?: Maybe<Schema>;
   languages: Array<Language>;
+  defaultLanguage?: Maybe<Scalars['String']>;
 };
 
 
@@ -260,6 +261,7 @@ export type ApplicationCreateInput = {
   name?: Maybe<Scalars['String']>;
   root?: Maybe<SchemaCreateOneInput>;
   languages?: Maybe<LanguageCreateManyWithoutApplicationsInput>;
+  defaultLanguage?: Maybe<Scalars['String']>;
 };
 
 export type ApplicationCreateManyWithoutLanguagesInput = {
@@ -267,11 +269,17 @@ export type ApplicationCreateManyWithoutLanguagesInput = {
   connect?: Maybe<Array<Maybe<ApplicationWhereUniqueInput>>>;
 };
 
+export type ApplicationCreateOneInput = {
+  create?: Maybe<ApplicationCreateInput>;
+  connect?: Maybe<ApplicationWhereUniqueInput>;
+};
+
 export type ApplicationCreateWithoutLanguagesInput = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   name?: Maybe<Scalars['String']>;
   root?: Maybe<SchemaCreateOneInput>;
+  defaultLanguage?: Maybe<Scalars['String']>;
 };
 
 export type ApplicationOrderInput = {
@@ -279,6 +287,7 @@ export type ApplicationOrderInput = {
   updatedAt?: Maybe<OrderByEnum>;
   createdAt?: Maybe<OrderByEnum>;
   name?: Maybe<OrderByEnum>;
+  defaultLanguage?: Maybe<OrderByEnum>;
 };
 
 export type ApplicationUpdateInput = {
@@ -287,6 +296,7 @@ export type ApplicationUpdateInput = {
   name?: Maybe<Scalars['String']>;
   root?: Maybe<SchemaUpdateOneInput>;
   languages?: Maybe<LanguageUpdateManyWithoutApplicationsInput>;
+  defaultLanguage?: Maybe<Scalars['String']>;
 };
 
 export type ApplicationUpdateManyWithoutLanguagesInput = {
@@ -296,11 +306,19 @@ export type ApplicationUpdateManyWithoutLanguagesInput = {
   delete?: Maybe<Array<Maybe<ApplicationWhereUniqueInput>>>;
 };
 
+export type ApplicationUpdateOneInput = {
+  create?: Maybe<ApplicationCreateInput>;
+  connect?: Maybe<ApplicationWhereUniqueInput>;
+  disconnect?: Maybe<Scalars['Boolean']>;
+  delete?: Maybe<Scalars['Boolean']>;
+};
+
 export type ApplicationUpdateWithoutLanguagesInput = {
   updatedAt?: Maybe<Scalars['DateTime']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   name?: Maybe<Scalars['String']>;
   root?: Maybe<SchemaUpdateOneInput>;
+  defaultLanguage?: Maybe<Scalars['String']>;
 };
 
 export type ApplicationWhereInput = {
@@ -336,6 +354,12 @@ export type ApplicationWhereInput = {
   name_in?: Maybe<Array<Maybe<Scalars['String']>>>;
   root?: Maybe<SchemaWhereInput>;
   languages?: Maybe<FilterLanguage>;
+  defaultLanguage?: Maybe<Scalars['String']>;
+  defaultLanguage_eq?: Maybe<Scalars['String']>;
+  defaultLanguage_neq?: Maybe<Scalars['String']>;
+  defaultLanguage_contains?: Maybe<Scalars['String']>;
+  defaultLanguage_notcontains?: Maybe<Scalars['String']>;
+  defaultLanguage_in?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type ApplicationWhereUniqueInput = {
@@ -2563,6 +2587,7 @@ export type Schema = {
   sectionValues?: Maybe<Scalars['Json']>;
   subsections: Array<Schema>;
   translations: Array<Translation>;
+  application?: Maybe<Application>;
 };
 
 
@@ -2588,6 +2613,7 @@ export type SchemaCreateInput = {
   sectionValues?: Maybe<Scalars['Json']>;
   subsections?: Maybe<SchemaCreateManyInput>;
   translations?: Maybe<TranslationCreateManyWithoutSchemaInput>;
+  application?: Maybe<ApplicationCreateOneInput>;
 };
 
 export type SchemaCreateManyInput = {
@@ -2617,6 +2643,7 @@ export type SchemaUpdateInput = {
   sectionValues?: Maybe<Scalars['Json']>;
   subsections?: Maybe<SchemaUpdateManyInput>;
   translations?: Maybe<TranslationUpdateManyWithoutSchemaInput>;
+  application?: Maybe<ApplicationUpdateOneInput>;
 };
 
 export type SchemaUpdateManyInput = {
@@ -2673,6 +2700,7 @@ export type SchemaWhereInput = {
   sectionValues_object?: Maybe<Scalars['Json']>;
   subsections?: Maybe<FilterSchema>;
   translations?: Maybe<FilterTranslation>;
+  application?: Maybe<ApplicationWhereInput>;
 };
 
 export type SchemaWhereUniqueInput = {
@@ -3124,6 +3152,30 @@ export type DeleteApplicationMutation = (
     { __typename?: 'Application' }
     & Pick<Application, 'id'>
   ) }
+);
+
+export type SchemataQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type SchemataQuery = (
+  { __typename?: 'Query' }
+  & { schemata: Array<(
+    { __typename?: 'Schema' }
+    & Pick<Schema, 'id' | 'sectionName' | 'sectionValues'>
+    & { translations: Array<(
+      { __typename?: 'Translation' }
+      & Pick<Translation, 'id' | 'translationValues' | 'istranslated'>
+      & { language?: Maybe<(
+        { __typename?: 'Language' }
+        & Pick<Language, 'isolanguage'>
+      )> }
+    )>, subsections: Array<(
+      { __typename?: 'Schema' }
+      & Pick<Schema, 'id' | 'sectionName'>
+    )> }
+  )> }
 );
 
 export type SchemaQueryVariables = Exact<{

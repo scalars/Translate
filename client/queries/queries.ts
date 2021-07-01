@@ -82,6 +82,28 @@ const deleteApplication = gql`
     }
 `;
 
+const schemata = gql`
+    query schemata($id: ID!) {
+        schemata (where: {application:{id:$id}}){
+            id
+            sectionName
+            sectionValues
+            translations {
+                id
+                translationValues
+                language {
+                    isolanguage
+                }
+                istranslated
+            }
+            subsections {
+                id
+                sectionName
+            }
+        }
+    }
+`;
+
 const schema = gql`
     query schema( $where: SchemaWhereUniqueInput! ) {
         schema ( where: $where ) {
@@ -165,6 +187,7 @@ export {
     createApplication,
     updateApplication,
     deleteApplication,
+    schemata,
     schema,
     updateSchema,
     deleteSchema,

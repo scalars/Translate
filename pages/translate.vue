@@ -1,5 +1,6 @@
 <template>
-    <div v-if="application" class="translate-page-container">
+    <Loading v-if="loading" />
+    <div v-else-if="application" class="translate-page-container">
         <div class="translate-page-column">
             <v-subheader>Sections</v-subheader>
             <SectionIterator
@@ -25,19 +26,38 @@ import { Component, Vue } from 'nuxt-property-decorator';
 import { Language, Schema } from '@/client/types';
 import SectionIterator from '@/components/translate/sections/SectionIterator.vue';
 import Translator from '@/components/translate/translations/Translator.vue';
+import Loading from '@/components/general/Loader.vue';
 
 @Component(
     {
         layout: 'application',
-        components: { SectionIterator, Translator }
+        components: { SectionIterator, Translator, Loading }
     }
 )
 export default class Translate extends Vue {
     currentSection: Schema | null = null;
     languages: Language[] = [];
+    loading: boolean = false;
 
     get application () {
         return this.$store.getters['sessionStorage/getApplication'];
+    }
+
+    beforeMount () {
+        this.getSections();
+    }
+
+    async getSections () {
+        try {
+            this.loading = true;
+            const { schemata } = await this.$apiClient.queries.schemata( { id: this.application.id } );
+            this.$store.commit( 'sessionStorage/setSections', schemata );
+            console.log( this.$store.state.sessionStorage.sections );
+        } catch ( error ) {
+            console.error( error );
+        } finally {
+            this.loading = false;
+        }
     }
 
     setSectionToTranslate ( section: Schema ) {

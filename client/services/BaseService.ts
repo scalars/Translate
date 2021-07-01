@@ -6,6 +6,7 @@ import {
     createApplication,
     updateApplication,
     deleteApplication,
+    schemata,
     schema,
     updateSchema,
     deleteSchema,
@@ -22,6 +23,8 @@ import {
     UpdateApplicationMutationVariables,
     DeleteApplicationMutation,
     DeleteApplicationMutationVariables,
+    SchemataQuery,
+    SchemataQueryVariables,
     SchemaQuery,
     SchemaQueryVariables,
     UpdateSchemaMutation,
@@ -53,6 +56,10 @@ export class BaseService extends ApolloClientService {
 
     deleteApplication ( variables?: DeleteApplicationMutationVariables, clientOptions?: MutationClientOptions ): Promise<DeleteApplicationMutation> {
         return this.doMutation<DeleteApplicationMutation, DeleteApplicationMutationVariables>( deleteApplication, variables, clientOptions );
+    }
+
+    schemata ( variables?: SchemataQueryVariables, clientOptions?: ClientOptions ): Promise<SchemataQuery> {
+        return this.doQuery<SchemataQuery, SchemataQueryVariables>( schemata, variables, clientOptions );
     }
 
     schema ( variables?: SchemaQueryVariables, clientOptions?: ClientOptions ): Promise<SchemaQuery> {

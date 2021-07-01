@@ -61,8 +61,7 @@ export default class SectionIterator extends Vue {
     }
 
     async getSection () {
-        // // TODO Find a way to set all sections that belong to a project in vuex with a single query
-        // this.section = this.$store.getters['sessionStorage/getSection']( this.sectionId );
+        this.section = this.$store.getters['sessionStorage/getSection']( this.sectionId );
         if ( !this.section || !this.section.sectionName ) {
             try {
                 this.loading = true;
