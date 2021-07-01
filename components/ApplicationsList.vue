@@ -9,7 +9,8 @@
             :key="application.id"
             :application="application"
             @selectApplication="selectApplication"
-            @deleteApplication="selectApplication"
+            @editApplication="editApplication"
+            @deleteApplication="deleteApplication"
         />
     </div>
 </template>
@@ -29,6 +30,14 @@ export default class ApplicationsList extends Vue {
 
     selectApplication ( application: Application ) {
         this.$emit( 'selectApplication', application );
+    }
+
+    editApplication ( application: Application ) {
+        this.$emit( 'editApplication', application );
+    }
+
+    deleteApplication ( application: Application ) {
+        this.$emit( 'deleteApplication', application );
     }
 }
 </script>

@@ -49,7 +49,7 @@ const application = gql`
 `;
 
 const createApplication = gql`
-    mutation createApplication( $data: ApplicationUpdateInput! ){
+    mutation createApplication( $data: ApplicationCreateInput! ){
         createApplication ( data: $data ) {
             id name
             root{ id }
@@ -70,6 +70,14 @@ const updateApplication = gql`
             languages {
                 id namelanguage isolanguage nativename flag
             }
+        }
+    }
+`;
+
+const deleteApplication = gql`
+    mutation deleteApplication( $where: ApplicationWhereUniqueInput! ) {
+        deleteApplication ( where: $where ) {
+            id
         }
     }
 `;
@@ -156,6 +164,7 @@ export {
     application,
     createApplication,
     updateApplication,
+    deleteApplication,
     schema,
     updateSchema,
     deleteSchema,

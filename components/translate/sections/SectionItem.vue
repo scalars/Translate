@@ -51,12 +51,7 @@ import SectionForm from '@/components/translate/sections/SectionForm.vue';
 import ConfirmDelete from '@/components/general/ConfirmDelete.vue';
 import Modal from '@/components/general/Modal.vue';
 import { uuid } from 'vue-uuid';
-
-enum ActionType {
-    Create = 'CREATE',
-    Update = 'UPDATE',
-    Delete = 'DELETE'
-}
+import { ActionType } from '@/utils/interfaces';
 
 @Component(
     {

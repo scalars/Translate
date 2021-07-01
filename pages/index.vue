@@ -1,27 +1,59 @@
 <template>
     <div class="applications-page-container">
-        <GeneralButton
-            text="Create Application"
-            icon="mdi-plus"
-            desktop-width="220px"
-            @click="createApplication"
-        />
+        <div class="applications-page-header">
+            <GeneralButton
+                text="Create Application"
+                icon="mdi-plus"
+                desktop-width="220px"
+                responsive
+                @click="showCreateModal"
+            />
+        </div>
         <ApplicationsList
+            class="applications-page-list"
             :applications="applications"
             :loading="loading"
             @selectApplication="goToApplication"
+            @editApplication="showEditModal"
+            @deleteApplication="showDeleteModal"
         />
+        <Modal
+            :key="modalKey"
+            v-model="showModal"
+            :title="modalTitle"
+            :color="formAction === actionType.Delete ? 'error' : ''"
+        >
+            <ConfirmDelete
+                v-if="formAction === actionType.Delete"
+                confirm-text="All translations will be lost. Are you sure to delete this Application?"
+                :item-name="selectedApplication.name"
+                :loading="loading"
+                @confirm="deleteApplicationHandler"
+            />
+            <ApplicationForm
+                v-else
+                :application="selectedApplication"
+                :edit-application="formAction === actionType.Update"
+                @updateApplication="updateApplication"
+                @addApplication="addApplication"
+            />
+        </Modal>
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import ApplicationsList from '@/components/ApplicationsList.vue';
+import ApplicationForm from '@/components/ApplicationForm.vue';
 import GeneralButton from '@/components/general/GeneralButton.vue';
+import Modal from '@/components/general/Modal.vue';
+import ConfirmDelete from '@/components/general/ConfirmDelete.vue';
 import { Application } from '@/client/types';
+import { uuid } from 'vue-uuid';
+import { ActionType } from '@/utils/interfaces';
 
 @Component( {
-    components: { ApplicationsList, GeneralButton },
+    components: { ApplicationsList, ApplicationForm, GeneralButton, Modal, ConfirmDelete },
     head: {
         title: 'Translate',
         meta: [
@@ -48,6 +80,21 @@ import { Application } from '@/client/types';
 export default class Index extends Vue {
     applications: Application[] = [];
     loading: boolean = false;
+    selectedApplication: Application | null = null;
+    showModal: boolean = false;
+    modalKey: string = uuid.v1();
+    actionType: unknown = ActionType;
+    formAction: ActionType = ActionType.Create;
+
+    get modalTitle () {
+        if ( this.formAction === ActionType.Create ) {
+            return 'Create Application';
+        } else if ( this.formAction === ActionType.Update ) {
+            return 'Update Application';
+        } else {
+            return 'Delete Application';
+        }
+    }
 
     beforeMount () {
         this.getApplications();
@@ -57,7 +104,7 @@ export default class Index extends Vue {
         try {
             this.loading = true;
             const { applications } = await this.$apiClient.queries.applications( {} );
-            this.applications = applications;
+            this.applications = [...applications];
         } catch ( error ) {
             console.error( error );
         } finally {
@@ -65,8 +112,50 @@ export default class Index extends Vue {
         }
     }
 
-    createApplication () {
-        console.log( 'creating app' );
+    async deleteApplicationHandler () {
+        try {
+            this.loading = true;
+            await this.$apiClient.queries.deleteApplication( { where: { id: this.selectedApplication.id } } );
+            this.applications = this.applications.filter( ( application: Application ) =>
+                application.id !== this.selectedApplication.id );
+        } catch ( error ) {
+            console.error( error );
+        } finally {
+            this.loading = false;
+            this.showModal = false;
+        }
+    }
+
+    addApplication ( application: Application ) {
+        this.applications = [...this.applications, application];
+        this.showModal = false;
+    }
+
+    updateApplication ( application: Application ) {
+        const applicationIndex = this.applications.findIndex( ( app: Application ) => app.id === application.id );
+        this.applications[applicationIndex] = application;
+        this.applications = [...this.applications];
+        this.showModal = false;
+    }
+
+    showCreateModal () {
+        this.formAction = ActionType.Create;
+        this.modalKey = uuid.v1();
+        this.showModal = true;
+    }
+
+    showEditModal ( application: Application ) {
+        this.formAction = ActionType.Update;
+        this.selectedApplication = application;
+        this.modalKey = uuid.v1();
+        this.showModal = true;
+    }
+
+    showDeleteModal ( application: Application ) {
+        this.formAction = ActionType.Delete;
+        this.selectedApplication = application;
+        this.modalKey = uuid.v1();
+        this.showModal = true;
     }
 
     goToApplication ( application: Application ) {
@@ -80,6 +169,17 @@ export default class Index extends Vue {
     padding: 15px;
     display: flex;
     flex-flow: column;
-    align-items: flex-end;
+
+    .applications-page-header {
+        position: fixed;
+        right: 30px;
+        z-index: 1;
+    }
+     .applications-page-list {
+         margin-top: 30px;
+         @include mobile {
+            margin-top: 45px;
+         }
+     }
 }
 </style>

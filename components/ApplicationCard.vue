@@ -27,6 +27,12 @@
             />
             <GeneralButton
                 icon-mode
+                icon="mdi-pencil"
+                :text="'Edit Application'"
+                @click="editApplication"
+            />
+            <GeneralButton
+                icon-mode
                 icon="mdi-delete"
                 :text="'Delete Application'"
                 @click="deleteApplication"
@@ -49,6 +55,10 @@ export default class ApplicationCard extends Vue {
 
     selectApplication () {
         this.$emit( 'selectApplication', this.application );
+    }
+
+    editApplication () {
+        this.$emit( 'editApplication', this.application );
     }
 
     deleteApplication () {
