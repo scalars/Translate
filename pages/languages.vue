@@ -83,10 +83,14 @@ export default class LanguagesPage extends Vue {
         const hasChanged = this.validateIfLanguagesChanged( languages );
         if ( hasChanged ) {
             try {
-                const languagesToAdd: Language[] = languages.filter( ( language: Language ) =>
-                    !this.addedLanguages.some( ( lang: Language ) => lang.id === language.id ) );
-                const languagesToRemove: Language[] = this.addedLanguages.filter( ( language: Language ) =>
-                    !languages.some( ( lang: Language ) => lang.id === language.id ) );
+                const oldLanguagesArray: Language[] = this.addedLanguages;
+                const newLanguagesArray: Language[] = languages;
+
+                const languagesToAdd: Language[] = newLanguagesArray.filter( ( language: Language ) =>
+                    !oldLanguagesArray.some( ( lang: Language ) => lang.id === language.id ) );
+                const languagesToRemove: Language[] = oldLanguagesArray.filter( ( language: Language ) =>
+                    !newLanguagesArray.some( ( lang: Language ) => lang.id === language.id ) );
+
                 this.loading = true;
                 // TODO Uncomment code when the mutation returns the data correctly
                 // const { updateApplication } =

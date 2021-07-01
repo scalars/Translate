@@ -1,30 +1,12 @@
 <template>
     <div class="languages-form-container">
         <v-form class="languages-form">
-            <v-select
+            <LanguagesSelect
                 v-model="selectedLanguages"
-                :items="languages"
-                return-object
+                :languages="languages"
+                :disabled="loading"
                 multiple
-                :readonly="loading"
-                chips
-                deletable-chips
-                filled
-                :item-text="getLanguageLabel"
-                label="Languages"
-            >
-                <!--                TODO Evaluate if this alternative looks better -->
-                <!--                <template #item="{item}">-->
-                <!--                    <v-avatar size="22" class="mx-1">-->
-                <!--                        <v-img-->
-                <!--                            :src="item.flag"-->
-                <!--                        />-->
-                <!--                    </v-avatar>-->
-                <!--                    <div class="ml-2 mr-2">-->
-                <!--                        {{ getLanguageLabel( item ) }}-->
-                <!--                    </div>-->
-                <!--                </template>-->
-            </v-select>
+            />
         </v-form>
         <GeneralButton
             :width="$vuetify.breakpoint.smAndDown ? '' : '200px'"
@@ -38,10 +20,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import GeneralButton from '@/components/general/GeneralButton.vue';
+import LanguagesSelect from '@/components/languages/LanguagesSelect.vue';
 import { Language } from '@/client/types';
 
 @Component( {
-    components: { GeneralButton }
+    components: { GeneralButton, LanguagesSelect }
 } )
 export default class LanguagesForm extends Vue {
     @Prop( { required: true } ) languages: Language[];
@@ -51,10 +34,6 @@ export default class LanguagesForm extends Vue {
 
     beforeMount () {
         this.selectedLanguages = this.addedLanguages || [];
-    }
-
-    getLanguageLabel ( language: Language ) {
-        return `${language.isolanguage} | ${language.namelanguage} | ${language.nativename}`;
     }
 
     saveLanguages () {

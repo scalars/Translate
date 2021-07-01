@@ -8,6 +8,13 @@
                 label="Name"
                 :rules="[rules.required]"
             />
+            <LanguagesSelect
+                v-model="applicationData.languages"
+                :languages="languages"
+                :disabled="loading"
+                multiple
+                label="Select Language"
+            />
         </v-form>
         <GeneralButton
             :loading="loading"
@@ -20,12 +27,14 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
-import { Application } from '@/client/types';
+import { Application, Language } from '@/client/types';
 import GeneralButton from '@/components/general/GeneralButton.vue';
+import LanguagesSelect from '@/components/languages/LanguagesSelect.vue';
 
-@Component( { components: { GeneralButton } } )
+@Component( { components: { GeneralButton, LanguagesSelect } } )
 export default class ApplicationForm extends Vue {
     @Prop( { required: true } ) application: Application;
+    @Prop( { required: true } ) languages: Languages[];
     @Prop( { type: Boolean, default: false } ) editApplication: boolean;
     isValid: boolean = true;
     loading: boolean = false;
@@ -63,10 +72,22 @@ export default class ApplicationForm extends Vue {
         try {
             this.loading = true;
             if ( this.editApplication ) {
+                const oldLanguagesArray: Language[] = this.application.languages;
+                const newLanguagesArray: Language[] = this.applicationData.languages;
+
+                const languagesToAdd: Language[] = newLanguagesArray.filter( ( language: Language ) =>
+                    !oldLanguagesArray.some( ( lang: Language ) => lang.id === language.id ) );
+                const languagesToRemove: Language[] = oldLanguagesArray.filter( ( language: Language ) =>
+                    !newLanguagesArray.some( ( lang: Language ) => lang.id === language.id ) );
+
                 const { updateApplication } = await this.$apiClient.queries.updateApplication( {
                     where: { id: this.application.id },
                     data: {
-                        name: this.applicationData.name
+                        name: this.applicationData.name,
+                        languages: {
+                            connect: languagesToAdd.map( ( language: Language ) => { return { id: language.id }; } ),
+                            disconnect: languagesToRemove.map( ( language: Language ) => { return { id: language.id }; } )
+                        }
                     }
                 } );
                 this.$emit( 'updateApplication', updateApplication );
@@ -74,7 +95,10 @@ export default class ApplicationForm extends Vue {
                 const { createApplication } = await this.$apiClient.queries.createApplication( {
                     data: {
                         name: this.applicationData.name,
-                        root: { create: { sectionName: 'default' } }
+                        root: { create: { sectionName: 'default' } },
+                        languages: {
+                            connect: this.applicationData.languages.map( ( language: Language ) => { return { id: language.id }; } )
+                        }
                     }
                 } );
                 this.$emit( 'addApplication', createApplication );

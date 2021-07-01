@@ -27,12 +27,13 @@
                 v-if="formAction === actionType.Delete"
                 confirm-text="All translations will be lost. Are you sure to delete this Application?"
                 :item-name="selectedApplication.name"
-                :loading="loading"
+                :loading="deletingApp"
                 @confirm="deleteApplicationHandler"
             />
             <ApplicationForm
                 v-else
                 :application="selectedApplication"
+                :languages="languages"
                 :edit-application="formAction === actionType.Update"
                 @updateApplication="updateApplication"
                 @addApplication="addApplication"
@@ -79,7 +80,9 @@ import { ActionType } from '@/utils/interfaces';
 } )
 export default class Index extends Vue {
     applications: Application[] = [];
+    languages: Languages[] = [];
     loading: boolean = false;
+    deletingApp: boolean = false;
     selectedApplication: Application | null = null;
     showModal: boolean = false;
     modalKey: string = uuid.v1();
@@ -104,7 +107,9 @@ export default class Index extends Vue {
         try {
             this.loading = true;
             const { applications } = await this.$apiClient.queries.applications( {} );
+            const { languages } = await this.$apiClient.queries.languages( {} );
             this.applications = [...applications];
+            this.languages = [...languages];
         } catch ( error ) {
             console.error( error );
         } finally {
@@ -114,14 +119,14 @@ export default class Index extends Vue {
 
     async deleteApplicationHandler () {
         try {
-            this.loading = true;
+            this.deletingApp = true;
             await this.$apiClient.queries.deleteApplication( { where: { id: this.selectedApplication.id } } );
             this.applications = this.applications.filter( ( application: Application ) =>
                 application.id !== this.selectedApplication.id );
         } catch ( error ) {
             console.error( error );
         } finally {
-            this.loading = false;
+            this.deletingApp = false;
             this.showModal = false;
         }
     }

@@ -1,27 +1,12 @@
 <template>
     <div class="translator-container">
-        <v-select
+        <LanguagesSelect
             v-model="selectedLanguage"
             class="translator-language-select"
-            :items="languages"
-            return-object
-            :readonly="loading"
-            :item-text="getLanguageLabel"
-            filled
+            :languages="languages"
+            :disabled="loading"
             label="Select Language"
-        >
-            <!--                TODO Evaluate if this alternative looks better -->
-            <!--                <template #item="{item}">-->
-            <!--                    <v-avatar size="22" class="mx-1">-->
-            <!--                        <v-img-->
-            <!--                            :src="item.flag"-->
-            <!--                        />-->
-            <!--                    </v-avatar>-->
-            <!--                    <div class="ml-2 mr-2">-->
-            <!--                        {{ getLanguageLabel( item ) }}-->
-            <!--                    </div>-->
-            <!--                </template>-->
-        </v-select>
+        />
         <div class="translation-labels-container">
             <div v-if="!section">
                 {{ 'Select a Section to Translate' }}
@@ -66,11 +51,12 @@
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 import { Language, Schema, Translation } from '@/client/types';
 import GeneralButton from '@/components/general/GeneralButton.vue';
+import LanguagesSelect from '@/components/languages/LanguagesSelect.vue';
 
 @Component(
     {
         layout: 'application',
-        components: { GeneralButton }
+        components: { GeneralButton, LanguagesSelect }
     }
 )
 export default class Translator extends Vue {
@@ -160,10 +146,6 @@ export default class Translator extends Vue {
                 this.loading = false;
             }
         }
-    }
-
-    getLanguageLabel ( language: Language ) {
-        return `${language.isolanguage} | ${language.namelanguage} | ${language.nativename}`;
     }
 
     setTranslationData () {
