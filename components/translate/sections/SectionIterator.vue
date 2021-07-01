@@ -12,6 +12,7 @@
             @updateSection="updateSection"
             @deleteSection="deleteSection"
         />
+        <v-divider />
         <div class="section-subsections">
             <SectionIterator
                 v-for="subsection in section.subsections"

@@ -160,6 +160,7 @@ export default class Translator extends Vue {
 
 <style lang="scss" scoped>
 .translator-container {
+    padding: 0 10px;
     display: flex;
     width: 100%;
     flex-flow: column;

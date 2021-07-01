@@ -1,22 +1,34 @@
 <template>
     <div class="section-item-container">
-        <h2 @click="selectSection">
-            {{ section.sectionName }}
-        </h2>
+        <div class="section-item-title">
+            <h3 class="item-title" @click="selectSection">
+                {{ `${section.sectionName}`.toUpperCase() }}
+            </h3>
+            <GeneralButton
+                icon-mode
+                icon="mdi-plus"
+                text="Add Subsection"
+                right-tooltip
+                @click="createSection"
+            />
+        </div>
         <div class="section-item-actions">
             <GeneralButton
                 icon-mode
                 icon="mdi-book-open-page-variant"
-                @click="createSection"
+                text="Select Section to Translate"
+                @click="selectSection"
             />
             <GeneralButton
                 icon-mode
                 icon="mdi-pencil"
+                text="Edit Section"
                 @click="editSection"
             />
             <GeneralButton
                 icon-mode
                 icon="mdi-delete"
+                text="Delete Section"
                 @click="deleteSection"
             />
         </div>
@@ -134,8 +146,18 @@ export default class SectionItem extends Vue {
 
 <style lang="scss" scoped>
 .section-item-container {
+    margin: 0 10px;
     display: flex;
     justify-content: space-between;
+    .section-item-title {
+        padding: 10px 0;
+        display: flex;
+        align-items: center;
+        .item-title {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    }
     .section-item-actions {
         margin-left: 15px;
         display: flex;
