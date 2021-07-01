@@ -161,6 +161,8 @@ export default class SectionItem extends Vue {
     .section-item-actions {
         margin-left: 15px;
         display: flex;
+        gap: 5px;
+        align-items: center;
     }
 }
 </style>
