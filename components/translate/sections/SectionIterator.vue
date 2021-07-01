@@ -8,12 +8,13 @@
     <div v-else-if="section">
         <SectionItem
             :section="section"
+            :is-root="isRoot"
             @selectSection="selectSection"
             @updateSection="updateSection"
             @deleteSection="deleteSection"
         />
-        <v-divider />
-        <div class="section-subsections">
+        <v-divider v-if="!isRoot" />
+        <div :class="{'section-subsections': !isRoot}">
             <SectionIterator
                 v-for="subsection in section.subsections"
                 :key="subsection.id"
@@ -39,6 +40,7 @@ import SectionItem from '@/components/translate/sections/SectionItem.vue';
 )
 export default class SectionIterator extends Vue {
     @Prop( { required: true } ) sectionId: string;
+    @Prop( { type: Boolean, default: false } ) isRoot: boolean;
     section: Schema | null = null;
     loading: boolean = false;
 
@@ -81,6 +83,6 @@ export default class SectionIterator extends Vue {
 
 <style lang="scss" scoped>
 .section-subsections {
-    margin-left: 15px;
+    margin-left: 20px;
 }
 </style>

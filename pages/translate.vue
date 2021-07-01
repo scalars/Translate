@@ -6,9 +6,8 @@
                     <div>
                         <v-subheader>Sections</v-subheader>
                         <SectionIterator
-                            v-for="subsection in rootSubsections"
-                            :key="subsection.id"
-                            :section-id="subsection.id"
+                            :section-id="application.root.id"
+                            is-root
                             @selectSection="setSectionToTranslate"
                             @updateSection="updateSection"
                         />
@@ -48,14 +47,6 @@ export default class Translate extends Vue {
 
     get application () {
         return this.$store.getters['sessionStorage/getApplication'];
-    }
-
-    get rootSubsections (): Schema[] {
-        return this.application?.root?.subsections || [];
-    }
-
-    beforeMount () {
-        this.$store.commit( 'sessionStorage/setSections', this.rootSubsections );
     }
 
     setSectionToTranslate ( section: Schema ) {

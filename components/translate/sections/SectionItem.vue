@@ -1,18 +1,18 @@
 <template>
     <div class="section-item-container">
         <div class="section-item-title">
-            <h3 class="item-title" @click="selectSection">
+            <h3 v-if="!isRoot" class="item-title" @click="selectSection">
                 {{ `${section.sectionName}`.toUpperCase() }}
             </h3>
             <GeneralButton
                 icon-mode
                 icon="mdi-plus"
-                text="Add Subsection"
+                :text="isRoot ? 'Add Section' : 'Add Subsection'"
                 right-tooltip
                 @click="createSection"
             />
         </div>
-        <div class="section-item-actions">
+        <div v-if="!isRoot" class="section-item-actions">
             <GeneralButton
                 icon-mode
                 icon="mdi-book-open-page-variant"
@@ -78,6 +78,7 @@ import { ActionType } from '@/utils/interfaces';
 )
 export default class SectionItem extends Vue {
     @Prop( { required: true } ) section: Schema;
+    @Prop( { type: Boolean, default: false } ) isRoot: boolean;
     showModal: boolean = false;
     modalKey: string = uuid.v1();
     actionType: unknown = ActionType;
