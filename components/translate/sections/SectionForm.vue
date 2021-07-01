@@ -77,6 +77,10 @@ export default class SectionForm extends Vue {
         }
     }
 
+    get application () {
+        return this.$store.getters['sessionStorage/getApplication'];
+    }
+
     beforeMount () {
         this.setDefaultValues();
     }
@@ -99,7 +103,9 @@ export default class SectionForm extends Vue {
                 data = {
                     sectionName: this.sectionData.sectionName,
                     description: this.sectionData.description,
-                    sectionValues: this.sectionData.sectionValues
+                    sectionValues: this.sectionData.sectionValues,
+                    // TODO Remove when all applications schemas have been updated
+                    application: { connect: { id: this.application.id } }
                 };
             } else {
                 data = {
@@ -108,7 +114,8 @@ export default class SectionForm extends Vue {
                             {
                                 sectionName: this.sectionData.sectionName,
                                 description: this.sectionData.description,
-                                sectionValues: this.sectionData.sectionValues
+                                sectionValues: this.sectionData.sectionValues,
+                                application: { connect: { id: this.application.id } }
                             }
                         ]
                     }
