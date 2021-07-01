@@ -22,6 +22,11 @@
                     <slot name="general-options" />
                 </div>
             </template>
+            <template #[`item.json`]="{ item }">
+                <UrlDisplay
+                    :url="getJsonUrl(item)"
+                />
+            </template>
             <template #[`item.options`]="{ item }">
                 <slot name="item-options" :item="item" />
             </template>
@@ -33,14 +38,16 @@
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import Loading from '@/components/general/Loader.vue';
 import GeneralButton from '@/components/general/GeneralButton.vue';
+import UrlDisplay from '@/components/general/UrlDisplay.vue';
 import { Language } from '@/client/types';
 
 @Component( {
-    components: { Loading, GeneralButton }
+    components: { Loading, GeneralButton, UrlDisplay }
 } )
 export default class LanguagesTable extends Vue {
     @Prop( { required: true } ) languages: Language[];
     @Prop( { default: false } ) loading: boolean;
+    @Prop( { default: '' } ) baseJsonUrl: string;
     search: string = '';
     rowsPerPage: number = 10;
 
@@ -50,9 +57,14 @@ export default class LanguagesTable extends Vue {
             align: 'start',
             value: 'namelanguage'
         },
-        { text: 'ISO 639-1', value: 'isolanguage' },
+        { text: 'ISO', value: 'isolanguage' },
+        { text: 'JSON', value: 'json' },
         { text: 'Options', value: 'options' }
     ];
+
+    getJsonUrl ( lang: Language ) {
+        return `${this.baseJsonUrl}/${lang.isolanguage?.toLowerCase()}.json`;
+    }
 }
 </script>
 

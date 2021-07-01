@@ -15,6 +15,7 @@
         <LanguagesTable
             :languages="addedLanguages"
             :loading="loading"
+            :base-json-url="baseJsonUrl"
         >
             <template #general-options>
                 <GeneralButton
@@ -55,6 +56,7 @@ export default class LanguagesPage extends Vue {
     loading: boolean = false;
     showAddLanguage: boolean = false;
     modalKey: string = uuid.v1();
+    baseJsonUrl: string = ''
 
     get application () {
         return this.$store.getters['sessionStorage/getApplication'];
@@ -62,6 +64,7 @@ export default class LanguagesPage extends Vue {
 
     beforeMount () {
         this.getLanguages();
+        this.baseJsonUrl = `https://s3.amazonaws.com/${process.env.TRANSLATIONS_BUCKET_URL}/uploads/${this.application.name}`;
     }
 
     async getLanguages () {
