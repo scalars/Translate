@@ -6,6 +6,9 @@
             app
         >
             <div class="logo">
+                <v-icon x-large class="mr-5">
+                    mdi-code-braces-box
+                </v-icon>
                 <h1>Translate</h1>
             </div>
             <v-list>
