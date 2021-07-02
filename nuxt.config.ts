@@ -1,13 +1,6 @@
 // @ts-ignore
 import colors from 'vuetify/es5/util/colors';
 
-const ENVIRONMENT: any = {
-    development: 'dev',
-    production: 'prod'
-};
-
-const ENV = `${process.env.NODE_ENV}`;
-
 export default {
     // Target: https://go.nuxtjs.dev/config-target
     target: 'static',
@@ -66,7 +59,7 @@ export default {
     ],
 
     dotenv: {
-        filename: `.env.${ENVIRONMENT[ENV]}`
+        filename: `.env.${( process.env.NODE_ENV || '' ).substr( 0, 3 )}`
     },
 
     module: {
