@@ -6,10 +6,13 @@
             icon-mode
             @click="copyUrl"
         />
-        <div class="mx-1">
-            -
-        </div>
-        <a target="_blank" rel.noopener :href="url">{{ url }}</a>
+        <a class="url-link" target="_blank" rel.noopener :href="url">
+            <GeneralButton
+                :text="`Open URL`"
+                icon="mdi-open-in-new"
+                icon-mode
+            />
+        </a>
     </div>
 </template>
 
@@ -44,5 +47,9 @@ export default class UrlDisplay extends Vue {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: "----";
+    .url-link {
+        text-decoration: none;
+        margin: 0 5px;
+    }
 }
 </style>
