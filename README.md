@@ -1,9 +1,9 @@
-# template
+# Translate
 
 <!-- ABOUT THE PROJECT -->
-## Translate
+## About The Project
 
-![Alt text](translate.gif) / ![](translate.gif)
+![Alt text](translate.gif)
 
 Create translation files for your application, add languages, and set up your sections and labels with the translations that you need, all using an intuitive and easy to use interface.
 Generate a json file with the translation for each language, download or use them directly from the application storage.
