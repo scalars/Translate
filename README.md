@@ -1,7 +1,7 @@
 # template
 
 ## Build Setup
-
+![ Translate Gif](translate. gif) / ! [](translate. gif)
 ```bash
 # install dependencies
 $ yarn install
