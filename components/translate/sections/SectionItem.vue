@@ -109,7 +109,7 @@ export default class SectionItem extends Vue {
         try {
             this.loading = true;
             await this.$apiClient.queries.deleteSchema( { where: { id: this.section.id } } );
-            this.$emit( 'deleteSection' );
+            this.$emit( 'deleteSection', this.section );
         } catch ( error ) {
             console.error( error );
         } finally {

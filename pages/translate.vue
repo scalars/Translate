@@ -8,6 +8,7 @@
                 is-root
                 @selectSection="setSectionToTranslate"
                 @updateSection="updateSection"
+                @deleteSection="deleteSection"
             />
         </div>
         <div class="translate-page-column">
@@ -52,7 +53,6 @@ export default class Translate extends Vue {
             this.loading = true;
             const { schemata } = await this.$apiClient.queries.schemata( { id: this.application.id } );
             this.$store.commit( 'sessionStorage/setSections', schemata );
-            console.log( this.$store.state.sessionStorage.sections );
         } catch ( error ) {
             console.error( error );
         } finally {
@@ -67,6 +67,12 @@ export default class Translate extends Vue {
     updateSection ( section: Schema ) {
         if ( section.id === this.currentSection?.id ) {
             this.currentSection = section;
+        }
+    }
+
+    deleteSection ( section: Schema ) {
+        if ( section.id === this.currentSection?.id ) {
+            this.currentSection = null;
         }
     }
 }

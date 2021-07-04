@@ -149,11 +149,9 @@ export default class Translator extends Vue {
     }
 
     setTranslationData () {
-        if ( this.translationDefaultValues?.translationValues ) {
-            this.section.sectionValues.forEach( ( sectionValue:any ) => {
-                this.translationData[sectionValue.key] = this.translationDefaultValues?.translationValues[sectionValue.key];
-            } );
-        }
+        this.section?.sectionValues.forEach( ( sectionValue:any ) => {
+            this.translationData[sectionValue.key] = this.translationDefaultValues?.translationValues?.[sectionValue.key];
+        } );
     }
 }
 </script>

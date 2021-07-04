@@ -31,6 +31,7 @@
                 :section-id="subsection.id"
                 @selectSection="selectSection"
                 @updateSection="updateSection"
+                @deleteSection="deleteSection"
             />
         </div>
     </div>
@@ -86,8 +87,11 @@ export default class SectionIterator extends Vue {
         this.$emit( 'updateSection', section );
     }
 
-    deleteSection () {
-        this.section = null;
+    deleteSection ( section: Schema ) {
+        if ( section.id === this.section?.id ) {
+            this.section = null;
+        }
+        this.$emit( 'deleteSection', section );
     }
 }
 </script>
