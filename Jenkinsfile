@@ -17,7 +17,7 @@ pipeline {
         stage('Development') {
             when {
                 expression {
-                    return ! env.TAG_NAME && env.BRANCH_NAME != 'master';
+                    return ! env.TAG_NAME && env.BRANCH_NAME != 'master' && env.BRANCH_NAME == 'dev';
                 }
             }
             steps {
@@ -25,7 +25,7 @@ pipeline {
                     sh "mv $FILE .env.dev && chmod 700 .env.dev"
                 }
                 echo 'Building development'
-                sh ". ./deployStaticSite.sh && evaluateBrachName ${env.BRANCH_NAME} ${PROJECT_NAME}"
+                sh ". ./deployStaticSite.sh && evaluateBrachName dev${PROJECT_NAME} ${PROJECT_NAME}"
             }
         }
         stage('Production') {
