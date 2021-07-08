@@ -243,6 +243,7 @@ export type Application = {
   root?: Maybe<Schema>;
   languages: Array<Language>;
   defaultLanguage?: Maybe<Scalars['String']>;
+  owner?: Maybe<Profile>;
 };
 
 
@@ -262,6 +263,7 @@ export type ApplicationCreateInput = {
   root?: Maybe<SchemaCreateOneInput>;
   languages?: Maybe<LanguageCreateManyWithoutApplicationsInput>;
   defaultLanguage?: Maybe<Scalars['String']>;
+  owner?: Maybe<ProfileCreateOneInput>;
 };
 
 export type ApplicationCreateManyWithoutLanguagesInput = {
@@ -280,6 +282,7 @@ export type ApplicationCreateWithoutLanguagesInput = {
   name?: Maybe<Scalars['String']>;
   root?: Maybe<SchemaCreateOneInput>;
   defaultLanguage?: Maybe<Scalars['String']>;
+  owner?: Maybe<ProfileCreateOneInput>;
 };
 
 export type ApplicationOrderInput = {
@@ -297,6 +300,7 @@ export type ApplicationUpdateInput = {
   root?: Maybe<SchemaUpdateOneInput>;
   languages?: Maybe<LanguageUpdateManyWithoutApplicationsInput>;
   defaultLanguage?: Maybe<Scalars['String']>;
+  owner?: Maybe<ProfileUpdateOneInput>;
 };
 
 export type ApplicationUpdateManyWithoutLanguagesInput = {
@@ -319,6 +323,7 @@ export type ApplicationUpdateWithoutLanguagesInput = {
   name?: Maybe<Scalars['String']>;
   root?: Maybe<SchemaUpdateOneInput>;
   defaultLanguage?: Maybe<Scalars['String']>;
+  owner?: Maybe<ProfileUpdateOneInput>;
 };
 
 export type ApplicationWhereInput = {
@@ -360,6 +365,7 @@ export type ApplicationWhereInput = {
   defaultLanguage_contains?: Maybe<Scalars['String']>;
   defaultLanguage_notcontains?: Maybe<Scalars['String']>;
   defaultLanguage_in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  owner?: Maybe<ProfileWhereInput>;
 };
 
 export type ApplicationWhereUniqueInput = {
@@ -1937,6 +1943,9 @@ export type Mutation = {
   createVideofile: Videofile;
   updateVideofile: Videofile;
   deleteVideofile: Videofile;
+  createProfile: Profile;
+  updateProfile: Profile;
+  deleteProfile: Profile;
 };
 
 
@@ -2195,11 +2204,109 @@ export type MutationDeleteVideofileArgs = {
   where: VideofileWhereUniqueInput;
 };
 
+
+export type MutationCreateProfileArgs = {
+  data: ProfileCreateInput;
+};
+
+
+export type MutationUpdateProfileArgs = {
+  where: ProfileWhereUniqueInput;
+  data: ProfileUpdateInput;
+};
+
+
+export type MutationDeleteProfileArgs = {
+  where: ProfileWhereUniqueInput;
+};
+
 export enum OrderByEnum {
   Asc = 'ASC',
   Desc = 'DESC'
 }
 
+
+export type Profile = {
+  __typename?: 'Profile';
+  id: Scalars['ID'];
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  user?: Maybe<Authuser>;
+  darkTheme?: Maybe<Scalars['Boolean']>;
+};
+
+export type ProfileConnection = {
+  __typename?: 'ProfileConnection';
+  totalCount: Scalars['Int'];
+};
+
+export type ProfileCreateInput = {
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  user?: Maybe<AuthuserCreateOneInput>;
+  darkTheme?: Maybe<Scalars['Boolean']>;
+};
+
+export type ProfileCreateOneInput = {
+  create?: Maybe<ProfileCreateInput>;
+  connect?: Maybe<ProfileWhereUniqueInput>;
+};
+
+export type ProfileOrderInput = {
+  id?: Maybe<OrderByEnum>;
+  updatedAt?: Maybe<OrderByEnum>;
+  createdAt?: Maybe<OrderByEnum>;
+  darkTheme?: Maybe<OrderByEnum>;
+};
+
+export type ProfileUpdateInput = {
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  user?: Maybe<AuthuserUpdateOneInput>;
+  darkTheme?: Maybe<Scalars['Boolean']>;
+};
+
+export type ProfileUpdateOneInput = {
+  create?: Maybe<ProfileCreateInput>;
+  connect?: Maybe<ProfileWhereUniqueInput>;
+  disconnect?: Maybe<Scalars['Boolean']>;
+  delete?: Maybe<Scalars['Boolean']>;
+};
+
+export type ProfileWhereInput = {
+  OR?: Maybe<Array<ProfileWhereInput>>;
+  AND?: Maybe<Array<ProfileWhereInput>>;
+  id?: Maybe<Scalars['ID']>;
+  id_eq?: Maybe<Scalars['ID']>;
+  id_neq?: Maybe<Scalars['ID']>;
+  id_in?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  updatedAt_eq?: Maybe<Scalars['DateTime']>;
+  updatedAt_neq?: Maybe<Scalars['DateTime']>;
+  updatedAt_gt?: Maybe<Scalars['DateTime']>;
+  updatedAt_gte?: Maybe<Scalars['DateTime']>;
+  updatedAt_lt?: Maybe<Scalars['DateTime']>;
+  updatedAt_lte?: Maybe<Scalars['DateTime']>;
+  updatedAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
+  updatedAt_between?: Maybe<BetweenFilterDateTime>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  createdAt_eq?: Maybe<Scalars['DateTime']>;
+  createdAt_neq?: Maybe<Scalars['DateTime']>;
+  createdAt_gt?: Maybe<Scalars['DateTime']>;
+  createdAt_gte?: Maybe<Scalars['DateTime']>;
+  createdAt_lt?: Maybe<Scalars['DateTime']>;
+  createdAt_lte?: Maybe<Scalars['DateTime']>;
+  createdAt_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
+  createdAt_between?: Maybe<BetweenFilterDateTime>;
+  user?: Maybe<AuthuserWhereInput>;
+  darkTheme?: Maybe<Scalars['Boolean']>;
+  darkTheme_eq?: Maybe<Scalars['Boolean']>;
+  darkTheme_neq?: Maybe<Scalars['Boolean']>;
+};
+
+export type ProfileWhereUniqueInput = {
+  id?: Maybe<Scalars['ID']>;
+};
 
 export type Query = {
   __typename?: 'Query';
@@ -2251,6 +2358,9 @@ export type Query = {
   videofile: Videofile;
   videofiles: Array<Videofile>;
   videofilesConnection: VideofileConnection;
+  profile: Profile;
+  profiles: Array<Profile>;
+  profilesConnection: ProfileConnection;
 };
 
 
@@ -2571,6 +2681,26 @@ export type QueryVideofilesArgs = {
 
 export type QueryVideofilesConnectionArgs = {
   where?: Maybe<VideofileWhereInput>;
+};
+
+
+export type QueryProfileArgs = {
+  where: ProfileWhereUniqueInput;
+};
+
+
+export type QueryProfilesArgs = {
+  where?: Maybe<ProfileWhereInput>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  orderBy?: Maybe<ProfileOrderInput>;
+};
+
+
+export type QueryProfilesConnectionArgs = {
+  where?: Maybe<ProfileWhereInput>;
 };
 
 export enum Rolescope {
@@ -3269,4 +3399,21 @@ export type UpdateTranslationMutation = (
       & Pick<Language, 'isolanguage'>
     )> }
   ) }
+);
+
+export type ProfilesQueryVariables = Exact<{
+  where?: Maybe<ProfileWhereInput>;
+}>;
+
+
+export type ProfilesQuery = (
+  { __typename?: 'Query' }
+  & { profiles: Array<(
+    { __typename?: 'Profile' }
+    & Pick<Profile, 'id' | 'darkTheme'>
+    & { user?: Maybe<(
+      { __typename?: 'Authuser' }
+      & Pick<Authuser, 'id' | 'username' | 'name'>
+    )> }
+  )> }
 );
