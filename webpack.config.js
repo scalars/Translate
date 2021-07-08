@@ -9,7 +9,8 @@ module.exports = {
         rules: [
             {
                 test: /\.scss$/,
-                use: [ 'vue-style-loader',
+                use: [
+                    'vue-style-loader',
                     'css-modules-typescript-loader',
                     {
                         loader: 'css-loader',
@@ -17,7 +18,8 @@ module.exports = {
                             modules: true
                         }
                     },
-                    'sass-loader' ]
+                    'sass-loader'
+                ]
             }
         ]
     }

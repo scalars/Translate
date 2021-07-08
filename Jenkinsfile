@@ -17,12 +17,15 @@ pipeline {
         stage('Development') {
             when {
                 expression {
-                    return ! env.TAG_NAME && env.BRANCH_NAME != 'master';
+                    return ! env.TAG_NAME && env.BRANCH_NAME != 'master' && env.BRANCH_NAME == 'dev';
                 }
             }
             steps {
+                withCredentials( [file( credentialsId: 'devtranslate.madrov.com', variable: 'FILE' ) ] ) {
+                    sh "mv $FILE .env.dev && chmod 700 .env.dev"
+                }
                 echo 'Building development'
-                sh ". ./deployStaticSite.sh && evaluateBrachName ${env.BRANCH_NAME} ${PROJECT_NAME}"
+                sh ". ./deployStaticSite.sh && evaluateBrachName dev${PROJECT_NAME} ${PROJECT_NAME}"
             }
         }
         stage('Production') {
@@ -30,6 +33,9 @@ pipeline {
                 buildingTag()
             }
             steps {
+                withCredentials( [file( credentialsId: 'translate.madrov.com', variable: 'FILE' ) ] ) {
+                    sh "mv $FILE .env.pro && chmod 700 .env.pro"
+                }
                 echo 'Building production'
                 sh "sh productionRelease.sh ${env.TAG_NAME} ${PROJECT_NAME}"
             }
