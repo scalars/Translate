@@ -55,6 +55,10 @@ export default class ApplicationForm extends Vue {
         }
     }
 
+    get user () {
+        return this.$store.getters['sessionStorage/getUser'];
+    }
+
     beforeMount () {
         this.setDefaultValues();
     }
@@ -96,6 +100,7 @@ export default class ApplicationForm extends Vue {
                     data: {
                         name: this.applicationData.name,
                         root: { create: { sectionName: 'default' } },
+                        owner: { connect: { id: this.user?.id } },
                         languages: {
                             connect: this.applicationData.languages.map( ( language: Language ) => { return { id: language.id }; } )
                         }
