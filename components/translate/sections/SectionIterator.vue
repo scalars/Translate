@@ -6,7 +6,9 @@
         size="8"
     />
     <div v-else-if="section">
+        <slot />
         <SectionItem
+            v-show="searchState"
             :section="section"
             :is-root="isRoot"
             @selectSection="selectSection"
@@ -23,12 +25,13 @@
                 @click="showSubsections = !showSubsections"
             />
         </SectionItem>
-        <v-divider v-if="!isRoot" />
+        <v-divider v-if="!isRoot" v-show="searchState" />
         <div v-if="showSubsections || isRoot" :class="{'section-subsections': !isRoot}">
             <SectionIterator
                 v-for="subsection in section.subsections"
                 :key="subsection.id"
                 :section-id="subsection.id"
+                :search="search"
                 @selectSection="selectSection"
                 @updateSection="updateSection"
                 @deleteSection="deleteSection"
@@ -53,9 +56,17 @@ import GeneralButton from '@/components/general/GeneralButton.vue';
 export default class SectionIterator extends Vue {
     @Prop( { required: true } ) sectionId: string;
     @Prop( { type: Boolean, default: false } ) isRoot: boolean;
+    @Prop( { type: String, default: '' } ) search: string;
     section: Schema | null = null;
     loading: boolean = false;
     showSubsections: boolean = false;
+
+    get searchState () {
+        if ( this.section && this.section.sectionName && this.search ) {
+            return `${this.section.sectionName}`.toLowerCase().includes( this.search.toLowerCase() );
+        }
+        return true;
+    }
 
     beforeMount () {
         this.getSection();

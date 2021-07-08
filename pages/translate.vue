@@ -5,11 +5,21 @@
             <v-subheader>Sections</v-subheader>
             <SectionIterator
                 :section-id="application.root.id"
+                :search="search"
                 is-root
                 @selectSection="setSectionToTranslate"
                 @updateSection="updateSection"
                 @deleteSection="deleteSection"
-            />
+            >
+                <v-text-field
+                    v-model="search"
+                    class="search-input"
+                    :append-icon="'mdi-magnify'"
+                    :label="'Search'"
+                    single-line
+                    hide-details
+                />
+            </SectionIterator>
         </div>
         <div class="translate-page-column">
             <v-subheader>Translations</v-subheader>
@@ -39,6 +49,7 @@ export default class Translate extends Vue {
     currentSection: Schema | null = null;
     languages: Language[] = [];
     loading: boolean = false;
+    search: string = '';
 
     get application () {
         return this.$store.getters['sessionStorage/getApplication'];
@@ -98,5 +109,9 @@ export default class Translate extends Vue {
         }
     }
 }
-
+.search-input {
+    margin: 0;
+    padding: 0;
+    max-width: 250px;
+}
 </style>
