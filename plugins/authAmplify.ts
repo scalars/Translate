@@ -4,7 +4,7 @@ import Vue from 'vue';
 import AmplifyAuthEvent from './authEvent';
 
 const AmplifyPlugin = {
-    install ( Vue: { prototype: { $Amplify: any; }; }, Auth: any ) {
+    install ( Vue: any ) {
         Vue.prototype.$Amplify = Auth;
     }
 };

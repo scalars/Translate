@@ -42,7 +42,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
-import { Schema } from '@/client/types';
+import { Schema } from '@scalars/cli';
 import SectionItem from '@/components/translate/sections/SectionItem.vue';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 
@@ -77,8 +77,7 @@ export default class SectionIterator extends Vue {
         if ( !this.section || !this.section.sectionName ) {
             try {
                 this.loading = true;
-                const { schema } = await this.$apiClient.queries.schema( { where: { id: this.sectionId } } );
-                this.section = schema as Schema;
+                this.section = await this.$apiClient.query.schema( { where: { id: this.sectionId } } );
             } catch ( error ) {
                 console.error( error );
             } finally {

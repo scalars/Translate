@@ -44,13 +44,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
+import { Application, Language } from '@scalars/cli';
+import { uuid } from 'vue-uuid';
 import ApplicationsList from '@/components/ApplicationsList.vue';
 import ApplicationForm from '@/components/ApplicationForm.vue';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 import Modal from '@/components/general/Modal.vue';
 import ConfirmDelete from '@/components/general/ConfirmDelete.vue';
-import { Application, Language } from '@/client/types';
-import { uuid } from 'vue-uuid';
 import { ActionType } from '@/utils/interfaces';
 
 @Component( {
@@ -110,10 +110,8 @@ export default class Index extends Vue {
     async getApplications () {
         try {
             this.loading = true;
-            const { applications } = await this.$apiClient.queries.applications( { where: { owner: { id: this.user?.id } } } );
-            const { languages } = await this.$apiClient.queries.languages( {} );
-            this.applications = [...applications as Application[]];
-            this.languages = [...languages as Language[]];
+            this.applications = await this.$apiClient.query.applications( { where: { owner: { id: this.user?.id } } } );
+            this.languages = await this.$apiClient.query.languages( {} );
         } catch ( error ) {
             console.error( error );
         } finally {
@@ -124,7 +122,7 @@ export default class Index extends Vue {
     async deleteApplicationHandler () {
         try {
             this.deletingApp = true;
-            await this.$apiClient.queries.deleteApplication( { where: { id: this.selectedApplication?.id } } );
+            await this.$apiClient.mutation.deleteApplication( { where: { id: this.selectedApplication?.id } } );
             this.applications = this.applications.filter( ( application: Application ) =>
                 application.id !== this.selectedApplication?.id );
         } catch ( error ) {

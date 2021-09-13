@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
-import { Application, Language } from '@/client/types';
+import { Application, Language } from '@scalars/cli';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 import LanguagesSelect from '@/components/languages/LanguagesSelect.vue';
 
@@ -84,7 +84,7 @@ export default class ApplicationForm extends Vue {
                 const languagesToRemove: Language[] = oldLanguagesArray.filter( ( language: Language ) =>
                     !newLanguagesArray.some( ( lang: Language ) => lang.id === language.id ) );
 
-                const { updateApplication } = await this.$apiClient.queries.updateApplication( {
+                const updateApplication = await this.$apiClient.mutation.updateApplication( {
                     where: { id: this.application.id },
                     data: {
                         name: this.applicationData.name,
@@ -96,7 +96,7 @@ export default class ApplicationForm extends Vue {
                 } );
                 this.$emit( 'updateApplication', updateApplication );
             } else {
-                const { createApplication } = await this.$apiClient.queries.createApplication( {
+                const createApplication = await this.$apiClient.mutation.createApplication( {
                     data: {
                         name: this.applicationData.name,
                         owner: { connect: { id: this.user?.id } },
@@ -107,7 +107,7 @@ export default class ApplicationForm extends Vue {
                     }
                 } );
                 const rootSchemaId = createApplication?.root?.id;
-                await this.$apiClient.queries.updateSchema( {
+                await this.$apiClient.mutation.updateSchema( {
                     where: { id: rootSchemaId },
                     data: { application: { connect: { id: createApplication?.id } } }
                 } );

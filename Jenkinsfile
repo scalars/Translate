@@ -2,7 +2,7 @@
 pipeline {
     agent any
     environment {
-        def PROJECT_NAME = 'translate.madrov.com'
+        def PROJECT_NAME = 'codelang.madrov.com'
     }
     stages {
         stage("Config") {

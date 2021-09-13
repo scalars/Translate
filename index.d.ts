@@ -1,11 +1,11 @@
 import Auth from '@aws-amplify/auth';
-import { ApolloClient } from './client/apollo/ApolloClient';
+import { ScalarsClient } from "@scalars/cli";
 type AuthClass = typeof Auth;
 
 declare module 'vue/types/vue' {
     interface Vue {
         $vuetify:any;
-        $apiClient: ApolloClient;
+        $apiClient: ScalarsClient;
         $Amplify: AuthClass;
         $AuthEvent: Vue;
     }

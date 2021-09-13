@@ -19,9 +19,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import { Language } from '@scalars/cli';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 import LanguagesSelect from '@/components/languages/LanguagesSelect.vue';
-import { Language } from '@/client/types';
 
 @Component( {
     components: { GeneralButton, LanguagesSelect }

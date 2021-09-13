@@ -1,4 +1,4 @@
-import { Application, Authuser, Schema } from '~/client/types';
+import { Application, Authuser, Schema } from '@scalars/cli';
 
 declare interface LocalState {
     user?: Authuser | null

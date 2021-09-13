@@ -27,8 +27,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Model, Watch } from 'nuxt-property-decorator';
+import { Language } from '@scalars/cli';
 import GeneralButton from '@/components/general/GeneralButton.vue';
-import { Language } from '@/client/types';
 
 @Component( {
     components: { GeneralButton }

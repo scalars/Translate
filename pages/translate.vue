@@ -34,7 +34,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
-import { Language, Schema } from '@/client/types';
+import { Language, Schema } from '@scalars/cli';
 import SectionIterator from '@/components/translate/sections/SectionIterator.vue';
 import Translator from '@/components/translate/translations/Translator.vue';
 import Loading from '@/components/general/Loader.vue';
@@ -62,7 +62,9 @@ export default class Translate extends Vue {
     async getSections () {
         try {
             this.loading = true;
-            const { schemata } = await this.$apiClient.queries.schemata( { id: this.application.id } );
+            const schemata = await this.$apiClient.query.schemata( {
+                where: { id: this.application.id }
+            } );
             this.$store.commit( 'sessionStorage/setSections', schemata );
         } catch ( error ) {
             console.error( error );

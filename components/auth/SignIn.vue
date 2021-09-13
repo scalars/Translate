@@ -81,7 +81,7 @@ export default class SignIn extends Vue {
             }
             this.$AuthEvent.$emit( 'loaded' );
             this.$emit( 'signedIn', data );
-        } catch ( err ) {
+        } catch ( err: any ) {
             if ( err.code && err.code === 'UserNotConfirmedException' ) {
                 this.$AuthEvent.$emit( 'localUser', {
                     username: this.options.username
