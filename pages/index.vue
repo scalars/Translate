@@ -89,6 +89,10 @@ export default class Index extends Vue {
     actionType: unknown = ActionType;
     formAction: ActionType = ActionType.Create;
 
+    get user () {
+        return this.$store.getters['sessionStorage/getUser'];
+    }
+
     get modalTitle () {
         if ( this.formAction === ActionType.Create ) {
             return 'Create Application';
@@ -106,7 +110,7 @@ export default class Index extends Vue {
     async getApplications () {
         try {
             this.loading = true;
-            const { applications } = await this.$apiClient.queries.applications( {} );
+            const { applications } = await this.$apiClient.queries.applications( { where: { owner: { id: this.user?.id } } } );
             const { languages } = await this.$apiClient.queries.languages( {} );
             this.applications = [...applications as Application[]];
             this.languages = [...languages as Language[]];

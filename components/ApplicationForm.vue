@@ -55,6 +55,10 @@ export default class ApplicationForm extends Vue {
         }
     }
 
+    get user () {
+        return this.$store.getters['sessionStorage/getUser'];
+    }
+
     beforeMount () {
         this.setDefaultValues();
     }
@@ -95,11 +99,17 @@ export default class ApplicationForm extends Vue {
                 const { createApplication } = await this.$apiClient.queries.createApplication( {
                     data: {
                         name: this.applicationData.name,
+                        owner: { connect: { id: this.user?.id } },
                         root: { create: { sectionName: 'default' } },
                         languages: {
                             connect: this.applicationData.languages.map( ( language: Language ) => { return { id: language.id }; } )
                         }
                     }
+                } );
+                const rootSchemaId = createApplication?.root?.id;
+                await this.$apiClient.queries.updateSchema( {
+                    where: { id: rootSchemaId },
+                    data: { application: { connect: { id: createApplication?.id } } }
                 } );
                 this.$emit( 'addApplication', createApplication );
             }

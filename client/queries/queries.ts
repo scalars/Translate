@@ -181,6 +181,20 @@ const updateTranslation = gql`
     }
 `;
 
+const profiles = gql`
+    query profiles( $where: ProfileWhereInput ) {
+        profiles( where: $where ){
+            id
+            user {
+                id
+                username
+                name
+            }
+            darkTheme
+        }
+    }
+`;
+
 export {
     applications,
     application,
@@ -192,5 +206,6 @@ export {
     updateSchema,
     deleteSchema,
     languages,
-    updateTranslation
+    updateTranslation,
+    profiles
 };

@@ -61,6 +61,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import GeneralButton from '@/components/general/GeneralButton.vue';
+import { application } from '~/client/queries/queries';
 
 @Component( {
     components: { GeneralButton }
@@ -88,7 +89,8 @@ export default class Layout extends Vue {
             this.logoutUrl = `${process.env.SCALARS_API}/logout?redirect_uri=${window.location.href}`;
             const user = await this.getUser();
             if ( user ) {
-                this.$store.commit( 'sessionStorage/setUser', user );
+                const userProfile = await this.getUserProfile( user.id );
+                this.$store.commit( 'sessionStorage/setUser', userProfile );
             } else {
                 await this.$router.push( { name: 'login' } );
             }
@@ -102,6 +104,11 @@ export default class Layout extends Vue {
         return fetch( userUrl, {
             credentials: 'include'
         } ).then( resp => resp.json() ).catch( ( ) => { return undefined; } );
+    }
+
+    async getUserProfile ( userId: string ) {
+        const { profiles } = await this.$apiClient.queries.profiles( { where: { user: { id: userId } } } );
+        return profiles?.[0];
     }
 
     logout () {
