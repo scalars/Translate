@@ -123,9 +123,8 @@ export default {
     hooks: {
         build: {
             before: async ( ) => {
-                console.info( process.env.NODE_ENV );
                 if ( process.env.CI_DELIVERY ) {
-                    const envs = process.env.NODE_ENV === 'production' ? '.env.prod' : '.env.dev';
+                    const envs = `.env.${( process.env.NODE_ENV || '' ).substr( 0, 3 )}`;
                     await new Promise( ( resolve ) => {
                         const sync = exec( `scalars sync --env ${envs}` );
                         sync.on( 'exit', ( existCode: number ) => {
