@@ -34,7 +34,7 @@ import Authenticator from '@/components/auth/Authenticator.vue';
     }
 } )
 export default class Login extends Vue {
-    url: string = `${process.env.SCALARS_ENPOINT}`;
+    url: string | undefined = `${process.env.SCALARS_ENDPOINT}`;
     clientId: string|undefined = process.env.SCALARS_CLIENT_ID;
     amplifyConfig: any = {
         region: process.env.USERPOOL_REGION,

@@ -52,6 +52,7 @@ import GeneralButton from '@/components/general/GeneralButton.vue';
 import Modal from '@/components/general/Modal.vue';
 import ConfirmDelete from '@/components/general/ConfirmDelete.vue';
 import { ActionType } from '@/utils/interfaces';
+import { applicationSelect, languageSelect } from '~/utils/scalarsSelect';
 
 @Component( {
     components: { ApplicationsList, ApplicationForm, GeneralButton, Modal, ConfirmDelete },
@@ -110,8 +111,13 @@ export default class Index extends Vue {
     async getApplications () {
         try {
             this.loading = true;
-            this.applications = await this.$apiClient.query.applications( { where: { owner: { id: this.user?.id } } } );
-            this.languages = await this.$apiClient.query.languages( {} );
+            this.applications = await this.$apiClient.query.applications( {
+                where: { owner: { id: this.user?.id } },
+                select: applicationSelect
+            } );
+            this.languages = await this.$apiClient.query.languages( {
+                select: languageSelect
+            } );
         } catch ( error ) {
             console.error( error );
         } finally {
@@ -123,8 +129,10 @@ export default class Index extends Vue {
         try {
             this.deletingApp = true;
             await this.$apiClient.mutation.deleteApplication( { where: { id: this.selectedApplication?.id } } );
-            this.applications = this.applications.filter( ( application: Application ) =>
-                application.id !== this.selectedApplication?.id );
+            this.applications = this.applications
+                .filter(
+                    ( application: Application ) => application.id !== this.selectedApplication?.id
+                );
         } catch ( error ) {
             console.error( error );
         } finally {

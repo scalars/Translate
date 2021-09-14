@@ -38,6 +38,7 @@ import { Language, Schema } from '@scalars/cli';
 import SectionIterator from '@/components/translate/sections/SectionIterator.vue';
 import Translator from '@/components/translate/translations/Translator.vue';
 import Loading from '@/components/general/Loader.vue';
+import { schemaSelect } from '~/utils/scalarsSelect';
 
 @Component(
     {
@@ -63,6 +64,7 @@ export default class Translate extends Vue {
         try {
             this.loading = true;
             const schemata = await this.$apiClient.query.schemata( {
+                select: schemaSelect,
                 where: { id: this.application.id }
             } );
             this.$store.commit( 'sessionStorage/setSections', schemata );

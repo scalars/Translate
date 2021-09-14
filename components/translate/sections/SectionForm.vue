@@ -34,9 +34,10 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
-import { Schema } from '@scalars/cli';
+import { Schema, SchemaUpdateInput } from '@scalars/cli';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 import SectionValuesInput from '@/components/translate/sections/SectionValuesInput.vue';
+import { schemaSelect } from '~/utils/scalarsSelect';
 
 interface SchemaData {
     sectionName: string,
@@ -103,7 +104,7 @@ export default class SectionForm extends Vue {
     async saveSection () {
         try {
             this.loading = true;
-            let data;
+            let data: SchemaUpdateInput;
             if ( this.editSection ) {
                 data = {
                     sectionName: this.sectionData.sectionName,
@@ -126,7 +127,11 @@ export default class SectionForm extends Vue {
                     }
                 };
             }
-            const updateSchema = await this.$apiClient.mutation.updateSchema( { where: { id: this.section.id }, data } );
+            const updateSchema = await this.$apiClient.mutation.updateSchema( {
+                select: schemaSelect,
+                where: { id: this.section.id },
+                data
+            } );
             this.$emit( 'updateSections', updateSchema );
         } catch ( error ) {
             console.error( error );

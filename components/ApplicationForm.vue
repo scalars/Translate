@@ -30,6 +30,7 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import { Application, Language } from '@scalars/cli';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 import LanguagesSelect from '@/components/languages/LanguagesSelect.vue';
+import { applicationSelect, schemaSelect } from '~/utils/scalarsSelect';
 
 @Component( { components: { GeneralButton, LanguagesSelect } } )
 export default class ApplicationForm extends Vue {
@@ -85,6 +86,7 @@ export default class ApplicationForm extends Vue {
                     !newLanguagesArray.some( ( lang: Language ) => lang.id === language.id ) );
 
                 const updateApplication = await this.$apiClient.mutation.updateApplication( {
+                    select: applicationSelect,
                     where: { id: this.application.id },
                     data: {
                         name: this.applicationData.name,
@@ -97,6 +99,7 @@ export default class ApplicationForm extends Vue {
                 this.$emit( 'updateApplication', updateApplication );
             } else {
                 const createApplication = await this.$apiClient.mutation.createApplication( {
+                    select: applicationSelect,
                     data: {
                         name: this.applicationData.name,
                         owner: { connect: { id: this.user?.id } },
@@ -108,6 +111,7 @@ export default class ApplicationForm extends Vue {
                 } );
                 const rootSchemaId = createApplication?.root?.id;
                 await this.$apiClient.mutation.updateSchema( {
+                    select: schemaSelect,
                     where: { id: rootSchemaId },
                     data: { application: { connect: { id: createApplication?.id } } }
                 } );
