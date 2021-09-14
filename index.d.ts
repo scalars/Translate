@@ -1,5 +1,5 @@
 import Auth from '@aws-amplify/auth';
-import { ScalarsClient } from "@scalars/cli";
+import { ScalarsClient } from '@scalars/cli';
 type AuthClass = typeof Auth;
 
 declare module 'vue/types/vue' {

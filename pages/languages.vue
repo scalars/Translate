@@ -45,6 +45,7 @@ import LanguagesTable from '@/components/languages/LanguagesTable.vue';
 import LanguagesForm from '@/components/languages/LanguagesForm.vue';
 import Modal from '@/components/general/Modal.vue';
 import GeneralButton from '@/components/general/GeneralButton.vue';
+import { languageSelect } from '~/utils/scalarsSelect';
 
 @Component( {
     components: { LanguagesTable, LanguagesForm, GeneralButton, Modal },
@@ -70,7 +71,9 @@ export default class LanguagesPage extends Vue {
     async getLanguages () {
         try {
             this.loading = true;
-            this.allLanguages = await this.$apiClient.query.languages( {} );
+            this.allLanguages = await this.$apiClient.query.languages( {
+                select: languageSelect
+            } );
             this.addedLanguages = this.allLanguages.filter( ( language: Language ) =>
                 this.application.languages.some( ( lang: Language ) =>
                     lang.id === language.id ) );

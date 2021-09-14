@@ -52,6 +52,7 @@ import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
 import { Language, Schema, Translation } from '@scalars/cli';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 import LanguagesSelect from '@/components/languages/LanguagesSelect.vue';
+import { schemaSelect, translationSelect } from '~/utils/scalarsSelect';
 
 @Component(
     {
@@ -114,6 +115,7 @@ export default class Translator extends Vue {
                 if ( this.translationDefaultValues ) {
                     // TODO Evaluate if is possible to do this inside a UpdateSchema mutation
                     const updateTranslation = await this.$apiClient.mutation.updateTranslation( {
+                        select: translationSelect,
                         where: { id: this.translationDefaultValues.id },
                         data: { translationValues: this.translationData }
                     } );
@@ -124,6 +126,7 @@ export default class Translator extends Vue {
                 } else {
                     // TODO Validate if updating a translate api the language gets connected
                     const updateSchema = await this.$apiClient.mutation.updateSchema( {
+                        select: schemaSelect,
                         where: { id: this.section.id },
                         data: {
                             translations: {

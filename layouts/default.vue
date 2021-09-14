@@ -85,7 +85,7 @@ export default class Layout extends Vue {
 
     async beforeMount () {
         try {
-            this.logoutUrl = `${process.env.SCALARS_ENPOINT}/logout?redirect_uri=${window.location.href}`;
+            this.logoutUrl = `${process.env.SCALARS_ENDPOINT}/logout?redirect_uri=${window.location.href}`;
             const user = await this.getUser();
             if ( user ) {
                 const userProfile = await this.getUserProfile( user.id );
@@ -99,14 +99,19 @@ export default class Layout extends Vue {
     }
 
     getUser () {
-        const userUrl = `${process.env.SCALARS_ENPOINT}/api/auth/user`;
+        const userUrl = `${process.env.SCALARS_ENDPOINT}/api/auth/user`;
         return fetch( userUrl, {
             credentials: 'include'
         } ).then( resp => resp.json() ).catch( ( ) => { return undefined; } );
     }
 
     async getUserProfile ( userId: string ) {
-        const profiles = await this.$apiClient.query.profiles( { where: { user: { id: userId } } } );
+        const profiles = await this.$apiClient.query.profiles( {
+            select: {
+                id: true, user: { id: true }
+            },
+            where: { user: { id: userId } }
+        } );
         return profiles?.[0];
     }
 

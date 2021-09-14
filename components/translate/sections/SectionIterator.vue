@@ -45,6 +45,7 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator';
 import { Schema } from '@scalars/cli';
 import SectionItem from '@/components/translate/sections/SectionItem.vue';
 import GeneralButton from '@/components/general/GeneralButton.vue';
+import { schemaSelect } from '~/utils/scalarsSelect';
 
 @Component(
     {
@@ -77,7 +78,10 @@ export default class SectionIterator extends Vue {
         if ( !this.section || !this.section.sectionName ) {
             try {
                 this.loading = true;
-                this.section = await this.$apiClient.query.schema( { where: { id: this.sectionId } } );
+                this.section = await this.$apiClient.query.schema( {
+                    select: schemaSelect,
+                    where: { id: this.sectionId }
+                } );
             } catch ( error ) {
                 console.error( error );
             } finally {
