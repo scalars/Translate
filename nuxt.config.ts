@@ -1,7 +1,7 @@
 // @ts-ignore
 import { exec } from 'child_process';
 import colors from 'vuetify/es5/util/colors';
-import {NuxtConfig} from "@nuxt/types";
+import { NuxtConfig } from '@nuxt/types';
 
 export default {
     // Target: https://go.nuxtjs.dev/config-target

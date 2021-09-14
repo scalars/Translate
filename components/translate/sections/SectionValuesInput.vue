@@ -44,8 +44,8 @@
 
 <script lang="ts">
 import { Component, Watch, Vue, Model, Prop } from 'nuxt-property-decorator';
-import GeneralButton from '@/components/general/GeneralButton.vue';
 import { uuid } from 'vue-uuid';
+import GeneralButton from '@/components/general/GeneralButton.vue';
 interface SectionValue {
     id: string,
     key: string,
