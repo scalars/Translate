@@ -17,9 +17,9 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import { Application } from '@scalars/cli';
 import ApplicationCard from '@/components/ApplicationCard.vue';
 import Loading from '@/components/general/Loader.vue';
-import { Application } from '@/client/types';
 
 @Component( {
     components: { ApplicationCard, Loading }

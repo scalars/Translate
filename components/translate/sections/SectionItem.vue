@@ -58,12 +58,12 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
-import { Schema } from '@/client/types';
+import { Schema } from '@scalars/cli';
+import { uuid } from 'vue-uuid';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 import SectionForm from '@/components/translate/sections/SectionForm.vue';
 import ConfirmDelete from '@/components/general/ConfirmDelete.vue';
 import Modal from '@/components/general/Modal.vue';
-import { uuid } from 'vue-uuid';
 import { ActionType } from '@/utils/interfaces';
 
 @Component(
@@ -108,7 +108,7 @@ export default class SectionItem extends Vue {
     async deleteSectionHandler () {
         try {
             this.loading = true;
-            await this.$apiClient.queries.deleteSchema( { where: { id: this.section.id } } );
+            await this.$apiClient.mutation.deleteSchema( { where: { id: this.section.id } } );
             this.$emit( 'deleteSection', this.section );
         } catch ( error ) {
             console.error( error );

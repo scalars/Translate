@@ -1,12 +1,11 @@
 // @ts-ignore
+import { exec } from 'child_process';
 import colors from 'vuetify/es5/util/colors';
+import {NuxtConfig} from "@nuxt/types";
 
 export default {
     // Target: https://go.nuxtjs.dev/config-target
     target: 'static',
-
-    mode: 'universal',
-
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
         titleTemplate: '%s',
@@ -44,9 +43,7 @@ export default {
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
     buildModules: [
-    // https://go.nuxtjs.dev/typescript
         '@nuxt/typescript-build',
-        // https://go.nuxtjs.dev/vuetify
         '@nuxtjs/vuetify',
         '@nuxtjs/eslint-module',
         '@nuxtjs/dotenv'
@@ -122,5 +119,25 @@ export default {
                 } );
             }
         }
+    },
+    hooks: {
+        build: {
+            before: async ( ) => {
+                console.info( process.env.NODE_ENV );
+                if ( process.env.CI_DELIVERY ) {
+                    const envs = process.env.NODE_ENV === 'production' ? '.env.prod' : '.env.dev';
+                    await new Promise( ( resolve ) => {
+                        const sync = exec( `scalars sync --env ${envs}` );
+                        sync.on( 'exit', ( existCode: number ) => {
+                            if ( existCode !== 0 ) {
+                                resolve( false );
+                                return;
+                            }
+                            resolve( true );
+                        } );
+                    } );
+                }
+            }
+        }
     }
-};
+} as NuxtConfig;

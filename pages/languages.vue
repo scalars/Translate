@@ -39,12 +39,12 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
+import { Language } from '@scalars/cli';
+import { uuid } from 'vue-uuid';
 import LanguagesTable from '@/components/languages/LanguagesTable.vue';
 import LanguagesForm from '@/components/languages/LanguagesForm.vue';
 import Modal from '@/components/general/Modal.vue';
 import GeneralButton from '@/components/general/GeneralButton.vue';
-import { Language } from '@/client/types';
-import { uuid } from 'vue-uuid';
 
 @Component( {
     components: { LanguagesTable, LanguagesForm, GeneralButton, Modal },
@@ -70,8 +70,7 @@ export default class LanguagesPage extends Vue {
     async getLanguages () {
         try {
             this.loading = true;
-            const { languages } = await this.$apiClient.queries.languages( {} );
-            this.allLanguages = languages as Language[];
+            this.allLanguages = await this.$apiClient.query.languages( {} );
             this.addedLanguages = this.allLanguages.filter( ( language: Language ) =>
                 this.application.languages.some( ( lang: Language ) =>
                     lang.id === language.id ) );
@@ -97,7 +96,7 @@ export default class LanguagesPage extends Vue {
                 this.loading = true;
                 // TODO Uncomment code when the mutation returns the data correctly
                 // const { updateApplication } =
-                await this.$apiClient.queries.updateApplication( {
+                await this.$apiClient.mutation.updateApplication( {
                     where: { id: this.application.id },
                     data: {
                         languages: {
@@ -128,7 +127,7 @@ export default class LanguagesPage extends Vue {
             this.loading = true;
             // TODO Uncomment code when the mutation returns the data correctly
             // const { updateApplication } =
-            await this.$apiClient.queries.updateApplication( {
+            await this.$apiClient.mutation.updateApplication( {
                 where: { id: this.application.id },
                 data: {
                     languages: {

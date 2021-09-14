@@ -34,7 +34,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
-import { Schema } from '@/client/types';
+import { Schema } from '@scalars/cli';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 import SectionValuesInput from '@/components/translate/sections/SectionValuesInput.vue';
 
@@ -126,7 +126,7 @@ export default class SectionForm extends Vue {
                     }
                 };
             }
-            const { updateSchema } = await this.$apiClient.queries.updateSchema( { where: { id: this.section.id }, data } );
+            const updateSchema = await this.$apiClient.mutation.updateSchema( { where: { id: this.section.id }, data } );
             this.$emit( 'updateSections', updateSchema );
         } catch ( error ) {
             console.error( error );

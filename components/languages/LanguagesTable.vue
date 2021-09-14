@@ -36,10 +36,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import { Language } from '@scalars/cli';
 import Loading from '@/components/general/Loader.vue';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 import UrlDisplay from '@/components/general/UrlDisplay.vue';
-import { Language } from '@/client/types';
 
 @Component( {
     components: { Loading, GeneralButton, UrlDisplay }

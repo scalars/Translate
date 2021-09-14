@@ -53,7 +53,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator';
-import { Application } from '@/client/types';
+import { Application } from '@scalars/cli';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 
 @Component( {

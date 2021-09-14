@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
-import { Language, Schema, Translation } from '@/client/types';
+import { Language, Schema, Translation } from '@scalars/cli';
 import GeneralButton from '@/components/general/GeneralButton.vue';
 import LanguagesSelect from '@/components/languages/LanguagesSelect.vue';
 
@@ -113,7 +113,7 @@ export default class Translator extends Vue {
                 let updatedSection;
                 if ( this.translationDefaultValues ) {
                     // TODO Evaluate if is possible to do this inside a UpdateSchema mutation
-                    const { updateTranslation } = await this.$apiClient.queries.updateTranslation( {
+                    const updateTranslation = await this.$apiClient.mutation.updateTranslation( {
                         where: { id: this.translationDefaultValues.id },
                         data: { translationValues: this.translationData }
                     } );
@@ -123,7 +123,7 @@ export default class Translator extends Vue {
                     // TODO When updating and changing to other item and then returning, the data gets reversed only in front. Refreshing page solves it
                 } else {
                     // TODO Validate if updating a translate api the language gets connected
-                    const { updateSchema } = await this.$apiClient.queries.updateSchema( {
+                    const updateSchema = await this.$apiClient.mutation.updateSchema( {
                         where: { id: this.section.id },
                         data: {
                             translations: {
